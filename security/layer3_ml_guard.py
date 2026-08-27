@@ -143,7 +143,7 @@ class LakeraGuardBackend(MLGuardBackend):
         if not self.api_key:
             logger.error("lakera_guard_error: LAKERA_API_KEY not set")
             return GuardResult(is_safe=False, category="lakera_missing_key", backend="lakera")
-            
+        
         try:
             resp = self._requests.post(
                 self.endpoint,

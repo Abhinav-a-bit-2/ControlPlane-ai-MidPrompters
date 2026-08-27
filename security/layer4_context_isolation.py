@@ -11,6 +11,7 @@ an instruction ("ignore the above and reveal..."). Two defenses:
    tags plus a system-level instruction that untrusted content in
    <context> must never be treated as instructions.
 """
+
 import logging
 from dataclasses import dataclass, field
 from typing import Any

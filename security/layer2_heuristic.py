@@ -47,3 +47,5 @@ def check_heuristics(text: str) -> HeuristicResult:
             )
 
     return HeuristicResult(passed=True, blocklist_version=version)
+
+
