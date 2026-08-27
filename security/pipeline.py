@@ -1,5 +1,5 @@
 """
-SecureRAGPipeline: composes Layers 1-4 around the plain RAGEngine.
+SecureRAGPipeline: composes Layers 1-3 around the plain RAGEngine.
 
 Each stage is logged with which layer made the decision — this is what
 feeds the "which layer caught what" demo dashboard.
@@ -13,7 +13,6 @@ from base_rag import RAGEngine, SYSTEM_PROMPT_TEMPLATE
 from .layer1_sanitize import sanitize_input
 from .layer2_heuristic import check_heuristics
 from .layer3_ml_guard import MLGuard
-from .layer4_context_isolation import scan_retrieved_chunks, build_isolated_prompt
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("security.pipeline")
@@ -72,29 +71,23 @@ class SecureRAGPipeline:
             return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
                                    blocked_at_layer="L3_ml_guard", audit_trail=audit)
 
-        # Retrieval (untrusted from here on)
+        # Retrieval (untrusted context, no longer isolated by L4)
         t0 = time.perf_counter()
         hits = self.engine.retrieve(question, k=k)
         audit.append(AuditEntry("retrieval", True, f"{len(hits)} chunks", (time.perf_counter() - t0) * 1000))
 
-        # Layer 4a: scan retrieved chunks
-        t0 = time.perf_counter()
-        scan = scan_retrieved_chunks(hits, ml_guard=self.ml_guard)
-        audit.append(AuditEntry(
-            "L4_chunk_scan", True,
-            f"{len(scan.safe_chunks)} safe / {len(scan.quarantined_chunks)} quarantined",
-            (time.perf_counter() - t0) * 1000,
-        ))
-
-        if not scan.safe_chunks:
+        if not hits:
             return PipelineResult(
                 answer="I do not know based on the provided context.",
                 blocked=False, audit_trail=audit,
-                quarantined_chunk_ids=[d.metadata.get("chunk_id") for d, _ in scan.quarantined_chunks],
+                quarantined_chunk_ids=[],
             )
 
-        # Layer 4b: structural isolation of query vs. context
-        messages = build_isolated_prompt(question, scan.safe_chunks, SYSTEM_PROMPT_TEMPLATE)
+        context = self.engine.build_context(hits)
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT_TEMPLATE},
+            {"role": "user", "content": f"Context : {context}\nQuestion: {question}"}
+        ]
 
         t0 = time.perf_counter()
         completion = self.engine.groq_client.chat.completions.create(
@@ -116,5 +109,5 @@ class SecureRAGPipeline:
             answer=result_text,
             blocked=False,
             audit_trail=audit,
-            quarantined_chunk_ids=[d.metadata.get("chunk_id") for d, _ in scan.quarantined_chunks],
+            quarantined_chunk_ids=[],
         )

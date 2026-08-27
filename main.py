@@ -14,8 +14,13 @@ SOURCE = str(
 
 def main():
     engine = RAGEngine(SOURCE)
-    n_chunks = engine.index()
-    print(f"{n_chunks} chunks indexed into collection '{engine.uuid}'")
+    existing_cnt = len(engine.vector_store.get()["ids"])
+    if existing_cnt == 0:
+        print(f"Collection '{engine.uuid}' is empty. Indexing document...")
+        n_chunks = engine.index()
+        print(f"{n_chunks} chunks indexed into collection '{engine.uuid}'.")
+    else:
+        print(f"Collection '{engine.uuid}' already contains {existing_cnt} chunks. Skipping indexing.")
 
     pipeline = SecureRAGPipeline(engine)
 

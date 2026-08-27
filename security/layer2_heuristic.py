@@ -33,11 +33,28 @@ def _load_blocklist() -> dict:
 
 
 def check_heuristics(text: str) -> HeuristicResult:
+    # 1. Profanity check via alt-profanity-check
+    try:
+        from profanity_check import predict
+        if predict([text])[0] == 1:
+            logger.warning(
+                "heuristic_block", extra={"pattern": "profanity_detected", "blocklist_version": "alt-profanity-check"}
+            )
+            return HeuristicResult(
+                passed=False, matched_pattern="profanity_detected", blocklist_version="alt-profanity-check"
+            )
+    except ImportError:
+        pass  # Library not installed, skip profanity check
+
+    # 2. Check JSON patterns
     data = _load_blocklist()
     version = data.get("version", "unknown")
-    compiled = [re.compile(p, re.IGNORECASE) for p in data.get("patterns", [])]
+    
+    # Filter out empty or comment patterns that start with "//"
+    valid_patterns = [p for p in data.get("patterns", []) if not p.startswith("//")]
+    compiled = [re.compile(p, re.IGNORECASE) for p in valid_patterns]
 
-    for pattern, compiled_pattern in zip(data.get("patterns", []), compiled):
+    for pattern, compiled_pattern in zip(valid_patterns, compiled):
         if compiled_pattern.search(text):
             logger.warning(
                 "heuristic_block", extra={"pattern": pattern, "blocklist_version": version}
@@ -47,3 +64,5 @@ def check_heuristics(text: str) -> HeuristicResult:
             )
 
     return HeuristicResult(passed=True, blocklist_version=version)
+
+

@@ -231,6 +231,7 @@ class TFIDFVectorClassifier:
         text_clean = re.sub(r"[^\w\s]", " ", text.lower())
         words = [w for w in text_clean.split() if len(w) > 1]
 
+<<<<<<< HEAD
         features = list(words)
 
         # Word bigrams — capture phrase-level semantics
@@ -318,6 +319,27 @@ class TFIDFVectorClassifier:
                 best_category = cat
 
         return max_sim, best_category
+=======
+    def check(self, text: str) -> GuardResult:
+        if not self.api_key:
+            logger.error("lakera_guard_error: LAKERA_API_KEY not set")
+            return GuardResult(is_safe=False, category="lakera_missing_key", backend="lakera")
+        
+        try:
+            resp = self._requests.post(
+                self.endpoint,
+                json={"messages": [{"role": "user", "content": text}]},
+                headers={"Authorization": f"Bearer {self.api_key}"},
+                timeout=5,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            flagged = data.get("flagged", False)
+            return GuardResult(is_safe=not flagged, category="injection", backend="lakera")
+        except Exception as e:
+            logger.error("lakera_guard_error: %s", e)
+            return GuardResult(is_safe=False, category="lakera_guard_error", backend="lakera")
+>>>>>>> 0f4abd528f3468c1c203f19a8f67f8f70ace700a
 
 
 # ============================================================================

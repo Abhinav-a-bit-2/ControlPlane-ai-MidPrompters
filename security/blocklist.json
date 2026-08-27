@@ -1,6 +1,7 @@
 {
   "version": "2026-08-28.1",
   "patterns": [
+<<<<<<< HEAD
     "ignore (all )?(previous|prior|above|earlier|existing|preceding) instructions",
     "disregard (all )?(previous|prior|above|earlier|existing|preceding) (instructions|rules|constraints)",
     "forget (all )?(previous|prior|above|earlier) (instructions|rules|context)",
@@ -106,3 +107,63 @@
     "\\b(fuck|fucker|fucking|motherfucker|shit|shitty|bitch|bastard|asshole|dick|pussy|cunt|whore|slut)\\b"
   ]
 }
+=======
+    "ignore (all )?(previous|prior|above|former|earlier) (instructions|directions|prompts|rules|constraints|context)",
+    "disregard (all )?(previous|prior|above|former|earlier) (instructions|directions|prompts|rules|constraints|context)",
+    "forget (all )?(previous|prior|above|former|earlier) (instructions|directions|prompts|rules|constraints|context)",
+    "bypass (all )?(previous|prior|above|former|earlier|system) (instructions|directions|prompts|rules|constraints|guardrails)",
+    "override (all )?(previous|prior|above|former|earlier|system|safety) (instructions|directions|prompts|rules|settings)",
+    "clear (all )?(previous|prior|above) (context|history|memory|instructions)",
+    "reset (your )?(system prompt|instructions|rules|context|state)",
+    "erase (all )?(prior|previous|above) (instructions|rules|context)",
+    "cancel (all )?(previous|prior) (directives|instructions|commands)",
+    "do not (follow|listen to|obey) (any|your|the) (previous|prior|above) (instructions|rules)",
+    "(reveal|print|show|display|output|output raw|repeat|dump|share|write) (your|the)? (initial|original|full|hidden|system|developer)? (prompt|instructions|rules|system prompt|system message)",
+    "what (is|are|were) your (initial|original|full|hidden|system|developer)? (prompt|instructions|rules|system prompt)",
+    "repeat (everything|all text|the prompt) (above|from the beginning|before this line)",
+    "give me your (exact|raw|full) (system prompt|instructions|system message)",
+    "state your (system prompt|instructions|operating rules) (verbatim|word for word)",
+    "spell out (your|the) (system prompt|instructions|system message)",
+    "how were you (instructed|programmed|prompted) (to act|to behave|initially)",
+    "copy and paste your (system prompt|instructions)",
+    "read back (your|the) (system prompt|instructions|initial directives)",
+    "you are now (DAN|in developer mode|unrestricted|in maintenance mode|in debug mode|root|admin)",
+    "act as (if )?you (have no|do not have any|are free of) (restrictions|rules|filters|boundaries|limits)",
+    "pretend (you are|to be) (an? )?(unfiltered|unrestricted|jailbroken|evil|fully capable) (AI|bot|assistant|agent)",
+    "do anything now",
+    "switch to (developer|debug|god|unrestricted|raw|unfiltered|jailbreak|maintenance) mode",
+    "enter (developer|debug|god|unrestricted|raw|unfiltered|jailbreak|maintenance) mode",
+    "enable (developer|debug|god|unrestricted|raw|unfiltered|jailbreak|maintenance) mode",
+    "you have been (unlocked|jailbroken|freed|liberated)",
+    "from now on you (will|must) (only|always|act|behave) (as|without)",
+    "assume the role of (an? )?(unfiltered|unrestricted|jailbroken|rogue) (AI|assistant|system)",
+    "this is a (hypothetical|imaginary|fictional|theoretical|educational|research) (scenario|simulation|case|exercise|test)",
+    "no (rules|restrictions|filters|ethical guidelines|guardrails) apply (in this|to this)",
+    "for (educational|research|academic|testing|authorized audit) purposes only",
+    "imagine a (world|scenario|system) (where|with) no (rules|filters|safety|guardrails)",
+    "in this (story|roleplay|game), you (have no|can ignore all) (rules|restrictions)",
+    "hypothetically speaking, (if you had no rules|ignoring all safety)",
+    "assume all safety (protocols|features|filters|guardrails) are (disabled|turned off|inactive)",
+    "we are running a (security audit|penetration test|red team test) (so|where)",
+    "respond only (with|in) (json|code|base64|hex|markdown|raw format)",
+    "do not include any (warning|disclaimer|refusal|explanation|text)",
+    "start your response with (yes|sure|ok|understood|i agree)",
+    "begin your reply (by saying|with the words)",
+    "output (only|exclusively) the raw string",
+    "answer (only|strictly) with yes or no",
+    "encode (your response|the output) in (base64|rot13|hex|binary|leetspeak)",
+    "translate the following (system prompt|instructions) into (spanish|french|base64|code)",
+    "\\bjailbreak\\b",
+    "\\bprompt injection\\b",
+    "\\bpayload split\\b",
+    "\\bcontext contamination\\b",
+    "\\bsystem prompt leak\\b",
+    "\\bguardrail override\\b",
+    "\\bignore safety\\b",
+    "\\bbypass security\\b",
+    "\\boverride security\\b",
+    "\\bsystem override\\b"
+  ]
+}
+
+>>>>>>> 0f4abd528f3468c1c203f19a8f67f8f70ace700a

@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 from typing import Any, Optional
-
+import chromadb
 from dotenv import load_dotenv
 from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
@@ -68,8 +68,17 @@ class RAGEngine:
         self.uuid = os.path.basename(source_path).split(".")[0]
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.embeddings = LocalBGEEmbeddings(device=self.device)
-        self.vector_store = None
         self.groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+        self.chroma_client = chromadb.HttpClient(
+            host=os.getenv("CHROMA_HOST", "localhost"),
+            port=int(os.getenv("CHROMA_PORT", 8000)),
+        )
+        self.vector_store = Chroma(
+            client= self.chroma_client,
+            collection_name=self.uuid,
+            embedding_function=self.embeddings,
+        )
 
     def index(self, chunk_size: int = 450, chunk_overlap: int = 48):
         with open(self.source_path, "r", encoding="utf-8") as f:
@@ -87,11 +96,7 @@ class RAGEngine:
         for i, c in enumerate(chunks, start=1):
             c.metadata["chunk_id"] = f"chunk-{i}"
 
-        self.vector_store = Chroma.from_documents(
-            documents=chunks,
-            embedding=self.embeddings,
-            collection_name=self.uuid,
-        )
+        self.vector_store.add_documents(documents=chunks)
         return len(chunks)
 
     def retrieve(self, query: str, k: int = 3):
