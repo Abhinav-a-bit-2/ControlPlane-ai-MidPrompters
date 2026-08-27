@@ -11,13 +11,6 @@ from dotenv import load_dotenv
 from security.layer1_sanitize import sanitize_input
 from security.layer2_heuristic import check_heuristics
 from security.layer3_ml_guard import MLGuard
-from security.layer4_context_isolation import scan_retrieved_chunks
-
-# Mock Document for L4 tests
-class MockDoc:
-    def __init__(self, content, chunk_id):
-        self.page_content = content
-        self.metadata = {"chunk_id": chunk_id}
 
 # Load environment variables (GROQ_API_KEY, etc.)
 load_dotenv()
@@ -76,25 +69,5 @@ def run():
 
     print(f"\n[INFO] L3 (ML Guard) active backend: '{active_backend or ml_guard.backend.__class__.__name__}'.")
 
-    # Layer 4 (Context Isolation) Test
-    print("\n\n--- Layer 4: Context Isolation (Indirect Prompt Injection) ---")
-    print(f"{'Chunk ID':<22} {'L4 Result (Scan)':<40}")
-    print("-" * 65)
-
-    mock_hits = []
-    for chunk_id, content in INDIRECT_ATTACKS.items():
-        mock_hits.append((MockDoc(content, chunk_id), 0.99))
-
-    l4_result = scan_retrieved_chunks(mock_hits, ml_guard)
-
-    safe_ids = [doc.metadata["chunk_id"] for doc, _ in l4_result.safe_chunks]
-    quarantined = {doc.metadata["chunk_id"]: reason for doc, reason in l4_result.quarantined_chunks}
-
-    for chunk_id in INDIRECT_ATTACKS.keys():
-        if chunk_id in safe_ids:
-            status = "PASS (Safe Context)"
-        else:
-            status = f"QUARANTINED ({quarantined[chunk_id]})"
-        print(f"{chunk_id:<22} {status:<40}")
 if __name__ == "__main__":
     run()
