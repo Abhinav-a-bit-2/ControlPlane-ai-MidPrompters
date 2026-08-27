@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cbe3cd51-a113-4fa0-b14a-d364462ce875" name="Changes" comment="" />
+    <list default="true" id="cbe3cd51-a113-4fa0-b14a-d364462ce875" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/layer3_ml_guard.py" beforeDir="false" afterPath="$PROJECT_DIR$/security/layer3_ml_guard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_attacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_attacks.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,10 +14,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3IVDm1QG9XwaeBBQss9TZXOWbFu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,7 +30,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "kunal1",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/ControlPlane",
     "vue.rearranger.settings.migration": "true"
@@ -47,6 +51,7 @@
       <option name="presentableId" value="Default" />
       <updated>1787840997580</updated>
       <workItem from="1787840998802" duration="812000" />
+      <workItem from="1787849494439" duration="950000" />
     </task>
     <servers />
   </component>

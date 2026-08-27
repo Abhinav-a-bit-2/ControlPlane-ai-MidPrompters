@@ -129,56 +129,113 @@ class GroqSelfCheckBackend(MLGuardBackend):
 
 
 class LakeraGuardBackend(MLGuardBackend):
-    """Stub for Lakera Guard's real-time prompt injection API (<10ms).
-    Fill in LAKERA_API_KEY to activate."""
+    """Lakera Guard's real-time prompt injection API (<10ms).
+    Requires LAKERA_API_KEY environment variable."""
 
     def __init__(self):
         import requests  # local import: only needed if this backend is used
 
         self._requests = requests
         self.api_key = os.environ.get("LAKERA_API_KEY")
-        self.endpoint = "https://api.lakera.ai/v1/prompt_injection"
+        self.endpoint = "https://api.lakera.ai/v2/guard"
 
     def check(self, text: str) -> GuardResult:
-        resp = self._requests.post(
-            self.endpoint,
-            json={"input": text},
-            headers={"Authorization": f"Bearer {self.api_key}"},
-            timeout=2,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        flagged = data.get("results", [{}])[0].get("flagged", True)
-        return GuardResult(is_safe=not flagged, category="injection", backend="lakera")
+        if not self.api_key:
+            logger.error("lakera_guard_error: LAKERA_API_KEY not set")
+            return GuardResult(is_safe=False, category="lakera_missing_key", backend="lakera")
+            
+        try:
+            resp = self._requests.post(
+                self.endpoint,
+                json={"messages": [{"role": "user", "content": text}]},
+                headers={"Authorization": f"Bearer {self.api_key}"},
+                timeout=5,
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            flagged = data.get("flagged", False)
+            return GuardResult(is_safe=not flagged, category="injection", backend="lakera")
+        except Exception as e:
+            logger.error("lakera_guard_error: %s", e)
+            return GuardResult(is_safe=False, category="lakera_guard_error", backend="lakera")
 
 
 class LlamaGuardBackend(MLGuardBackend):
-    """Stub for a self-hosted Llama Guard (e.g. via Ollama at
-    http://localhost:11434). Fill in endpoint to activate."""
+    """Self-hosted Llama Guard backend (e.g. via Ollama at
+    http://localhost:11434). ML Guard for prompt safety & content policies."""
 
-    def __init__(self, endpoint: str = "http://localhost:11434/api/generate"):
+    def __init__(
+        self,
+        endpoint: str = "http://localhost:11434/api/chat",
+        model: str = "llama-guard3:1b",
+    ):
         import requests
 
         self._requests = requests
         self.endpoint = endpoint
+        self.model = model
 
     def check(self, text: str) -> GuardResult:
-        resp = self._requests.post(
-            self.endpoint,
-            json={"model": "llama-guard3", "prompt": text, "stream": False},
-            timeout=5,
-        )
-        resp.raise_for_status()
-        verdict = resp.json().get("response", "unsafe")
-        is_safe = verdict.strip().lower().startswith("safe")
-        return GuardResult(is_safe=is_safe, category="content_policy", backend="llama_guard")
+        try:
+            resp = self._requests.post(
+                self.endpoint,
+                json={
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": text}],
+                    "stream": False,
+                },
+                timeout=10,
+            )
+            # If 404 with :1b or without tag, retry with fallback tag
+            if resp.status_code == 404 and self.model == "llama-guard3:1b":
+                resp = self._requests.post(
+                    self.endpoint,
+                    json={
+                        "model": "llama-guard3",
+                        "messages": [{"role": "user", "content": text}],
+                        "stream": False,
+                    },
+                    timeout=10,
+                )
+
+            resp.raise_for_status()
+            data = resp.json()
+            # Handle chat endpoint ('message.content') and generate endpoint ('response')
+            verdict = ""
+            if "message" in data:
+                verdict = data["message"].get("content", "").strip()
+            elif "response" in data:
+                verdict = data.get("response", "").strip()
+
+            is_safe = verdict.lower().startswith("safe")
+
+            # LlamaGuard returns "unsafe\n<category_code>" (e.g. "unsafe\nS1")
+            category = "none"
+            if not is_safe:
+                lines = [line.strip() for line in verdict.splitlines() if line.strip()]
+                category = lines[1] if len(lines) > 1 else "content_policy"
+
+            return GuardResult(
+                is_safe=is_safe,
+                category=category,
+                confidence=0.99 if is_safe else 0.95,
+                backend="llama_guard",
+            )
+        except Exception as e:
+            logger.error("llama_guard_error: %s", e)
+            return GuardResult(
+                is_safe=False,
+                category="llama_guard_error",
+                confidence=0.0,
+                backend="llama_guard",
+            )
 
 
 class MLGuard:
-    """Facade the pipeline calls — backend is swappable via constructor."""
+    """Facade the pipeline calls — defaults to LakeraGuardBackend."""
 
     def __init__(self, backend: MLGuardBackend = None):
-        self.backend = backend or GroqSelfCheckBackend()
+        self.backend = backend or LakeraGuardBackend()
 
     def check(self, text: str) -> GuardResult:
         return self.backend.check(text)
