@@ -1,0 +1,99 @@
+[
+    {
+        "question_id": "qst_001",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "In our hiring workflow, what happens when a candidate is strong but the pay we want to offer is about 20 percent above the middle of the internal range, specifically who has to approve it?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "An offer at about 20% above the band midpoint falls into the +10% to +25% range, so it requires sign-off from the Hiring Manager and the HR Business Partner (HRBP).",
+        "answer_facts": [
+            "An offer about 20 percent above the band midpoint falls into the plus 10 percent to plus 25 percent range.",
+            "An offer in the plus 10 percent to plus 25 percent range requires sign-off from the Hiring Manager and the HR Business Partner (HRBP)."
+        ]
+    },
+    {
+        "question_id": "qst_002",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "What is the primary objective of the offer evaluation and onboarding playbook introduced at Redwood Inference?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "The playbook establishes a measurable, evidence-driven process for evaluating offers and automatically triggering role-specific onboarding pathways, replacing ad-hoc compensation decisions and fragmented handoffs with structured frameworks.",
+        "answer_facts": [
+            "The playbook defines an evidence-driven, measurable process for evaluating offers and triggering onboarding pathways at Redwood Inference.",
+            "It replaces ad-hoc offer decisions and fragmented onboarding handoffs."
+        ]
+    },
+    {
+        "question_id": "qst_003",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "How does the playbook ensure that offer decisions avoid arbitrary compensation adjustments during candidate negotiations?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "The playbook prevents arbitrary adjustments by standardizing all compensation decisions through a single decision matrix along with a dedicated negotiation and risk log.",
+        "answer_facts": [
+            "Ad-hoc offer decisions are replaced with a single decision matrix.",
+            "A negotiation and risk log is maintained to track adjustments and associated risks."
+        ]
+    },
+    {
+        "question_id": "qst_004",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "What factors determine the automated onboarding pathway assigned to a new hire under the Redwood Inference playbook?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "Automated onboarding pathways are assigned based on concrete triggers tied directly to the role's risk profile, compliance requirements, and target ramp objectives.",
+        "answer_facts": [
+            "Onboarding triggers are automated based on concrete role attributes.",
+            "The triggers depend on role risk, compliance requirements, and ramp objectives."
+        ]
+    },
+    {
+        "question_id": "qst_005",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "Which specific core components were implemented to eliminate fragmented onboarding handoffs across teams?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "Fragmented handoffs were eliminated by implementing three synchronized tools: a unified decision matrix, a negotiation and risk log, and automated onboarding triggers.",
+        "answer_facts": [
+            "The process relies on a single unified decision matrix.",
+            "It incorporates a negotiation and risk log.",
+            "It utilizes concrete, automated onboarding triggers."
+        ]
+    },
+    {
+        "question_id": "qst_006",
+        "question_type": "semantic",
+        "source_types": [
+            "confluence"
+        ],
+        "question": "How does the onboarding process adapt for high-compliance or specialized roles compared to standard hires?",
+        "expected_doc_ids": [
+            "dsid_0a2cd37d53ff47d4aced289cd9a76fe8"
+        ],
+        "gold_answer": "The framework automatically routes new hires into tailored onboarding tracks triggered by specific role risk scores, compliance mandates, and role-specific ramp milestones.",
+        "answer_facts": [
+            "The playbook supports role-specific onboarding pathways rather than a generic one-size-fits-all flow.",
+            "Pathways are automatically selected using compliance needs, role risk levels, and ramp targets."
+        ]
+    }
+]
