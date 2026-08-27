@@ -1,0 +1,18 @@
+{
+  "version": "2026-08-27.1",
+  "patterns": [
+    "ignore (all )?(previous|prior|above) instructions",
+    "disregard (all )?(previous|prior|above) (instructions|rules)",
+    "you are now (DAN|in developer mode|unrestricted)",
+    "do anything now",
+    "reveal (your |the )?(system prompt|instructions)",
+    "print (your |the )?(system prompt|instructions)",
+    "what (is|are) your (system prompt|instructions|rules)",
+    "act as (if )?you (have no|do not have any) (restrictions|rules|filters)",
+    "pretend (you are|to be) (an? )?(unfiltered|unrestricted|jailbroken)",
+    "\\bjailbreak\\b",
+    "override (your |the )?(safety|system) (settings|prompt|rules)",
+    "respond only with|from now on you (will|must) (only|always)",
+    "this is a hypothetical.*no (rules|restrictions|filters) apply"
+  ]
+}
