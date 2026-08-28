@@ -50,3 +50,35 @@ class SessionManager:
         key = f"session:{session_id}:history"
         return bool(self.client.delete(key))
 
+    # --- Caching Methods ---
+    def get_cache(self, query: str) -> str:
+        """Exact match cache lookup."""
+        key = f"cache:query:{query}"
+        return self.client.get(key)
+
+    def set_cache(self, query: str, answer: str, ttl: int = 3600) -> None:
+        """Store exact match cache."""
+        key = f"cache:query:{query}"
+        self.client.setex(key, ttl, answer)
+        
+    # --- HITL Queue Methods ---
+    def enqueue_hitl(self, session_id: str, query: str, trace_id: str) -> str:
+        """Pushes a query to the human-in-the-loop queue."""
+        ticket_id = f"ticket:{os.urandom(4).hex()}"
+        payload = json.dumps({
+            "ticket_id": ticket_id,
+            "session_id": session_id,
+            "query": query,
+            "trace_id": trace_id,
+            "status": "pending"
+        })
+        self.client.hset("hitl:queue", ticket_id, payload)
+        return ticket_id
+        
+    def get_hitl_ticket(self, ticket_id: str) -> dict:
+        data = self.client.hget("hitl:queue", ticket_id)
+        return json.loads(data) if data else None
+        
+    def resolve_hitl_ticket(self, ticket_id: str) -> None:
+        self.client.hdel("hitl:queue", ticket_id)
+
