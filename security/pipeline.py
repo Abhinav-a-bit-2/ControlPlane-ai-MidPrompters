@@ -172,6 +172,26 @@ class SecureRAGPipeline:
                 latency = (time.perf_counter() - t0) * 1000
                 audit.append(AuditEntry("generation", True, "", latency))
                 
+            # Output SLM Filter
+            with telemetry.trace_span("Output_Filter") as filter_span:
+                t0 = time.perf_counter()
+                filtered_text = self.engine.filter(result_text)
+                
+                # Filter is an LLM stream, estimate tokens
+                prompt_toks_f = len(tokenizer.encode(result_text))
+                comp_toks_f = len(tokenizer.encode(filtered_text))
+                accumulated_tokens += prompt_toks_f + comp_toks_f
+                
+                telemetry.set_llm_attributes(
+                    filter_span, 
+                    "openai/gpt-oss-120b", 
+                    prompt_toks_f, 
+                    comp_toks_f
+                )
+                
+                latency = (time.perf_counter() - t0) * 1000
+                audit.append(AuditEntry("output_filter", True, "", latency))
+                
             # L4: Cost & Confidence Check
             with telemetry.trace_span("L4_Confidence_Check") as l4_span:
                 t0 = time.perf_counter()
@@ -213,10 +233,10 @@ class SecureRAGPipeline:
                 l4_span.set_attribute("confidence.high", True)
 
             # If we reached here, cache the answer
-            self.session_mgr.set_cache(raw_question, result_text)
+            self.session_mgr.set_cache(raw_question, filtered_text)
     
             return PipelineResult(
-                answer=result_text,
+                answer=filtered_text,
                 blocked=False,
                 audit_trail=audit,
                 quarantined_chunk_ids=[],
