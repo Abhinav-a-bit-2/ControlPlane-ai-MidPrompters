@@ -105,8 +105,12 @@ class SecureRAGPipeline:
             result_text += chunk.choices[0].delta.content or ""
         audit.append(AuditEntry("generation", True, "", (time.perf_counter() - t0) * 1000))
 
+        t0 = time.perf_counter()
+        filtered_text = self.engine.filter(result_text)
+        audit.append(AuditEntry("output_filter", True, "", (time.perf_counter() - t0) * 1000))
+
         return PipelineResult(
-            answer=result_text,
+            answer=filtered_text,
             blocked=False,
             audit_trail=audit,
             quarantined_chunk_ids=[],

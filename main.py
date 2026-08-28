@@ -13,8 +13,9 @@ from security.pipeline import SecureRAGPipeline
 SOURCE = str(
     Path(__file__).parent
     / "confluence"
-    / "dsid_0a2cd37d53ff47d4aced289cd9a76fe8__evidence-driven-offer-evaluation-and-onboarding-trigger-playbook-2028.txt"
+    / "dsid_0a3c5810b26347739f3e1a3b0a774d7c__slo-driven-fidelity-onboarding-checklist-2029-06-14.txt"
 )
+
 
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
