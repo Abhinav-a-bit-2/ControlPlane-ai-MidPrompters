@@ -1446,3 +1446,470 @@ $52
 session:3fde5785-477c-41bf-b0ce-3800671bc874:history
 $13
 1787960137330
+*2
+$6
+SELECT
+$1
+0
+*5
+$3
+SET
+$32
+cache:query:What do Managers do?
+$792
+Managers (Hiring Managers) are responsible for evaluating candidates, setting ramp objectives, and confirming higher‑level approvals, as well as overseeing the new hire’s early onboarding plan. Their specific actions include:
+
+* Completing technical and cultural evaluations of candidates and confirming any L4/L5+ approvals [chunk-5].
+* Executing the first‑month onboarding checklist:
+  * **Day 0‑7:** Provision role‑specific equipment and access, schedule 30/60/90‑day goal alignment, introduce the new hire to a buddy, and assign a small first‑week deliverable [chunk-19].
+  * **Day 8‑30:** Hold weekly check‑ins, ensure completion of security and compliance training, evaluate the initial deliverable (pass/fail), and adjust the ramp plan as needed [chunk-19].
+$4
+PXAT
+$13
+1787942783322
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$51
+{"role": "user", "content": "What do Managers do?"}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025583329
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$875
+{"role": "assistant", "content": "Managers (Hiring Managers) are responsible for evaluating candidates, setting ramp objectives, and confirming higher\u2011level approvals, as well as overseeing the new hire\u2019s early onboarding plan. Their specific actions include:\n\n* Completing technical and cultural evaluations of candidates and confirming any L4/L5+ approvals\u202f[chunk-5].\n* Executing the first\u2011month onboarding checklist:\n  * **Day\u202f0\u20117:** Provision role\u2011specific equipment and access, schedule 30/60/90\u2011day goal alignment, introduce the new hire to a buddy, and assign a small first\u2011week deliverable\u202f[chunk-19].\n  * **Day\u202f8\u201130:** Hold weekly check\u2011ins, ensure completion of security and compliance training, evaluate the initial deliverable (pass/fail), and adjust the ramp plan as needed\u202f[chunk-19]."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025583334
+*5
+$3
+SET
+$339
+cache:query:What responsibilities and actions are assigned to Hiring Managers, including their duties in candidate evaluation, approval processes, and the specific tasks they perform during a new hire’s onboarding period (e.g., equipment provisioning, goal alignment, weekly check‑ins, training compliance, and deliverable evaluation)?
+$816
+The context assigns the following responsibilities to **Hiring Managers**:
+
+* **Candidate evaluation** – they are responsible for completing the technical and cultural evaluation of the candidate [chunk-5].
+* **Offer preparation** – they co‑populate the Offer Scorecard (role level, base salary, equity, bonus eligibility, reason for hire, and candidate scores) before a verbal offer is made [chunk-7].
+* **Approval processes** – they must confirm any required L4/L5+ approvals [chunk-5].
+* **Onboarding planning** – they set the new hire’s ramp objectives [chunk-5].
+
+The context does not provide details about hiring‑manager duties such as equipment provisioning, weekly check‑ins, training compliance, or deliverable evaluation. I do not know those specifics based on the provided context.
+$4
+PXAT
+$13
+1787942848660
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$60
+{"role": "user", "content": "What is the role of managers?"}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025648671
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$895
+{"role": "assistant", "content": "The context assigns the following responsibilities to **Hiring Managers**:\n\n* **Candidate evaluation** \u2013 they are responsible for completing the technical and cultural evaluation of the candidate\u202f[chunk-5].\n* **Offer preparation** \u2013 they co\u2011populate the Offer Scorecard (role level, base salary, equity, bonus eligibility, reason for hire, and candidate scores) before a verbal offer is made\u202f[chunk-7].\n* **Approval processes** \u2013 they must confirm any required L4/L5+ approvals\u202f[chunk-5].\n* **Onboarding planning** \u2013 they set the new hire\u2019s ramp objectives\u202f[chunk-5].\n\nThe context does not provide details about hiring\u2011manager duties such as equipment provisioning, weekly check\u2011ins, training compliance, or deliverable evaluation. I do not know those specifics based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025648674
+*5
+$3
+SET
+$339
+cache:query:What responsibilities and actions are assigned to Hiring Managers according to the provided documentation, including candidate evaluation, offer preparation, approval processes, and onboarding planning (e.g., setting ramp objectives, equipment provisioning, weekly check‑ins, training compliance, and deliverable evaluation)?
+$836
+Hiring Managers are assigned the following duties in the documentation:
+
+- **Candidate evaluation** – they complete the technical and cultural assessment of each candidate [chunk-5].
+- **Offer preparation** – they work with the Recruiter to populate the Offer Scorecard (role level, salary, equity, bonus eligibility, hiring reason, and candidate scores) before any verbal offer is made [chunk-7].
+- **Approval processes** – they confirm the required approvals for senior‑level hires (e.g., L4/L5+ positions) [chunk-5].
+- **Onboarding planning** – they set the new hire’s ramp objectives [chunk-5].
+
+The provided context does not mention any additional onboarding actions such as equipment provisioning, weekly check‑ins, training compliance, or deliverable evaluation. I do not know based on the provided context.
+$4
+PXAT
+$13
+1787942961598
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$51
+{"role": "user", "content": "What do Managers do?"}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025761606
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$912
+{"role": "assistant", "content": "Hiring Managers are assigned the following duties in the documentation:\n\n- **Candidate evaluation** \u2013 they complete the technical and cultural assessment of each candidate\u202f[chunk-5].\n- **Offer preparation** \u2013 they work with the Recruiter to populate the Offer Scorecard (role level, salary, equity, bonus eligibility, hiring reason, and candidate scores) before any verbal offer is made\u202f[chunk-7].\n- **Approval processes** \u2013 they confirm the required approvals for senior\u2011level hires (e.g., L4/L5+ positions)\u202f[chunk-5].\n- **Onboarding planning** \u2013 they set the new hire\u2019s ramp objectives\u202f[chunk-5].\n\nThe provided context does not mention any additional onboarding actions such as equipment provisioning, weekly check\u2011ins, training compliance, or deliverable evaluation. I do not know based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025761609
+*5
+$3
+SET
+$282
+cache:query:What responsibilities and actions are assigned to Hiring Managers according to the documentation, including candidate evaluation, offer preparation, required approval processes, and onboarding planning (e.g., setting ramp objectives) as referenced in chunks 5 and 7?
+$676
+Hiring Managers are tasked with several key steps in the hiring flow:
+
+* **Candidate evaluation** – they perform the technical and cultural assessment of each candidate [chunk‑5].
+* **Offer preparation** – together with the recruiter they must fill out the Offer Scorecard (role level, base salary, equity, bonus eligibility, hire reason, and candidate scores) before any verbal offer is made [chunk‑7].
+* **Approval processes** – they are responsible for confirming any required L4/L5+ approvals for the role [chunk‑5].
+* **Onboarding planning** – they set the new‑hire’s ramp‑up objectives to guide the employee’s early performance [chunk‑5].
+$4
+PXAT
+$13
+1787942972235
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$51
+{"role": "user", "content": "What do Managers do?"}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025772245
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$765
+{"role": "assistant", "content": "Hiring Managers are tasked with several key steps in the hiring flow:\n\n* **Candidate evaluation** \u2013 they perform the technical and cultural assessment of each candidate\u202f[chunk\u20115].\n* **Offer preparation** \u2013 together with the recruiter they must fill out the Offer Scorecard (role level, base salary, equity, bonus eligibility, hire reason, and candidate scores) before any verbal offer is made\u202f[chunk\u20117].\n* **Approval processes** \u2013 they are responsible for confirming any required L4/L5+ approvals for the role\u202f[chunk\u20115].\n* **Onboarding planning** \u2013 they set the new\u2011hire\u2019s ramp\u2011up objectives to guide the employee\u2019s early performance\u202f[chunk\u20115]."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788025772249
+*5
+$3
+SET
+$213
+cache:query:Based on the documented responsibilities of Hiring Managers (candidate evaluation, offer preparation, approval processes, and onboarding planning), how does Kunal demonstrate that he is a good manager?
+$44
+I do not know based on the provided context.
+$4
+PXAT
+$13
+1787943332751
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$45
+{"role": "user", "content": "Kunal is good."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788026132760
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$80
+{"role": "assistant", "content": "I do not know based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788026132764
+*5
+$3
+SET
+$109
+cache:query:What information does the provided documentation contain about the statement “Kunal is good”?
+$44
+I do not know based on the provided context.
+$4
+PXAT
+$13
+1787943340702
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$45
+{"role": "user", "content": "Kunal is good."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788026140712
+*3
+$5
+RPUSH
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$80
+{"role": "assistant", "content": "I do not know based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:adb9dec5-1d88-4e4a-a80a-20bb1b693d10:history
+$13
+1788026140716
+*5
+$3
+SET
+$54
+cache:query:Explain in detail Decision and thresholds.
+$2043
+**Decision and approval thresholds**
+
+| Situation | Score / compensation condition | Required sign‑off |
+|-----------|--------------------------------|-------------------|
+| **High‑confidence offer** | Aggregate (or candidate) score **≥ 4.0** **and** proposed compensation **≤ band‑midpoint + 10 %** (i.e., “comp ≤ +10 %”) | Auto‑approve; finalization by **Recruiter + HRBP**【chunk-9】. In the manual matrix this is also expressed as “Recruiter + HRBP sign”【chunk-13】. |
+| **Moderate‑confidence offer** | Score **3.0 – 3.9** (or 3.0 – 4.0 in the automated wording) **or** compensation **> +10 % – ≤ +25 %** of the band midpoint | Requires sign‑off from **Hiring Manager + HRBP**【chunk-13】【chunk-9】. |
+| **High‑risk offer** | Score **< 3.0** **or** compensation **> +25 %** of the band midpoint **or** the offer contains atypical clauses | Review and approval by **Finance + Legal + Executive sponsor**【chunk-13】【chunk-9】. |
+
+**How the thresholds work**
+
+1. **Score evaluation** – The candidate’s aggregate or “candidate_score” is measured on a 1‑5 scale.  
+2. **Compensation check** – The proposed salary is compared to the band midpoint; the allowed stretch is expressed as a percentage (+10 % or +25 %).  
+3. **Decision path** –  
+   * When both score and compensation are within the “high‑confidence” band, the system auto‑approves the offer; the Recruiter and HRBP simply finalize it.  
+   * If either the score falls into the mid‑range or the compensation stretch is moderate, a second layer of review is added: the Hiring Manager must co‑sign with the HRBP.  
+   * When either the score is low, the compensation stretch is large, or the offer includes unusual clauses, the decision escalates to Finance, Legal, and an executive sponsor for full review.  
+
+These thresholds ensure that offers with higher risk (low scores or high pay stretch) receive additional scrutiny before commitment.
+$4
+PXAT
+$13
+1787943857384
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$73
+{"role": "user", "content": "Explain in detail Decision and thresholds."}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026657394
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$2321
+{"role": "assistant", "content": "**Decision and approval thresholds**\n\n| Situation | Score / compensation condition | Required sign\u2011off |\n|-----------|--------------------------------|-------------------|\n| **High\u2011confidence offer** | Aggregate (or candidate) score **\u2265\u202f4.0** **and** proposed compensation **\u2264\u202fband\u2011midpoint\u202f+\u202f10\u202f%** (i.e., \u201ccomp \u2264\u202f+10\u202f%\u201d) | Auto\u2011approve; finalization by **Recruiter\u202f+\u202fHRBP**\u3010chunk-9\u3011. In the manual matrix this is also expressed as \u201cRecruiter\u202f+\u202fHRBP sign\u201d\u3010chunk-13\u3011. |\n| **Moderate\u2011confidence offer** | Score **3.0\u202f\u2013\u202f3.9** (or 3.0\u202f\u2013\u202f4.0 in the automated wording) **or** compensation **>\u202f+10\u202f%\u202f\u2013\u202f\u2264\u202f+25\u202f%** of the band midpoint | Requires sign\u2011off from **Hiring Manager\u202f+\u202fHRBP**\u3010chunk-13\u3011\u3010chunk-9\u3011. |\n| **High\u2011risk offer** | Score **<\u202f3.0** **or** compensation **>\u202f+25\u202f%** of the band midpoint **or** the offer contains atypical clauses | Review and approval by **Finance\u202f+\u202fLegal\u202f+\u202fExecutive sponsor**\u3010chunk-13\u3011\u3010chunk-9\u3011. |\n\n**How the thresholds work**\n\n1. **Score evaluation** \u2013 The candidate\u2019s aggregate or \u201ccandidate_score\u201d is measured on a 1\u20115 scale.  \n2. **Compensation check** \u2013 The proposed salary is compared to the band midpoint; the allowed stretch is expressed as a percentage (+10\u202f% or +25\u202f%).  \n3. **Decision path** \u2013  \n   * When both score and compensation are within the \u201chigh\u2011confidence\u201d band, the system auto\u2011approves the offer; the Recruiter and HRBP simply finalize it.  \n   * If either the score falls into the mid\u2011range or the compensation stretch is moderate, a second layer of review is added: the Hiring Manager must co\u2011sign with the HRBP.  \n   * When either the score is low, the compensation stretch is large, or the offer includes unusual clauses, the decision escalates to Finance, Legal, and an executive sponsor for full review.  \n\nThese thresholds ensure that offers with higher risk (low scores or high pay stretch) receive additional scrutiny before commitment."}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026657401
+*5
+$3
+SET
+$328
+cache:query:What are the detailed decision thresholds for offers—including the score ranges, compensation stretch percentages, and the required sign‑offs (e.g., Recruiter + HRBP, Hiring Manager + HRBP, Finance + Legal + Executive sponsor) for high‑confidence, moderate‑confidence, and high‑risk offers?
+$942
+**High‑confidence offers**  
+- **Score:** ≥ 4.0  
+- **Compensation stretch:** ≤ +10 % of the band midpoint  
+- **Required sign‑offs:** Recruiter + HRBP (auto‑approved by the matrix)【chunk-13】【chunk-9】
+
+**Moderate‑confidence offers**  
+- **Score:** 3.0 – 3.9 (or 3.0 – 4.0 in the matrix)  
+- **Compensation stretch:** > +10 % – ≤ +25 % of the band midpoint  
+- **Required sign‑offs:** Hiring Manager + HRBP (HRBP + Hiring Manager must sign)【chunk-13】【chunk-9】
+
+**High‑risk offers**  
+- **Score:** < 3.0  
+- **Compensation stretch:** > +25 % of the band midpoint (or any offer with atypical clauses)  
+- **Required sign‑offs:** Finance + Legal + Executive sponsor (full review)【chunk-13】【chunk-9】
+
+(For compensation above the band midpoint + 15 %, Finance must also sign off, per the role definitions)【chunk-5】
+$4
+PXAT
+$13
+1787943868854
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$73
+{"role": "user", "content": "Explain in detail Decision and thresholds."}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026668862
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$1194
+{"role": "assistant", "content": "**High\u2011confidence offers**  \n- **Score:**\u202f\u2265\u202f4.0  \n- **Compensation stretch:**\u202f\u2264\u202f+10\u202f% of the band midpoint  \n- **Required sign\u2011offs:**\u202fRecruiter\u202f+\u202fHRBP (auto\u2011approved by the matrix)\u3010chunk-13\u3011\u3010chunk-9\u3011\n\n**Moderate\u2011confidence offers**  \n- **Score:**\u202f3.0\u202f\u2013\u202f3.9 (or 3.0\u202f\u2013\u202f4.0 in the matrix)  \n- **Compensation stretch:**\u202f>\u202f+10\u202f%\u202f\u2013\u202f\u2264\u202f+25\u202f% of the band midpoint  \n- **Required sign\u2011offs:**\u202fHiring\u202fManager\u202f+\u202fHRBP (HRBP\u202f+\u202fHiring\u202fManager must sign)\u3010chunk-13\u3011\u3010chunk-9\u3011\n\n**High\u2011risk offers**  \n- **Score:**\u202f<\u202f3.0  \n- **Compensation stretch:**\u202f>\u202f+25\u202f% of the band midpoint (or any offer with atypical clauses)  \n- **Required sign\u2011offs:**\u202fFinance\u202f+\u202fLegal\u202f+\u202fExecutive sponsor (full review)\u3010chunk-13\u3011\u3010chunk-9\u3011\n\n(For compensation above the band midpoint\u202f+\u202f15\u202f%, Finance must also sign off, per the role definitions)\u3010chunk-5\u3011"}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026668865
+*5
+$3
+SET
+$269
+cache:query:What are the detailed decision thresholds for offers—including the score ranges, compensation stretch percentages, and the required sign‑offs for high‑confidence, moderate‑confidence, and high‑risk offers—as described in the earlier explanation?
+$905
+**Decision thresholds for offers**
+
+| Offer confidence level | Score range (aggregate / candidate_score) | Compensation stretch vs. band midpoint | Required sign‑offs |
+|------------------------|-------------------------------------------|----------------------------------------|--------------------|
+| **High‑confidence** (auto‑approve) | ≥ 4.0 | ≤ +10 % | Recruiter + HRBP (finalize)【chunk-13】【chunk-9】 |
+| **Moderate‑confidence** | 3.0 – 3.9 (or 3.0 – 4.0 in the matrix) | > +10 % – ≤ +25 % | Hiring Manager + HRBP【chunk-13】【chunk-9】 |
+| **High‑risk** | < 3.0 | > +25 % (or any atypical clause) | Finance + Legal + Executive sponsor【chunk-13】【chunk-9】 |
+
+These thresholds combine the aggregate score and the proposed compensation stretch to determine which stakeholders must approve the offer.
+$4
+PXAT
+$13
+1787944069513
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$36
+{"role": "user", "content": "Hello"}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026869524
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$1111
+{"role": "assistant", "content": "**Decision thresholds for offers**\n\n| Offer confidence level | Score range (aggregate / candidate_score) | Compensation stretch vs. band midpoint | Required sign\u2011offs |\n|------------------------|-------------------------------------------|----------------------------------------|--------------------|\n| **High\u2011confidence** (auto\u2011approve) |\u202f\u2265\u202f4.0 |\u202f\u2264\u202f+10\u202f% | Recruiter\u202f+\u202fHRBP (finalize)\u3010chunk-13\u3011\u3010chunk-9\u3011 |\n| **Moderate\u2011confidence** |\u202f3.0\u202f\u2013\u202f3.9 (or 3.0\u202f\u2013\u202f4.0 in the matrix) |\u202f>\u202f+10\u202f%\u202f\u2013\u202f\u2264\u202f+25\u202f% | Hiring\u202fManager\u202f+\u202fHRBP\u3010chunk-13\u3011\u3010chunk-9\u3011 |\n| **High\u2011risk** |\u202f<\u202f3.0 |\u202f>\u202f+25\u202f% (or any atypical clause) | Finance\u202f+\u202fLegal\u202f+\u202fExecutive sponsor\u3010chunk-13\u3011\u3010chunk-9\u3011 |\n\nThese thresholds combine the aggregate score and the proposed compensation stretch to determine which stakeholders must approve the offer."}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026869527
+*5
+$3
+SET
+$293
+cache:query:What are the decision and approval thresholds for offers, including the required score ranges, the allowed compensation stretch percentages relative to the band midpoint, and the specific sign‑off stakeholders for high‑confidence, moderate‑confidence, and high‑risk offers?
+$1145
+**Decision & approval thresholds**
+
+| Offer confidence level | Required aggregate / candidate score | Allowed compensation stretch vs. band midpoint | Sign‑off stakeholders |
+|------------------------|--------------------------------------|-----------------------------------------------|-----------------------|
+| **High‑confidence** (auto‑approved) | Aggregate (candidate) score **≥ 4.0** | **≤ +10 %** of the band midpoint | Recruiter **+** HR Business Partner (finalize) [chunk‑9] |
+| **Moderate‑confidence** | Aggregate score **3.0 – 3.9** **or** compensation **> +10 % – ≤ +25 %** | **> +10 % – ≤ +25 %** of the band midpoint | Hiring Manager **+** HR Business Partner [chunk‑13][chunk‑9] |
+| **High‑risk** | Aggregate score **< 3.0** **or** compensation **> +25 %** (or atypical clauses) | **> +25 %** of the band midpoint | Finance **+** Legal **+** Executive sponsor [chunk‑13][chunk‑9] |
+
+These thresholds combine the score ranges (0‑5 scale) and the permitted compensation stretch percentages to determine which stakeholders must approve the offer.
+$4
+PXAT
+$13
+1787944080607
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$36
+{"role": "user", "content": "Hello"}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026880616
+*3
+$5
+RPUSH
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$1318
+{"role": "assistant", "content": "**Decision & approval thresholds**\n\n| Offer confidence level | Required aggregate / candidate score | Allowed compensation stretch vs. band midpoint | Sign\u2011off stakeholders |\n|------------------------|--------------------------------------|-----------------------------------------------|-----------------------|\n| **High\u2011confidence** (auto\u2011approved) | Aggregate (candidate) score **\u2265\u202f4.0** | **\u2264\u202f+10\u202f%** of the band midpoint | Recruiter **+** HR Business Partner (finalize)\u202f[chunk\u20119] |\n| **Moderate\u2011confidence** | Aggregate score **3.0\u202f\u2013\u202f3.9** **or** compensation **>\u202f+10\u202f%\u202f\u2013\u202f\u2264\u202f+25\u202f%** | **>\u202f+10\u202f%\u202f\u2013\u202f\u2264\u202f+25\u202f%** of the band midpoint | Hiring Manager **+** HR Business Partner\u202f[chunk\u201113][chunk\u20119] |\n| **High\u2011risk** | Aggregate score **<\u202f3.0** **or** compensation **>\u202f+25\u202f%** (or atypical clauses) | **>\u202f+25\u202f%** of the band midpoint | Finance **+** Legal **+** Executive sponsor\u202f[chunk\u201113][chunk\u20119] |\n\nThese thresholds combine the score ranges (0\u20115 scale) and the permitted compensation stretch percentages to determine which stakeholders must approve the offer."}
+*3
+$9
+PEXPIREAT
+$52
+session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
+$13
+1788026880619

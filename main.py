@@ -9,6 +9,9 @@ import uuid
 from base_rag import RAGEngine
 from session_manager import SessionManager
 from security.pipeline import SecureRAGPipeline
+import telemetry
+
+telemetry.init_telemetry()
 
 SOURCE = str(
     Path(__file__).parent
@@ -33,20 +36,31 @@ Chat History:
 Follow-up Question: {question}
 Standalone Question:"""
 
-    completion = groq_client.chat.completions.create(
-        model="openai/gpt-oss-120b",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.0,
-        max_tokens=300,
-        reasoning_effort="low"
-    )
-    rewritten = completion.choices[0].message.content.strip()
-    print("="*70)
-    print("this is what is passed into rewritter: \n"+history_text+"\n\n"+"*"*100)
-    print("\nthis is what is rewritten: \n"+rewritten+"\n\n"+"*"*100)
-    print("="*70)
-
-    return rewritten if rewritten else question
+    with telemetry.trace_span("Query_Contextualize") as span:
+        completion = groq_client.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,
+            max_tokens=300,
+            reasoning_effort="low"
+        )
+        rewritten = completion.choices[0].message.content.strip()
+        
+        # Explicitly set OpenInference attributes so Phoenix calculates Cost
+        if completion.usage:
+            telemetry.set_llm_attributes(
+                span, 
+                "openai/gpt-oss-120b", 
+                completion.usage.prompt_tokens, 
+                completion.usage.completion_tokens
+            )
+            
+        print("="*70)
+        print("this is what is passed into rewritter: \n"+history_text+"\n\n"+"*"*100)
+        print("\nthis is what is rewritten: \n"+rewritten+"\n\n"+"*"*100)
+        print("="*70)
+    
+        return rewritten if rewritten else question
 
 def main():
     engine = RAGEngine(SOURCE)
@@ -66,26 +80,30 @@ def main():
         if question.lower() == "quit":
             break
 
-        recent_turns = session_mgr.recentKChats(session_id, k=10)
-        search_query = contextualize_query(question, recent_turns)
-        if search_query != question:
-            print(f"  [Rewritten Query for Search]: {search_query}")
-
-        result = pipeline.ask(search_query)
-
-        print(f"\n--- Audit trail ---")
-        for entry in result.audit_trail:
-            status = "PASS" if entry.passed else "BLOCK"
-            print(f"  [{status}] {entry.layer}: {entry.detail} ({entry.latency_ms:.1f}ms)")
-
-        if result.quarantined_chunk_ids:
-            print(f"  Quarantined chunks: {result.quarantined_chunk_ids}")
-
-        print(f"\nAnswer: {result.answer}")
-
-        if not result.audit_trail or all(e.passed for e in result.audit_trail):
-            session_mgr.addChats(session_id, role="user", content=question)
-            session_mgr.addChats(session_id, role="assistant", content=result.answer)
+        with telemetry.trace_span("User_Turn", {"session_id": session_id, "query": question}) as span:
+            recent_turns = session_mgr.recentKChats(session_id, k=10)
+            search_query = contextualize_query(question, recent_turns)
+            if search_query != question:
+                print(f"  [Rewritten Query for Search]: {search_query}")
+    
+            result = pipeline.ask(search_query, session_id=session_id)
+    
+            print(f"\n--- Audit trail ---")
+            for entry in result.audit_trail:
+                status = "PASS" if entry.passed else "BLOCK"
+                print(f"  [{status}] {entry.layer}: {entry.detail} ({entry.latency_ms:.1f}ms)")
+    
+            if result.quarantined_chunk_ids:
+                print(f"  Quarantined chunks: {result.quarantined_chunk_ids}")
+            
+            if result.hitl_ticket_id:
+                print(f"  [HITL Escalation] Ticket ID: {result.hitl_ticket_id}")
+    
+            print(f"\nAnswer: {result.answer}")
+    
+            if not result.audit_trail or all(e.passed for e in result.audit_trail):
+                session_mgr.addChats(session_id, role="user", content=question)
+                session_mgr.addChats(session_id, role="assistant", content=result.answer)
 
 
 if __name__ == "__main__":
