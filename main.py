@@ -17,6 +17,8 @@ SOURCE = str(
     / "dsid_0a3c5810b26347739f3e1a3b0a774d7c__slo-driven-fidelity-onboarding-checklist-2029-06-14.txt"
 )
 
+
+
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def contextualize_query(question: str, chat_history: list[dict]) -> str:
