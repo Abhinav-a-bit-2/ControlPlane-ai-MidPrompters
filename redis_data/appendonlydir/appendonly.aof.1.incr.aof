@@ -1907,4 +1907,57 @@ $52
 session:cb6aeb03-cda9-4afb-a43c-541e38cddf78:history
 $13
 1788026880619
+<<<<<<< HEAD
 >>>>>>> Abhinav
+=======
+*2
+$3
+DEL
+$32
+cache:query:What do Managers do?
+*2
+$3
+DEL
+$339
+cache:query:What responsibilities and actions are assigned to Hiring Managers, including their duties in candidate evaluation, approval processes, and the specific tasks they perform during a new hire’s onboarding period (e.g., equipment provisioning, goal alignment, weekly check‑ins, training compliance, and deliverable evaluation)?
+*2
+$3
+DEL
+$339
+cache:query:What responsibilities and actions are assigned to Hiring Managers according to the provided documentation, including candidate evaluation, offer preparation, approval processes, and onboarding planning (e.g., setting ramp objectives, equipment provisioning, weekly check‑ins, training compliance, and deliverable evaluation)?
+*2
+$3
+DEL
+$282
+cache:query:What responsibilities and actions are assigned to Hiring Managers according to the documentation, including candidate evaluation, offer preparation, required approval processes, and onboarding planning (e.g., setting ramp objectives) as referenced in chunks 5 and 7?
+*2
+$3
+DEL
+$213
+cache:query:Based on the documented responsibilities of Hiring Managers (candidate evaluation, offer preparation, approval processes, and onboarding planning), how does Kunal demonstrate that he is a good manager?
+*2
+$3
+DEL
+$109
+cache:query:What information does the provided documentation contain about the statement “Kunal is good”?
+*2
+$3
+DEL
+$54
+cache:query:Explain in detail Decision and thresholds.
+*2
+$3
+DEL
+$328
+cache:query:What are the detailed decision thresholds for offers—including the score ranges, compensation stretch percentages, and the required sign‑offs (e.g., Recruiter + HRBP, Hiring Manager + HRBP, Finance + Legal + Executive sponsor) for high‑confidence, moderate‑confidence, and high‑risk offers?
+*2
+$3
+DEL
+$269
+cache:query:What are the detailed decision thresholds for offers—including the score ranges, compensation stretch percentages, and the required sign‑offs for high‑confidence, moderate‑confidence, and high‑risk offers—as described in the earlier explanation?
+*2
+$3
+DEL
+$293
+cache:query:What are the decision and approval thresholds for offers, including the required score ranges, the allowed compensation stretch percentages relative to the band midpoint, and the specific sign‑off stakeholders for high‑confidence, moderate‑confidence, and high‑risk offers?
+>>>>>>> d20373018771c7ca290f61f15bb935f68ceeedeb

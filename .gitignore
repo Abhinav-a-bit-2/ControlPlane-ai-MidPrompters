@@ -3,7 +3,7 @@ confluence
 .venv
 models/
 # Byte‑code cache
-__pycache__/
+_pycache_/
 *.py[cod]
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/

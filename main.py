@@ -24,9 +24,9 @@ SOURCE = str(
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-def contextualize_query(question: str, chat_history: list[dict]) -> str:
+def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, int]:
     if not chat_history:
-        return question
+        return question, 0
 
     history_text = "\n".join([f"{msg['role']}: {msg['content']}" for msg in chat_history])
 
@@ -48,6 +48,7 @@ Standalone Question:"""
         )
         rewritten = completion.choices[0].message.content.strip()
         
+        ctx_tokens = 0
         # Explicitly set OpenInference attributes so Phoenix calculates Cost
         if completion.usage:
             telemetry.set_llm_attributes(
@@ -56,13 +57,14 @@ Standalone Question:"""
                 completion.usage.prompt_tokens, 
                 completion.usage.completion_tokens
             )
+            ctx_tokens = completion.usage.prompt_tokens + completion.usage.completion_tokens
             
         print("="*70)
         print("this is what is passed into rewritter: \n"+history_text+"\n\n"+"*"*100)
         print("\nthis is what is rewritten: \n"+rewritten+"\n\n"+"*"*100)
         print("="*70)
     
-        return rewritten if rewritten else question
+        return (rewritten if rewritten else question), ctx_tokens
 
 def main():
     engine = RAGEngine(SOURCE)
@@ -85,11 +87,15 @@ def main():
 
         with telemetry.trace_span("User_Turn", {"session_id": session_id, "query": question}) as span:
             recent_turns = session_mgr.recentKChats(session_id, k=10)
-            search_query = contextualize_query(question, recent_turns)
+            search_query, ctx_tokens = contextualize_query(question, recent_turns)
             if search_query != question:
                 print(f"  [Rewritten Query for Search]: {search_query}")
     
-            result = pipeline.ask(search_query, session_id=session_id)
+            result = pipeline.ask(search_query, session_id=session_id, initial_tokens=ctx_tokens)
+            
+            # result.total_tokens now includes ctx_tokens (because we passed it as initial_tokens)
+            total_turn_tokens = result.total_tokens
+            span.set_attribute("llm.token_count.total", total_turn_tokens)
     
             print(f"\n--- Audit trail ---")
             for entry in result.audit_trail:
@@ -103,6 +109,7 @@ def main():
                 print(f"  [HITL Escalation] Ticket ID: {result.hitl_ticket_id}")
     
             print(f"\nAnswer: {result.answer}")
+            print(f"\n[Telemetry] Cost Score: {result.cost_score:.2f} | Tokens: {total_turn_tokens}")
     
             if not result.audit_trail or all(e.passed for e in result.audit_trail):
                 session_mgr.addChats(session_id, role="user", content=question)
