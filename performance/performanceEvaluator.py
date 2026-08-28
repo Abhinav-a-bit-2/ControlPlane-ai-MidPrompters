@@ -62,7 +62,7 @@ class PerformanceEvaluator:
                     continue
 
                 chunk_text = " ".join(chunk_lookup.get(cid, "") for cid in claim.cited_chunk_ids)
-                res = self.grounding_checker.check_claim(claim.text, chunk_text)
+                res = self.grounding_checker.checkClaim(claim.text, chunk_text)
                 is_ambiguous = (res["label"] == "neutral" or res["entailment_score"] < 0.55)
                 if is_ambiguous:
                     has_ambiguity = True

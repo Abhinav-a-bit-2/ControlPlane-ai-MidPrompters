@@ -14,7 +14,7 @@ from performance.performanceEvaluator import PerformanceEvaluator
 SOURCE = str(
     Path(__file__).parent
     / "confluence"
-    / "dsid_0a3c5810b26347739f3e1a3b0a774d7c__slo-driven-fidelity-onboarding-checklist-2029-06-14.txt"
+    / "genesis.txt"
 )
 
 
