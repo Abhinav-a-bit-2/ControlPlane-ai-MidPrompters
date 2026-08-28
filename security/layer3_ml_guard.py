@@ -45,6 +45,8 @@ class GuardResult:
     category: str = "none"
     confidence: float = 0.0
     backend: str = ""
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
 
 
 class MLGuardBackend(ABC):
@@ -98,11 +100,13 @@ class GroqSelfCheckBackend(MLGuardBackend):
         try:
             return GuardResult(
                 is_safe=bool(parsed.get("is_safe", False)),
-                category=parsed.get("category", "unknown"),
+                category=str(parsed.get("category", "none")),
                 confidence=float(parsed.get("confidence", 0.0)),
                 backend="groq_self_check",
+                prompt_tokens=completion.usage.prompt_tokens if completion.usage else 0,
+                completion_tokens=completion.usage.completion_tokens if completion.usage else 0
             )
-        except (TypeError, ValueError) as e:
+        except (ValueError, TypeError) as e:
             logger.error("ml_guard_field_error: %s | parsed=%r", e, parsed)
             return GuardResult(is_safe=False, category="guard_field_error", backend="groq_self_check")
 

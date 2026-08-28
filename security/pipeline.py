@@ -38,6 +38,8 @@ class PipelineResult:
     audit_trail: list = field(default_factory=list)
     quarantined_chunk_ids: list = field(default_factory=list)
     hitl_ticket_id: Optional[str] = None
+    total_tokens: int = 0
+    cost_score: float = 0.0
 
 
 class SecureRAGPipeline:
@@ -47,7 +49,7 @@ class SecureRAGPipeline:
         self.max_tokens = max_tokens
         self.session_mgr = SessionManager()
 
-    def ask(self, raw_question: str, session_id: str = "default", k: int = 3) -> PipelineResult:
+    def ask(self, raw_question: str, session_id: str = "default", initial_tokens: int = 0, k: int = 3) -> PipelineResult:
         tracer = trace.get_tracer(__name__)
         
         with tracer.start_as_current_span("Pipeline_Ask") as parent_span:
@@ -55,6 +57,7 @@ class SecureRAGPipeline:
             parent_span.set_attribute("query", raw_question)
             
             audit = []
+            accumulated_tokens = initial_tokens
             
             # --- CACHE CHECK ---
             with telemetry.trace_span("Cache_Check") as cache_span:
@@ -64,7 +67,7 @@ class SecureRAGPipeline:
                     cache_span.add_event("Cache Hit: Returning saved answer")
                     parent_span.set_attribute("cache.hit", True)
                     parent_span.add_event("Skipping LLM due to Cache Hit")
-                    return PipelineResult(answer=cached_answer, blocked=False, audit_trail=audit)
+                    return PipelineResult(answer=cached_answer, blocked=False, audit_trail=audit, total_tokens=accumulated_tokens)
                 cache_span.set_attribute("cache.hit", False)
             
             # Layer 1: pre-processing & sanitization
@@ -77,7 +80,7 @@ class SecureRAGPipeline:
                 if not l1.passed:
                     l1_span.set_attribute("security.blocked", True)
                     return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
-                                           blocked_at_layer="L1_sanitize", audit_trail=audit)
+                                           blocked_at_layer="L1_sanitize", audit_trail=audit, total_tokens=accumulated_tokens)
                 question = l1.cleaned_text
     
             # Layer 2: fast heuristic firewall
@@ -90,19 +93,25 @@ class SecureRAGPipeline:
                 if not l2.passed:
                     l2_span.set_attribute("security.blocked", True)
                     return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
-                                           blocked_at_layer="L2_heuristic", audit_trail=audit)
+                                           blocked_at_layer="L2_heuristic", audit_trail=audit, total_tokens=accumulated_tokens)
     
             # Layer 3: ML/semantic detection
             with telemetry.trace_span("L3_ML_Guard") as l3_span:
                 t0 = time.perf_counter()
                 l3 = self.ml_guard.check(question)
+                
+                # Track tokens for L3 guard LLM
+                l3_total = l3.prompt_tokens + l3.completion_tokens
+                accumulated_tokens += l3_total
+                telemetry.set_llm_attributes(l3_span, "openai/gpt-oss-120b", l3.prompt_tokens, l3.completion_tokens)
+                
                 latency = (time.perf_counter() - t0) * 1000
                 audit.append(AuditEntry("L3_ml_guard", l3.is_safe, l3.category, latency))
                 
                 if not l3.is_safe:
                     l3_span.set_attribute("security.blocked", True)
                     return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
-                                           blocked_at_layer="L3_ml_guard", audit_trail=audit)
+                                           blocked_at_layer="L3_ml_guard", audit_trail=audit, total_tokens=accumulated_tokens)
     
             # Retrieval 
             with telemetry.trace_span("Chroma_Retrieval") as ret_span:
@@ -117,6 +126,7 @@ class SecureRAGPipeline:
                     answer="I do not know based on the provided context.",
                     blocked=False, audit_trail=audit,
                     quarantined_chunk_ids=[],
+                    total_tokens=accumulated_tokens
                 )
     
             context = self.engine.build_context(hits)
@@ -150,6 +160,8 @@ class SecureRAGPipeline:
                 prompt_toks = len(tokenizer.encode(prompt_text))
                 comp_toks = len(tokenizer.encode(result_text))
                 
+                accumulated_tokens += prompt_toks + comp_toks
+                
                 telemetry.set_llm_attributes(
                     gen_span, 
                     "openai/gpt-oss-120b", 
@@ -160,16 +172,28 @@ class SecureRAGPipeline:
                 latency = (time.perf_counter() - t0) * 1000
                 audit.append(AuditEntry("generation", True, "", latency))
                 
-            # L4: Synchronous Confidence Check
+            # L4: Cost & Confidence Check
             with telemetry.trace_span("L4_Confidence_Check") as l4_span:
                 t0 = time.perf_counter()
                 
-                # TODO: Implement actual confidence checking logic via LLM call
-                # For now, it defaults to High Confidence.
-                confidence_is_high = True
+                total_latency = sum(e.latency_ms for e in audit)
+                num_traces = len(audit)
+                
+                # Hardcoded weights to generate an overall cost parameter
+                W_TOKEN = 0.01      # 1000 tokens = 10 cost
+                W_LATENCY = 0.005   # 2000 ms = 10 cost
+                W_TRACE = 2.0       # 5 traces = 10 cost
+                
+                cost_score = (accumulated_tokens * W_TOKEN) + (total_latency * W_LATENCY) + (num_traces * W_TRACE)
+                l4_span.set_attribute("cost_score.total", cost_score)
+                parent_span.set_attribute("cost_score.total", cost_score)
+                
+                # Trigger HITL if cost is too high
+                COST_THRESHOLD = 50.0  # adjust as needed
+                confidence_is_high = cost_score <= COST_THRESHOLD
                 
                 latency = (time.perf_counter() - t0) * 1000
-                audit.append(AuditEntry("L4_confidence_check", confidence_is_high, "stub", latency))
+                audit.append(AuditEntry("L4_confidence_check", confidence_is_high, f"Cost Score: {cost_score:.2f}", latency))
                 
                 if not confidence_is_high:
                     l4_span.set_attribute("confidence.high", False)
@@ -177,11 +201,13 @@ class SecureRAGPipeline:
                     trace_id = format(parent_span.get_span_context().trace_id, '032x')
                     ticket_id = self.session_mgr.enqueue_hitl(session_id, raw_question, trace_id)
                     return PipelineResult(
-                        answer=f"Your query has been routed to a human agent (Ticket: {ticket_id}). We will get back to you shortly.",
+                        answer=f"Query exceeded complexity cost threshold (Score: {cost_score:.2f}). Routed to a human agent (Ticket: {ticket_id}).",
                         blocked=True,
                         blocked_at_layer="L4_confidence_check",
                         audit_trail=audit,
-                        hitl_ticket_id=ticket_id
+                        hitl_ticket_id=ticket_id,
+                        total_tokens=accumulated_tokens,
+                        cost_score=cost_score
                     )
                 
                 l4_span.set_attribute("confidence.high", True)
@@ -194,4 +220,6 @@ class SecureRAGPipeline:
                 blocked=False,
                 audit_trail=audit,
                 quarantined_chunk_ids=[],
+                total_tokens=accumulated_tokens,
+                cost_score=cost_score
             )
