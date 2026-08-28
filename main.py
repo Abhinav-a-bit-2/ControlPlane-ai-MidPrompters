@@ -88,10 +88,10 @@ def main():
 
         passed_security = not result.audit_trail or all(e.passed for e in result.audit_trail)
         if passed_security and getattr(result, "safe_chunks", None):
-            safe_hits = [(chunk, 1.0) for chunk in result.safe_chunks]
+            safe_hits = [[chunk, 1.0] for chunk in result.safe_chunks]
             eval_report = evaluator.evaluate(
                 answer=result.answer,
-                retrieved_chunks=safe_hits,
+                retrieved_chunks=result.safe_chunks,
                 messages=getattr(result, "generation_messages", None)
             )
 

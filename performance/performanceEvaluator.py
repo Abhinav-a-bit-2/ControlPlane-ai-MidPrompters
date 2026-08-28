@@ -9,7 +9,31 @@ class PerformanceEvaluator:
     def __init__(self, groq_client=None, grounding_checker: Optional[GroundingChecker] = None, risk_threshold: float = 0.50):
         self.grounding_checker = grounding_checker or GroundingChecker()
         self.entropy_checker = SemanticEntropyChecker(groq_client, self.grounding_checker) if groq_client else None
+        self.eval_count = 0
         self.risk_threshold = risk_threshold
+    @staticmethod    
+    def _extract_chunk_data(doc: Any) -> tuple[Any, str]:
+        """Helper to safely extract (chunk_id, content) from dicts, Document objects, or tuples."""
+        # If doc is a (chunk, score) tuple/list
+        if isinstance(doc, (tuple, list)):
+            doc = doc[0]
+
+        # LangChain / LlamaIndex Document object
+        if hasattr(doc, "metadata"):
+            chunk_id = doc.metadata.get("chunk_id")
+            content = getattr(doc, "page_content", "")
+            return chunk_id, content
+
+        # Dictionary representation
+        if isinstance(doc, dict):
+            chunk_id = doc.get("chunk_id")
+            content = doc.get("content", doc.get("page_content", ""))
+            return chunk_id, content
+
+        # Raw string or fallback object
+        chunk_id = getattr(doc, "chunk_id", str(doc))
+        content = getattr(doc, "content", str(doc))
+        return chunk_id, content
 
     def evaluate(
         self,
@@ -18,14 +42,12 @@ class PerformanceEvaluator:
         messages: Optional[List[Dict[str, str]]] = None,
     ) -> EvaluationReport:
         self.eval_count += 1
-        periodic_sample = (self.eval_count % 10 == 0)
+        periodic_sample = (self.eval_count % 1 == 0)
 
         try:
-            chunk_lookup = {
-                (doc.metadata.get("chunk_id") if hasattr(doc, "metadata") else doc.get("chunk_id")): 
-                (doc.page_content if hasattr(doc, "page_content") else doc.get("content", ""))
-                for doc, _ in retrieved_chunks
-            }
+            chunk_lookup = dict(
+                self._extract_chunk_data(doc) for doc in retrieved_chunks
+            )
             claims = extract_claims(answer)
             if not claims:
                 return EvaluationReport(overall_confidence="high", risk_score=0.0)

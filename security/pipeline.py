@@ -7,7 +7,7 @@ feeds the "which layer caught what" demo dashboard.
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 
 from base_rag import RAGEngine, SYSTEM_PROMPT_TEMPLATE
 from .layer1_sanitize import sanitize_input
@@ -31,6 +31,7 @@ class AuditEntry:
 @dataclass
 class PipelineResult:
     answer: str
+    safe_chunks: Any
     blocked: bool = False
     blocked_at_layer: str = ""
     audit_trail: list = field(default_factory=list)
@@ -111,6 +112,7 @@ class SecureRAGPipeline:
 
         return PipelineResult(
             answer=filtered_text,
+            safe_chunks = hits,
             blocked=False,
             audit_trail=audit,
             quarantined_chunk_ids=[],
