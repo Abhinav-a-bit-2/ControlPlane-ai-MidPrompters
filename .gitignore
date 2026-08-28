@@ -1,2 +1,28 @@
 .env
 confluence
+.venv
+models/
+# Byte‑code cache
+__pycache__/
+*.py[cod]
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+# Python test/cache artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+# MyPy cache
+.mypy_cache/
+# Virtual environment directories (already ignored but kept for clarity)
+# .venv
+# IDE / editor files
+.idea/
+.vscode/
+# Build / distribution artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+# Miscellaneous
+.cache/
+.DS_Store
