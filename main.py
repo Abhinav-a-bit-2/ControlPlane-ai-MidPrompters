@@ -9,13 +9,13 @@ import uuid
 from base_rag import RAGEngine
 from session_manager import SessionManager
 from security.pipeline import SecureRAGPipeline
+from performance.performanceEvaluator import PerformanceEvaluator
 
 SOURCE = str(
     Path(__file__).parent
     / "confluence"
-    / "dsid_0a2cd37d53ff47d4aced289cd9a76fe8__evidence-driven-offer-evaluation-and-onboarding-trigger-playbook-2028.txt"
+    / "dsid_0a3c5810b26347739f3e1a3b0a774d7c__slo-driven-fidelity-onboarding-checklist-2029-06-14.txt"
 )
-
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
@@ -60,6 +60,7 @@ def main():
     session_mgr = SessionManager()
     session_id = str(uuid.uuid4())
     pipeline = SecureRAGPipeline(engine)
+    evaluator = PerformanceEvaluator(groq_client=groq_client)
 
     while True:
         question = input("\nQuestion (or 'quit'): ").strip()
@@ -82,6 +83,26 @@ def main():
             print(f"  Quarantined chunks: {result.quarantined_chunk_ids}")
 
         print(f"\nAnswer: {result.answer}")
+
+        passed_security = not result.audit_trail or all(e.passed for e in result.audit_trail)
+        if passed_security and getattr(result, "safe_chunks", None):
+            safe_hits = [(chunk, 1.0) for chunk in result.safe_chunks]
+            eval_report = evaluator.evaluate(
+                answer=result.answer,
+                retrieved_chunks=safe_hits,
+                messages=getattr(result, "generation_messages", None)
+            )
+
+            print(f"\n--- Performance & Grounding Evaluation ---")
+            print(f"  Confidence Level : {eval_report.overall_confidence.upper()}")
+            print(f"  Risk Score       : {eval_report.risk_score:.2f}")
+            if eval_report.semantic_entropy > 0:
+                print(f"  Semantic Entropy : {eval_report.semantic_entropy:.2f}")
+
+            if eval_report.flagged_claims:
+                print("  Flagged Claims:")
+                for fc in eval_report.flagged_claims:
+                    print(f"    • [{fc.status.upper()}] (Risk: {fc.risk_score:.2f}) -> {fc.text[:80]}...")
 
         if not result.audit_trail or all(e.passed for e in result.audit_trail):
             session_mgr.addChats(session_id, role="user", content=question)
