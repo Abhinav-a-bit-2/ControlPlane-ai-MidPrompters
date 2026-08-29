@@ -46,14 +46,17 @@ INTENT_CONFIDENCE_THRESHOLD = 0.50
 def is_answer_adequate(answer: str) -> bool:
     """
     Fast heuristic to decide whether a generated answer is good enough.
-    Returns False if the answer looks like a failure — triggers fallback.
+    Returns False if the answer looks like a failure – triggers fallback.
     """
     if not answer or len(answer.strip()) < 20:
+        logger.warning(f"Answer inadequate: too short ({len(answer) if answer else 0})")
         return False
     if "I do not know" in answer:
-        return False
-    if not re.search(r'\[chunk-\d+\]', answer):
-        # No citations → likely hallucinating or unhelpful
+        # Retrieval miss (out-of-scope query). This is a successful, adequate refusal.
+        return True
+    if not re.search(r'chunk-\d+', answer, flags=re.IGNORECASE):
+        # No citations -> likely hallucinating or unhelpful
+        logger.warning(f"Answer inadequate: no citations. Answer: {repr(answer)}")
         return False
     return True
 
@@ -169,7 +172,7 @@ class IntentRoutedPipeline:
                 l3_total = l3.prompt_tokens + l3.completion_tokens
                 accumulated_tokens += l3_total
                 telemetry.set_llm_attributes(
-                    l3_span, "openai/gpt-oss-120b",
+                    l3_span, "openai/gpt-oss-20b",
                     l3.prompt_tokens, l3.completion_tokens,
                 )
                 latency = (time.perf_counter() - t0) * 1000
@@ -311,7 +314,7 @@ class IntentRoutedPipeline:
                 comp_toks_f = len(self._tokenizer.encode(filtered_text))
                 accumulated_tokens += prompt_toks_f + comp_toks_f
                 telemetry.set_llm_attributes(
-                    filter_span, "openai/gpt-oss-120b",
+                    filter_span, "openai/gpt-oss-20b",
                     prompt_toks_f, comp_toks_f,
                 )
                 latency = (time.perf_counter() - t0) * 1000
@@ -322,9 +325,9 @@ class IntentRoutedPipeline:
                 total_latency = sum(e.latency_ms for e in audit)
                 num_traces = len(audit)
 
-                W_TOKEN = 0.01
-                W_LATENCY = 0.005
-                W_TRACE = 2.0
+                W_TOKEN = 0.04
+                W_LATENCY = 0.0
+                W_TRACE = 1.0
                 cost_score = (
                     (accumulated_tokens * W_TOKEN)
                     + (total_latency * W_LATENCY)
@@ -333,7 +336,7 @@ class IntentRoutedPipeline:
                 l4_span.set_attribute("cost_score.total", cost_score)
                 parent_span.set_attribute("cost_score.total", cost_score)
 
-                COST_THRESHOLD = 200
+                COST_THRESHOLD = 50
                 confidence_is_high = cost_score <= COST_THRESHOLD
 
                 audit.append(AuditEntry(
@@ -426,7 +429,7 @@ class IntentRoutedPipeline:
         with telemetry.trace_span(f"Groq_Generation_{mode}") as gen_span:
             t0 = time.perf_counter()
             completion = self.engine.groq_client.chat.completions.create(
-                model="openai/gpt-oss-120b",
+                model="openai/gpt-oss-20b",
                 messages=messages,
                 temperature=1,
                 max_completion_tokens=max_completion_tokens,
@@ -449,7 +452,7 @@ class IntentRoutedPipeline:
             gen_span.set_attribute("generation.reasoning_effort", reasoning_effort)
             gen_span.set_attribute("generation.max_tokens", max_completion_tokens)
             telemetry.set_llm_attributes(
-                gen_span, "openai/gpt-oss-120b",
+                gen_span, "openai/gpt-oss-20b",
                 prompt_toks, comp_toks,
             )
             latency = (time.perf_counter() - t0) * 1000

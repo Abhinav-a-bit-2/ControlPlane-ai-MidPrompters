@@ -104,7 +104,7 @@ class SecureRAGPipeline:
                 # Track tokens for L3 guard LLM
                 l3_total = l3.prompt_tokens + l3.completion_tokens
                 accumulated_tokens += l3_total
-                telemetry.set_llm_attributes(l3_span, "openai/gpt-oss-120b", l3.prompt_tokens, l3.completion_tokens)
+                telemetry.set_llm_attributes(l3_span, "openai/gpt-oss-20b", l3.prompt_tokens, l3.completion_tokens)
                 
                 latency = (time.perf_counter() - t0) * 1000
                 audit.append(AuditEntry("L3_ml_guard", l3.is_safe, l3.category, latency))
@@ -142,7 +142,7 @@ class SecureRAGPipeline:
                 t0 = time.perf_counter()
                 # Include usage to track exact tokens
                 completion = self.engine.groq_client.chat.completions.create(
-                    model="openai/gpt-oss-120b",
+                    model="openai/gpt-oss-20b",
                     messages=messages,
                     temperature=1,
                     max_completion_tokens=2048,
@@ -166,7 +166,7 @@ class SecureRAGPipeline:
                 
                 telemetry.set_llm_attributes(
                     gen_span, 
-                    "openai/gpt-oss-120b", 
+                    "openai/gpt-oss-20b", 
                     prompt_toks, 
                     comp_toks
                 )
@@ -186,7 +186,7 @@ class SecureRAGPipeline:
                 
                 telemetry.set_llm_attributes(
                     filter_span, 
-                    "openai/gpt-oss-120b", 
+                    "openai/gpt-oss-20b", 
                     prompt_toks_f, 
                     comp_toks_f
                 )

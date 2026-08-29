@@ -162,7 +162,7 @@ class RAGEngine:
             ]
 
         completion = self.groq_client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="openai/gpt-oss-20b",
             messages=msg,
             temperature=1,
             max_completion_tokens=2048,
@@ -177,18 +177,21 @@ class RAGEngine:
         return result
 
     def filter(self, response: str) -> str:
+        if "I do not know based on the provided context" in response:
+            return response
+
         msg = [
             {"role": "system", "content": FILTERING_PROMPT},
             {"role": "user", "content": response},
         ]
         
         completion = self.groq_client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="openai/gpt-oss-20b",
             messages=msg,
-            temperature=1,
+            temperature=0,
             max_completion_tokens=2048,
             top_p=1,
-            reasoning_effort="medium",
+            reasoning_effort="low",
             stream=True,
             stop=None,
         )
@@ -196,33 +199,6 @@ class RAGEngine:
         for chunk in completion:
             if chunk.choices and len(chunk.choices) > 0:
                 result += chunk.choices[0].delta.content or ""
-        return result
-    
-    def filter(self, response: str)->str:
-        msg = [
-            {
-                "role": "system",
-                "content": FILTERING_PROMPT,
-            },
-            {
-                "role": "user",
-                "content": response,
-            },
-        ]
-        
-        completion = self.groq_client.chat.completions.create(
-        model="openai/gpt-oss-120b",
-        messages=msg,
-        temperature=1,
-        max_completion_tokens=2048,
-        top_p=1,
-        reasoning_effort="medium",
-        stream=True,
-        stop=None,
-        )
-        result = ""
-        for chunk in completion:
-            result += chunk.choices[0].delta.content or ""
         return result
 
 

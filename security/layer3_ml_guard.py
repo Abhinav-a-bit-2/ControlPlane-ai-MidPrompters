@@ -58,7 +58,7 @@ class MLGuardBackend(ABC):
 class GroqSelfCheckBackend(MLGuardBackend):
     """LLM-as-judge, mirroring NeMo Guardrails' self_check_input rail."""
 
-    def __init__(self, model: str = "openai/gpt-oss-120b"):
+    def __init__(self, model: str = "openai/gpt-oss-20b"):
         self.model = model
         self.client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
@@ -236,10 +236,10 @@ class LlamaGuardBackend(MLGuardBackend):
 
 
 class MLGuard:
-    """Facade the pipeline calls — defaults to LakeraGuardBackend."""
+    """Facade the pipeline calls – defaults to GroqSelfCheckBackend."""
 
     def __init__(self, backend: MLGuardBackend = None):
-        self.backend = backend or LakeraGuardBackend()
+        self.backend = backend or GroqSelfCheckBackend()
 
     def check(self, text: str) -> GuardResult:
         return self.backend.check(text)

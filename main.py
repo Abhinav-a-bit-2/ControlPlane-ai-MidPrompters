@@ -43,7 +43,7 @@ Standalone Question:"""
 
     with telemetry.trace_span("Query_Contextualize") as span:
         completion = groq_client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="openai/gpt-oss-20b",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.0,
             max_tokens=150,
@@ -56,7 +56,7 @@ Standalone Question:"""
         if completion.usage:
             telemetry.set_llm_attributes(
                 span, 
-                "openai/gpt-oss-120b", 
+                "openai/gpt-oss-20b", 
                 completion.usage.prompt_tokens, 
                 completion.usage.completion_tokens
             )
