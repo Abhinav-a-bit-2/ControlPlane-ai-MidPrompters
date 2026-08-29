@@ -48,6 +48,7 @@ Standalone Question:"""
         
         ctx_tokens = 0
         # Explicitly set OpenInference attributes so Phoenix calculates Cost
+
         if completion.usage:
             telemetry.set_llm_attributes(
                 span, 
