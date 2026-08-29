@@ -200,18 +200,31 @@ def extract_claims(answer: str) -> List[Claim]:
 
 def evaluate_claims(claims: List[Claim],chunks: List[Chunk], checker: GroundingChecker)->List[ClaimEvaluation]:
     evals = []
-    chunks_map = {chunk.id:chunk.text for chunk in chunks}
+    chunks_map = {chunk.chunk_id:chunk.text for chunk in chunks}
+    chunks_comb = [c.text for c in chunks]
     for claim in claims:
-        check_text = " ".join([chunks_map[chunk_id] for chunk_id in claim.cited_chunk_ids if chunk_id in chunks_map])
-        if not check_text and chunks:
-            check_text = chunks[0].text
-        ground_res = checker.checkClaim(claim.text,check_text)
+        cited_text = ([chunks_map[chunk_id] for chunk_id in claim.cited_chunk_ids if chunk_id in chunks_map])
+
+        if cited_text:
+            check_text = " ".join(cited_text)
+            ground_res = checker.checkClaim(output=claim.text, chunk=check_text)
+        elif chunks_comb:
+            candidate_results = [checker.checkClaim(output=claim.text, chunk=text) for text in chunks_comb]
+            ground_res = max(candidate_results, key=lambda r: r["entailment_score"])
+        else:
+            ground_res = {
+                "label": "uncited",
+                "entailment_score": 0.0,
+                "neutral_score": 0.0,
+                "contradiction_score": 1.0,
+                "entropy": 0.0
+            }
         
         status = ground_res["label"]
         p_e = ground_res["entailment_score"]
         p_n = ground_res["neutral_score"]
         p_c = ground_res["contradiction_score"]
-        risk = 0.0*p_e + 0.5 * p_n + 1.0*p_c
+        risk = 0.0*p_e + 0.4 * p_n + 1.0*p_c
 
         evals.append(
             ClaimEvaluation(

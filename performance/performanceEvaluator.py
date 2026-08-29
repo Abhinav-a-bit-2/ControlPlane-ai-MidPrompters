@@ -6,7 +6,7 @@ from .semantic_entropy import SemanticEntropyChecker
 
 logger = logging.getLogger(__name__)
 class PerformanceEvaluator:
-    def __init__(self, groq_client=None, grounding_checker: Optional[GroundingChecker] = None, risk_threshold: float = 0.50, session_manager=None, sampling_period: int = 2):
+    def __init__(self, groq_client=None, grounding_checker: Optional[GroundingChecker] = None, risk_threshold: float = 0.50, session_manager=None, sampling_period: int = 10):
         self.grounding_checker = grounding_checker or GroundingChecker()
         self.entropy_checker = SemanticEntropyChecker(groq_client, self.grounding_checker) if groq_client else None
         self.eval_count = 0
@@ -60,7 +60,7 @@ class PerformanceEvaluator:
                 return EvaluationReport(overall_confidence="high", risk_score=0.0)
 
             # Grounding-based evaluation via models.py
-            evaluations = evaluate_claims(claims, chunks)
+            evaluations = evaluate_claims(claims, chunks,checker=self.grounding_checker)
 
             has_ambiguity = any(e.status in ("neutral", "uncited", "contradiction") for e in evaluations)
 
