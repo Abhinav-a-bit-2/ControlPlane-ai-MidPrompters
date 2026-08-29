@@ -46,6 +46,7 @@ class SessionManager:
             budgeted_chats.insert(0,chat)
             used += chat_tokens
         return budgeted_chats
+    
     def deleteChat(self, session_id:str)->bool:
         key = f"session:{session_id}:history"
         return bool(self.client.delete(key))

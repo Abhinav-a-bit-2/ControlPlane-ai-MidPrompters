@@ -20,8 +20,6 @@ SOURCE = str(
     / "genesis.txt"
 )
 
-
-
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, int]:
@@ -30,7 +28,8 @@ def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, i
 
     history_text = "\n".join([f"{msg['role']}: {msg['content']}" for msg in chat_history])
 
-    prompt = f"""Given the following conversation history and a follow-up question, rephrase the follow-up question into a standalone question containing all necessary context for document search. Do not answer, only rewrite.
+    prompt = f"""Given the following conversation history and a follow-up question, rephrase the follow-up question into a standalone question containing all necessary context for document search. Do not answer. If the current query,introduces 
+    a new topic which is independent of conversation history then return the original query as it was given to you.
 
 Chat History:
 {history_text}
@@ -43,7 +42,7 @@ Standalone Question:"""
             model="openai/gpt-oss-120b",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.0,
-            max_tokens=300,
+            max_tokens=150,
             reasoning_effort="low"
         )
         rewritten = completion.choices[0].message.content.strip()
@@ -78,7 +77,7 @@ def main():
     session_mgr = SessionManager()
     session_id = str(uuid.uuid4())
     pipeline = SecureRAGPipeline(engine)
-    evaluator = PerformanceEvaluator(groq_client=groq_client)
+    evaluator = PerformanceEvaluator(groq_client=groq_client, session_manager=session_mgr)
 
     while True:
         question = input("\nQuestion (or 'quit'): ").strip()
@@ -110,6 +109,17 @@ def main():
     
             print(f"\nAnswer: {result.answer}")
             print(f"\n[Telemetry] Cost Score: {result.cost_score:.2f} | Tokens: {total_turn_tokens}")
+
+            # Performance evaluation (risk scoring)
+            report = evaluator.evaluate(
+                answer=result.answer,
+                retrieved_chunks=result.safe_chunks,
+                session_id=session_id,
+            )
+            print(f"[Performance] Confidence: {report.overall_confidence} | Risk: {report.risk_score:.3f} | Entropy: {report.semantic_entropy:.3f}")
+            if report.flagged_claims:
+                for fc in report.flagged_claims:
+                    print(f"  ⚠ [{fc.status}] {fc.text[:80]}")
     
             if not result.audit_trail or all(e.passed for e in result.audit_trail):
                 session_mgr.addChats(session_id, role="user", content=question)

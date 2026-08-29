@@ -9,6 +9,7 @@ class GroundingChecker:
         id2label = getattr(self.mdl.model.config, "id2label", None)
         if id2label:
             self.LABELS = [id2label[i].lower() for i in sorted(id2label.keys())]
+            print(self.LABELS)
         else:
             # Standard NLI DeBERTa default: 0=contradiction, 1=neutral, 2=entailment
             self.LABELS = ["contradiction", "neutral", "entailment"]
@@ -22,7 +23,7 @@ class GroundingChecker:
         probs = [s / sum_e for s in exp_scores]
 
         label_idx = int(scores.argmax())
-        
+        print(label_idx)
         return {
             "label": self.LABELS[label_idx],
             "entailment_score": float(probs[self.LABELS.index("entailment")]),

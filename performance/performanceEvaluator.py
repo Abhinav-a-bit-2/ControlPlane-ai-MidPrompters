@@ -1,16 +1,18 @@
 import logging
 from typing import List, Dict, Any, Optional
-from .models import extract_claims, ClaimEvaluation, EvaluationReport
+from .models import extract_claims, evaluate_claims, build_report, Chunk, ClaimEvaluation, EvaluationReport
 from .grounding import GroundingChecker
 from .semantic_entropy import SemanticEntropyChecker
 
 logger = logging.getLogger(__name__)
 class PerformanceEvaluator:
-    def __init__(self, groq_client=None, grounding_checker: Optional[GroundingChecker] = None, risk_threshold: float = 0.50):
+    def __init__(self, groq_client=None, grounding_checker: Optional[GroundingChecker] = None, risk_threshold: float = 0.50, session_manager=None, sampling_period: int = 2):
         self.grounding_checker = grounding_checker or GroundingChecker()
         self.entropy_checker = SemanticEntropyChecker(groq_client, self.grounding_checker) if groq_client else None
         self.eval_count = 0
         self.risk_threshold = risk_threshold
+        self.session_manager = session_manager
+        self.sampling_period = sampling_period
     @staticmethod    
     def _extract_chunk_data(doc: Any) -> tuple[Any, str]:
         """Helper to safely extract (chunk_id, content) from dicts, Document objects, or tuples."""
@@ -40,92 +42,66 @@ class PerformanceEvaluator:
         answer: str,
         retrieved_chunks: List[Any],
         messages: Optional[List[Dict[str, str]]] = None,
+        session_id: Optional[str] = None,
     ) -> EvaluationReport:
         self.eval_count += 1
-        periodic_sample = (self.eval_count % 1 == 0)
+        periodic_sample = (self.eval_count % self.sampling_period == 0)
 
         try:
-            chunk_lookup = dict(
-                self._extract_chunk_data(doc) for doc in retrieved_chunks
-            )
+            # Build Chunk objects for models.evaluate_claims
+            chunks = []
+            for doc in retrieved_chunks:
+                chunk_id, content = self._extract_chunk_data(doc)
+                if chunk_id and content:
+                    chunks.append(Chunk(chunk_id=str(chunk_id), text=content))
+
             claims = extract_claims(answer)
             if not claims:
                 return EvaluationReport(overall_confidence="high", risk_score=0.0)
 
-            preliminary = []
-            has_ambiguity = False
+            # Grounding-based evaluation via models.py
+            evaluations = evaluate_claims(claims, chunks)
 
-            for claim in claims:
-                if not claim.cited_chunk_ids:
-                    preliminary.append({"claim": claim, "status": "uncited", "entailment_score": 0.0, "needs_escalation": True})
-                    has_ambiguity = True
-                    continue
+            has_ambiguity = any(e.status in ("neutral", "uncited", "contradiction") for e in evaluations)
 
-                chunk_text = " ".join(chunk_lookup.get(cid, "") for cid in claim.cited_chunk_ids)
-                res = self.grounding_checker.checkClaim(claim.text, chunk_text)
-                is_ambiguous = (res["label"] == "neutral" or res["entailment_score"] < 0.55)
-                if is_ambiguous:
-                    has_ambiguity = True
-
-                preliminary.append({
-                    "claim": claim,
-                    "status": res["label"],
-                    "entailment_score": res["entailment_score"],
-                    "needs_escalation": is_ambiguous
-                })
-
+            # Entropy sampling: only on periodic tick OR ambiguity
             entropy_val = 0.0
-            should_sample = (has_ambiguity or periodic_sample)
+            should_sample = has_ambiguity or periodic_sample
 
-            if should_sample and self.entropy_checker and messages:
+            if should_sample and self.entropy_checker:
                 try:
-                    entropy_val = self.entropy_checker.compute_entropy(messages)
+                    # Use tokenBudgetedChats for episodic memory if available
+                    sampled_messages = messages
+                    if session_id and self.session_manager:
+                        sampled_messages = self.session_manager.tokenBudgetedChats(session_id, token_budget=2048)
+                    if sampled_messages:
+                        entropy_val = self.entropy_checker.compute_entropy(sampled_messages)
                 except Exception as exc:
                     logger.warning("Sampling-based entropy check skipped: %s", exc)
                     entropy_val = 0.5
 
-            all_evals = []
-            flagged = []
-            total_risk = 0.0
+            # Apply entropy multiplier to flagged/ambiguous claims
+            if entropy_val > 0:
+                adjusted = []
+                for e in evaluations:
+                    if e.status in ("neutral", "uncited", "contradiction"):
+                        new_risk = min(1.0, e.risk_score * (1.0 + entropy_val))
+                        adjusted.append(ClaimEvaluation(
+                            text=e.text, status=e.status,
+                            entailment_score=e.entailment_score,
+                            risk_score=new_risk,
+                            is_flagged=e.is_flagged or new_risk > self.risk_threshold,
+                            cited_chunks=e.cited_chunks,
+                            best_matching_chunk=e.best_matching_chunk,
+                        ))
+                    else:
+                        adjusted.append(e)
+                evaluations = adjusted
 
-            for item in preliminary:
-                c = item["claim"]
-                entailment = item["entailment_score"]
-                status = item["status"]
+            report = build_report(evaluations)
+            report.semantic_entropy = entropy_val
+            return report
 
-                unfaithfulness = 1.0 - entailment
-                uncertainty_mult = 1.0 + (entropy_val if item["needs_escalation"] else 0.0)
-                risk = min(1.0, unfaithfulness * uncertainty_mult)
-                is_flagged = (status == "uncited") or (risk > self.risk_threshold)
-
-                evaluation = ClaimEvaluation(
-                    text=c.text,
-                    status=status,
-                    entailment_score=entailment,
-                    risk_score=risk,
-                    is_flagged=is_flagged,
-                    cited_chunks=c.cited_chunk_ids,
-                )
-                all_evals.append(evaluation)
-                total_risk += risk
-                if is_flagged:
-                    flagged.append(evaluation)
-
-            avg_risk = total_risk / len(all_evals)
-            if not flagged and avg_risk < 0.30:
-                conf = "high"
-            elif avg_risk > 0.60 or (len(flagged) / len(all_evals)) > 0.50:
-                conf = "low"
-            else:
-                conf = "medium"
-
-            return EvaluationReport(
-                overall_confidence=conf,
-                risk_score=avg_risk,
-                semantic_entropy=entropy_val,
-                flagged_claims=flagged,
-                all_claims=all_evals,
-            )
         except Exception as exc:
             logger.error("Performance evaluation failed-open: %s", exc, exc_info=True)
             return EvaluationReport(overall_confidence="unknown")

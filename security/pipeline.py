@@ -68,7 +68,7 @@ class SecureRAGPipeline:
                     cache_span.add_event("Cache Hit: Returning saved answer")
                     parent_span.set_attribute("cache.hit", True)
                     parent_span.add_event("Skipping LLM due to Cache Hit")
-                    return PipelineResult(answer=cached_answer, blocked=False, audit_trail=audit, total_tokens=accumulated_tokens)
+                    return PipelineResult(safe_chunks=" ",answer=cached_answer, blocked=False, audit_trail=audit, total_tokens=accumulated_tokens)
                 cache_span.set_attribute("cache.hit", False)
             
             # Layer 1: pre-processing & sanitization
@@ -80,7 +80,7 @@ class SecureRAGPipeline:
                 
                 if not l1.passed:
                     l1_span.set_attribute("security.blocked", True)
-                    return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
+                    return PipelineResult(safe_chunks=" ",answer=REFUSAL_MESSAGE, blocked=True,
                                            blocked_at_layer="L1_sanitize", audit_trail=audit, total_tokens=accumulated_tokens)
                 question = l1.cleaned_text
     
@@ -93,7 +93,7 @@ class SecureRAGPipeline:
                 
                 if not l2.passed:
                     l2_span.set_attribute("security.blocked", True)
-                    return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
+                    return PipelineResult(safe_chunks=" ", answer=REFUSAL_MESSAGE, blocked=True,
                                            blocked_at_layer="L2_heuristic", audit_trail=audit, total_tokens=accumulated_tokens)
     
             # Layer 3: ML/semantic detection
@@ -111,7 +111,7 @@ class SecureRAGPipeline:
                 
                 if not l3.is_safe:
                     l3_span.set_attribute("security.blocked", True)
-                    return PipelineResult(answer=REFUSAL_MESSAGE, blocked=True,
+                    return PipelineResult(safe_chunks= " ",answer=REFUSAL_MESSAGE, blocked=True,
                                            blocked_at_layer="L3_ml_guard", audit_trail=audit, total_tokens=accumulated_tokens)
     
             # Retrieval 
@@ -124,6 +124,7 @@ class SecureRAGPipeline:
     
             if not hits:
                 return PipelineResult(
+                    safe_chunks=" ",
                     answer="I do not know based on the provided context.",
                     blocked=False, audit_trail=audit,
                     quarantined_chunk_ids=[],
@@ -210,7 +211,7 @@ class SecureRAGPipeline:
                 parent_span.set_attribute("cost_score.total", cost_score)
                 
                 # Trigger HITL if cost is too high
-                COST_THRESHOLD = 50.0  # adjust as needed
+                COST_THRESHOLD = 200  # adjust as needed
                 confidence_is_high = cost_score <= COST_THRESHOLD
                 
                 latency = (time.perf_counter() - t0) * 1000
@@ -228,7 +229,8 @@ class SecureRAGPipeline:
                         audit_trail=audit,
                         hitl_ticket_id=ticket_id,
                         total_tokens=accumulated_tokens,
-                        cost_score=cost_score
+                        cost_score=cost_score,
+                        safe_chunks=hits
                     )
                 
                 l4_span.set_attribute("confidence.high", True)
@@ -237,6 +239,7 @@ class SecureRAGPipeline:
             self.session_mgr.set_cache(raw_question, filtered_text)
     
             return PipelineResult(
+                safe_chunks=hits,
                 answer=filtered_text,
                 blocked=False,
                 audit_trail=audit,
