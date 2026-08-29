@@ -8,6 +8,10 @@ import redis
 import tiktoken
 from dotenv import load_dotenv
 
+from langchain_redis.cache import RedisSemanticCache
+from langchain_core.outputs import Generation
+from base_rag import LocalBGEEmbeddings
+
 class SessionManager:
     def __init__(self, host: str = None, port: int = None, ttl: int = 86400, encoding: str = "cl100k_base"):
         self.host = host or os.getenv("REDIS_HOST", "localhost")
@@ -19,6 +23,12 @@ class SessionManager:
             decode_responses = True,
         )
         self.tokenizer = tiktoken.get_encoding(encoding)
+        self.semantic_cache = RedisSemanticCache(
+            embeddings=LocalBGEEmbeddings(),
+            redis_url=f"redis://{self.host}:{self.port}",
+            distance_threshold=0.15,
+            ttl=3600
+        )
 
 
                 
@@ -53,15 +63,17 @@ class SessionManager:
 
     # --- Caching Methods ---
     def get_cache(self, query: str) -> str:
-        """Exact match cache lookup."""
-        key = f"cache:query:{query}"
-        return self.client.get(key)
+        """Semantic match cache lookup."""
+        result = self.semantic_cache.lookup(prompt=query, llm_string="")
+        if result:
+            return result[0].text
+        return None
 
     def set_cache(self, query: str, answer: str, ttl: int = 3600) -> None:
-        """Store exact match cache."""
-        key = f"cache:query:{query}"
-        self.client.setex(key, ttl, answer)
+        """Store semantic match cache."""
+        self.semantic_cache.update(prompt=query, llm_string="", return_val=[Generation(text=answer)])
         
+
     # --- HITL Queue Methods ---
     def enqueue_hitl(self, session_id: str, query: str, trace_id: str) -> str:
         """Pushes a query to the human-in-the-loop queue."""

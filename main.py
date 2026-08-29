@@ -9,6 +9,10 @@ import uuid
 from base_rag import RAGEngine
 from session_manager import SessionManager
 from security.pipeline import SecureRAGPipeline
+from security.intent_pipeline import IntentRoutedPipeline
+
+# Toggle between pipelines for A/B testing
+USE_INTENT_PIPELINE = True
 import telemetry
 
 telemetry.init_telemetry()
@@ -76,7 +80,12 @@ def main():
         print(f"Collection '{engine.uuid}' already contains {existing_cnt} chunks. Skipping indexing.")
     session_mgr = SessionManager()
     session_id = str(uuid.uuid4())
-    pipeline = SecureRAGPipeline(engine)
+    if USE_INTENT_PIPELINE:
+        pipeline = IntentRoutedPipeline(engine)
+        print("[Mode] Intent-Routed Dual-Path Pipeline")
+    else:
+        pipeline = SecureRAGPipeline(engine)
+        print("[Mode] Standard Secure Pipeline")
     evaluator = PerformanceEvaluator(groq_client=groq_client, session_manager=session_mgr)
 
     while True:
@@ -90,7 +99,15 @@ def main():
             if search_query != question:
                 print(f"  [Rewritten Query for Search]: {search_query}")
     
-            result = pipeline.ask(search_query, session_id=session_id, initial_tokens=ctx_tokens)
+            if USE_INTENT_PIPELINE:
+                result = pipeline.ask(
+                    search_query,
+                    original_question=question,
+                    session_id=session_id,
+                    initial_tokens=ctx_tokens,
+                )
+            else:
+                result = pipeline.ask(search_query, session_id=session_id, initial_tokens=ctx_tokens)
             
             # result.total_tokens now includes ctx_tokens (because we passed it as initial_tokens)
             total_turn_tokens = result.total_tokens
