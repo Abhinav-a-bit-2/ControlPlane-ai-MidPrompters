@@ -33,6 +33,17 @@ try:
 except Exception as e:
     logger.warning("Failed to import some ragas modules: %s", e)
     RAGAS_AVAILABLE = False
+    from typing import Generic, TypeVar
+    T = TypeVar("T")
+    U = TypeVar("U")
+    class PydanticPrompt(Generic[T, U]):
+        pass
+    class LLMContextPrecisionWithoutReference:
+        pass
+    class LLMContextRecall:
+        pass
+    def llm_factory(*args, **kwargs):
+        return None
 
 
 # ---------------------------------------------------------------------------

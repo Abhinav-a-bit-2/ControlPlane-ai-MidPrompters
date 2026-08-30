@@ -22,7 +22,8 @@ from performance.performanceEvaluator import PerformanceEvaluator
 SOURCE = str(
     Path(__file__).parent
     / "confluence"
-    / "genesis.txt"
+    # / "dsid_0a2cd37d53ff47d4aced289cd9a76fe8__evidence-driven-offer-evaluation-and-onboarding-trigger-playbook-2028.txt"
+    /"genesis.txt"
 )
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))

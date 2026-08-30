@@ -336,7 +336,7 @@ class IntentRoutedPipeline:
                 l4_span.set_attribute("cost_score.total", cost_score)
                 parent_span.set_attribute("cost_score.total", cost_score)
 
-                COST_THRESHOLD = 50
+                COST_THRESHOLD = 80
                 confidence_is_high = cost_score <= COST_THRESHOLD
 
                 audit.append(AuditEntry(

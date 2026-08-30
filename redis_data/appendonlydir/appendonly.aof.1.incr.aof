@@ -1685,3 +1685,1100 @@ $3
 DEL
 $42
 cache:query:What are the aprons made from?
+*2
+$6
+SELECT
+$1
+0
+*32
+$15
+_FT._CREATEIFNX
+$8
+llmcache
+$2
+ON
+$4
+HASH
+$6
+PREFIX
+$1
+1
+$8
+llmcache
+$5
+SCORE
+$3
+1.0
+$6
+SCHEMA
+$6
+prompt
+$4
+TEXT
+$6
+WEIGHT
+$1
+1
+$8
+response
+$4
+TEXT
+$6
+WEIGHT
+$1
+1
+$11
+inserted_at
+$7
+NUMERIC
+$10
+updated_at
+$7
+NUMERIC
+$13
+prompt_vector
+$6
+VECTOR
+$4
+FLAT
+$1
+6
+$4
+TYPE
+$7
+FLOAT32
+$3
+DIM
+$4
+1024
+$15
+DISTANCE_METRIC
+$6
+COSINE
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:345be1b4
+$181
+{"ticket_id": "ticket:345be1b4", "session_id": "45cd94eb-b2c8-453e-8f2b-eaf3fc7b43af", "query": "what is god ?", "trace_id": "d2593bf6b02d35c2c03d8ace35c1d10b", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:ce84526e
+$181
+{"ticket_id": "ticket:ce84526e", "session_id": "37ba3bbc-09da-43c4-8456-392595c9a479", "query": "what is god ?", "trace_id": "516df24e09b08d529e756fd831ad4ef4", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:7d60727f
+$181
+{"ticket_id": "ticket:7d60727f", "session_id": "37ba3bbc-09da-43c4-8456-392595c9a479", "query": "what is man ?", "trace_id": "8cc694a67ec22aa7b76077b04c8f403c", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:f30f2e05
+$199
+{"ticket_id": "ticket:f30f2e05", "session_id": "37ba3bbc-09da-43c4-8456-392595c9a479", "query": "who was murdered in the story ?", "trace_id": "031cda5db007d17625b147001dedc294", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:67208d79
+$190
+{"ticket_id": "ticket:67208d79", "session_id": "37ba3bbc-09da-43c4-8456-392595c9a479", "query": "who was cain and abel?", "trace_id": "609ac4c2f32f1635b08b2dc5ee17dacc", "status": "pending"}
+*16
+$4
+HSET
+$73
+llmcache:b356a0a4320e7ee85b963fa3811efa74bce3b6e11dc43d5693be9a5fb4131030
+$8
+entry_id
+$64
+b356a0a4320e7ee85b963fa3811efa74bce3b6e11dc43d5693be9a5fb4131030
+$6
+prompt
+$22
+first line in the text
+$8
+response
+$547
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"**Definition**  \\n- *First line* \\u2013 the very first sentence or clause that appears in a written passage.\\n\\n**Answer**  \\nThe first line of the passage you provided is:\\n\\n> **1:30. And to all beasts of the earth, and to every fowl of the air, and to all that move upon the earth, and wherein there is life, that they may have to feed upon. And it was so done.** [chunk-15]\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+(|<*lF½ª¶<A-V<¦00;üY%½V&»çK
+½1İB=`àÅ<w»‘øÒ<aL=Ê‹Ä<®ÃO½ÖCÉ¼y“Ó¼€6ü¼x+Â¼{NÕ<F˜½ëØ®<›S¸½2	½P¢²¼ŞS=lv¾·éÏœ<»b¾<…]û<&ñ<İ4<4ä;€s½ÁÎ<"j »çö<1î	½x p¼ÌA¥¼…«½;„¼64—=U
+¼ÍÂ¼&#Ø¼'H‘¼
+İ½â±0¼²¢½3Á»»<6'=}£õ;³¼$íq¼ÀÀ¼ù„:äG½¡fÙ<ßÙ(=iœÊ<ºˆ :Nù»3©¼“aW¼5°¼éO=½Iï:wwÎ¼˜Ü¼=qğV<ñ ¼¿fe½]”<7Ô"¼]Î“¼ş¯ş»„…q=y0ƒ¼J˜ø<BY=qæ:gU€½M•–¼Ï#¼y+ù;±W”»Ÿ«å¼ wØ;™:=pèÙ»@Y =1F<m/=7I½ •<­¢o<Ø;a<ıË< ”f=ğp¼¼jb=5ã¼ı˜3<t9¼»ÔxÇ»C	@¼–<ñŠ·iœ»9ì=GíS;5eè¼MÙ<É-<k)ù¼‡°—½RóÅ»‘VË;Ôš<tø <-½·šô»óÆ¼á’ò;g‘×;ŞÉ+½ç<`<‘”í»‘J=õã<õ…¼qÙ=“l\;È¾¼{=¹<Í*¼¥á+¼ÂYu¼Ì¸˜¼°j—=.ö'=ÿ^=¿ÿ¼û8<Şx`½FE=^û¼!?‡;ü =z»+<Ó<f'¼{ı»ß'l¼/Œ½¹=ueæ»†?ì¼÷{œ¼ƒŸ!=¢‰Å¼á=s²³:›8¼ÍÑ<ç^¼R,¼ÕŠ™;Ø;G9¼ÆÆ¼Ğ ®<VEà¼uò9‹¢ <ñº—ºŞwµ<¾†:—j=I°;uáüº\›9¼lÌ"<~Û‚¼¥é4½¨æo<Ó–µ;hôd=A½ ·±;Ãè¥<»GÍ9Æ™Ş¼]¼›ŸŸ¼&X½SH.½ü,D<ıi&½‚±<è±]½Æ.¼ ]¹1¼£=±÷€»uÅƒ»Œ`Î<tı<¼Kl½4Ñ<q÷Ã<@Ô¼¬+]½a’Å<Ê?º·à‚;Ë;a5§<(*ü<LK=NMc:
+Ú™<‚;şÍ=„µ¢¼G9»û¢<I€Î<d!4¼{M=ë¿÷¼éÄ¸<ó)¶;ä6€=Mº<MÄ<P‡³<£<EÑj=Æ[­<ŞE>¼-ù<•(<ıi =$‚è»„ˆ<6µ»À©<‚‡O=<# ½İR×¼¿#=ê5¾9 ç,½¼ÒŠ½|Â-<*îm<œç;<ŞA©< H¨;o:Ö—: â3</„»˜Î¼í—&<–¤½¢àã½™ff<®áá¼hé;LŸy<[êÁ¼G=Z-Ò¼!M:j‡“;gr½í•ê<àL›<t>%¼–©ò;ärƒ<~ù»T®=›åß:,%“¼]ïX;ÿù¸¼	¾È¼ÒW½ş</-Íºï»%½–
+š¼ÌÊµ¼Æ¡H½™À<@+¯¼*º½¼lk=>>ø; Ï.½{¶¼1Ëå»?…Í¼.<¢=;—æ¼±óâ<¹”ç¼&a<Âü¥»Ùõ®<|Ü·;êÿ½¿É*»»Ş ½G{¼–¼ìl<Bµv¼âÇ€=Ø[‘½§‘<÷î‘½T^½çÿä¼á†<M7™=Ï‘>;1‡á¹õ+C½ënB»>=$Æ:Q_7=¹UH½Ÿ~=²U<û‹Ó¼‚JÁ:nW<$Í¼‡¸Ì<LA†ºìú¼ W'=é|G=ô™ºØàı;¼;`¼c­—¼+‡=Ş<Â–»„…¼Ç?ı<ÀØ};³å{¼QóÎ<ÿ|ı¼Ú¼¼º1<Ì;<ZjŠ½ (=$%È»9F½¬˜¼â:–¼Yô¼x/³=¥¤¼Y<PµT½Âı<VSŒ»ÿá<ã =F¿T=³)*=®+­<06=X/„¼%{½æÓ;-òù:Â]ı<?Î»­'­¼q-½gõÒ< =ˆv;×aİ»Ñh…¼Õ½Ò´=]É0<˜&X;i<i“Ÿ¼–‰ƒ=¦ğU¼îª;|†í¼yTG;¤ï×»mè–<kÌ²:‹rÙ¼/Å»P
+<<qk={˜Ã<FË3¼ê<×t»ÀÊ=ßÅR=pF½AÈÂ<®Š#¼[·=ç·²<*˜¼%±6½ÏCe<°š„;}ï6½ÎQQ»ô†>¼¬‡=½ıäM=M©h½¨?»ËuI<xÔŠ»ÜY=»]˜¡¼iè¼ÁŸÄ<Lï<^è¼‰}ï¼£†¼@.½MH;ıh½tx<!Ş¿<íVÊ<W	»8±=gI¼6ô;ˆ\¼§o»„ş ¹BÄ½•ú€=ŠÏ;<	¢½ÍG(=2o4<Ş°¼¼kğ×ºOx =X#œ<Êª¢;¨}½ÿ{I;õË¼ƒÇ‹¼şg¼Ñ¿d¼A/½æf„<ˆÛ¼·×ù;Ğñ—½ñSÕ¼éµ½¬¢"<2¿ö¼¹<½(ü<qTE¼©½K½ª­ë¼ò[½»`½¯r¸<`ÈY½ÅAœ<[Zê;%h(¼—í=Ny<Îß<åòğ»ŠÃ¼ç×=ü¤Ã:Û=àea;¿K=™k<$G<†è<<—<ï¯»^r<FK=Îd‹<q…8½=AŒ:˜tÄ<¯)Ú¼y==]º2=JÉ	»ª ¢¼ÉŠ}½Ã#¼¢¨½Ä¤Û;B>x½j[°;íM½ û}9Û™{=V`¼
+•»:®É½üL<­m1½áw<–±‡9•,ï»g•í¼jL“=‚21;QC=Qj<ğûÂ»›w?=ê5§<Ü$½½3‡;ĞjE<¼ÉÇ;¥§q;²ƒï<‰ÆÏ:qŞV=Z„y¼m3ˆ»ïUU;tà®»ò×¢¼-Æ1=5ù= º¼†Æ¼FT½(ã=?=‰î¾¼›\=½0‰¼~Ñ±¼ıg‹¼<à¯<û/<&A¡¼›²f¼óNƒ<Ó²=8½Œ¬;L€£=/ÿr¼¥«¼hi}½ie=µze<¾5Ç¼€ì2½ÆVµ<Úà1¼İØ×;¹ÑP¼­v;½¾+J½çz<‘(/=Éx¼po=ñ¥¼!M½0,¼ÌP9Sƒæ<½úq»á;¼n¦¼Œ}=¹‘<w©¼ÙlÛ¼Æ…'=P¿<ˆÆG»Ü=*âó<v×¼	a¼ši'ºá#Q½tN½H6h½%Üò;ZW<½£øY:Š’˜<oö˜¼¿‰=û¦»ÕKÅ»"à¼UÇc¼ƒ÷G=	°k¼á<»Çù¼ätu;>(;sL ¼•=ŸE€=W“Ùºß¿Ñ<éz™¼}_&=ÅhÔ¼cÂ¼*¼d=ÁQ;<ıö¼EÙ„ºıö<8:õ<•·ê<ÿÎÓ¼ó©;›‹m<§‹Ç;Í³ ½5sP½´7Å¼GÑ	½– ¶¼¤Ì¼úú6½ø%â<Y9=û½Ê:Œ¥¬¼d\½k›=”QÆ¼‘ÂH<ZØ¼¼->=„]£¼3C½Z½¯¡¥¼à-•»­G¼†ÓV»C§€;[Ï¼ã}<ITy=©x;…s;»ˆ!<Ö²<˜´<Z˜Ø<t^7<¿f<6Ã‹<Í›»á»È»}g«¼c!<EÃ¥;ĞW‰=Í‚¼»<³¼îÀ,ºÓ]X½ãÀ>½Z=ªi”»ıBE»Hº<Ã0Ì<şu^=óŒ[¼ıy7<?ü»<îÓz<Ùv¿<b<À]½,ªğ»æÇ©<°×¼ú@½åÖ=jÎ:Ç˜È<­ã»³Í¼¼¬Û¼ß«	=í¹Ì»ñ-%¼·JÅ<ô—r»û¸»dI½ã5½tà’¼û½¹Ç¼/fC=e×À<_îÏ»_:;`™¼j-Î<ª§9º—Ëº»¿£\»ÜzÉ<\3¼Ÿğ‰;–¸E½ñöİ<aâæ;V?J;7!G½?—€¼S¶O=ã3‚<ıD<*Xn¼] ¼e©½Xì¼h6¼ß4Ğ<¼(=¨8+¼Y‘J½µX(<øG¥ºökŒ¼ó`¹<†Æ<$J$¼Ïk<oÑc=’eÜ;d5*<Ps"=·´•¼±H<ÿÁó»hËh½ok}¼s7<n&=Ò™¼o¸½%`¨<Ys=1`|¼UT¼¤X<íe:Ó‰U¹%£Ÿ»Ğ/»	„½#‡ù:he`¼¶û0=^Î¼È
+%¼Yn•»?uQ½[83=ä&½×’ğ;™j½¼×'½fØ<ŞrG=‚g<Óª<;~o=×¢<D»j’+¼UÎ;ß,ò<*Ü2½S½o=ãáµ<•ö=<ÑtX½Ùf
+½«h:½Ôq=ïò¦¼©ç<4ß‰=e2û»CÆ˜;ßì«¼¨+;#£y¼Á¨=?Õ<²Êg½÷ğ0½¼ÖI= I§<%Ø<ÒÚ´<àH—=e|<æDu=ÙÍ»ÜÄg¼Q½^Ãã»·¡<IŞ¼¾<C½†¼³1»À"P¼#¯’¼Ğv==sY»*åF½ÉSš»G„_<Õ¼Ì9>¼*¼OÈÚ;<rœ;
+/½ RP½Dx’:ßº=$ã¼¼´Z=Ô‡l¼°´¼²	ô¼
+24½
+Õ¸;å¯
+½'¨¼0…½¾‘_½ñdà<®Zû;5½_Ş:½50<[Ç…<¿2=~9;Nù¤=e8´¼á2š¼!<dI<sÅ{=¯
+<« R¼Ûë¼åæ?;wÉ¼è„H½ÑŒ ¼†Lû<†× </?7;ÅÍK½Ï”»¾h<ç¡:b×Ã¼s=w<z
+=‡$Òº}7½†>”Æ=añÛ;õ5Ğºfh+½ã¤¼Daí<¬Ğë¼+àp<¶	½w-è<X¦µ¼Í³¿¼K=s Ê»*ò<Üó‰½âB‹¼Š³ ¼í¬¼òâ¯¼ñîÍ<¶é˜<êØH;+z=¼Î<îÚ =˜Œ4¼Ò¼Ho6½³Z˜»øl½tR=[í½bÒ·¼©|Å¼#¼T‡”¼„tÑº0yŠ<Ğp¯»àÎ»;¯
+<Û½Å¼Î¼Ÿ;<ùQ+9k:h=Ô›Ö¼;†½k=.º¼#²¼(%½BØ!½{´k¼«ªx<“YÄ¼¯µ<¡Ş:^Ù¼’;ä<È•Ô<¤•—:éÇºb+=¹¡{¼1¬ë<$ß3¼ª–;åËö»ç»S½mÖ<QÛ–¼SëÀ<Ì.=µë½9=8´!<o¨»éw¼04»uë¼Ñ7]<ë±¼¼¿O6=™ét»™ç¼*cr¼æQÀ¼·h=e5=Çï¼|á1=ƒµ¼
+$11
+inserted_at
+$18
+1788082341.9935517
+$10
+updated_at
+$18
+1788082341.9935517
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:b356a0a4320e7ee85b963fa3811efa74bce3b6e11dc43d5693be9a5fb4131030
+$13
+1788085942045
+*3
+$5
+RPUSH
+$52
+session:37ba3bbc-09da-43c4-8456-392595c9a479:history
+$53
+{"role": "user", "content": "first line in the text"}
+*3
+$9
+PEXPIREAT
+$52
+session:37ba3bbc-09da-43c4-8456-392595c9a479:history
+$13
+1788168744189
+*3
+$5
+RPUSH
+$52
+session:37ba3bbc-09da-43c4-8456-392595c9a479:history
+$413
+{"role": "assistant", "content": "**Definition**  \n- *First line* \u2013 the very first sentence or clause that appears in a written passage.\n\n**Answer**  \nThe first line of the passage you provided is:\n\n> **1:30. And to all beasts of the earth, and to every fowl of the air, and to all that move upon the earth, and wherein there is life, that they may have to feed upon. And it was so done.** [chunk-15]"}
+*3
+$9
+PEXPIREAT
+$52
+session:37ba3bbc-09da-43c4-8456-392595c9a479:history
+$13
+1788168744190
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:d4d4f0bc
+$186
+{"ticket_id": "ticket:d4d4f0bc", "session_id": "37ba3bbc-09da-43c4-8456-392595c9a479", "query": "summarise all days", "trace_id": "c61826e59f2e001a7758806a21fac95a", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:22d6bf94
+$188
+{"ticket_id": "ticket:22d6bf94", "session_id": "879cac1b-09a6-40d5-80b8-93616fb874ad", "query": "what is file about ?", "trace_id": "c1c4744dd3d69924f4c14196de6510ca", "status": "pending"}
+*16
+$4
+HSET
+$73
+llmcache:8c771316d071a8d62c0c0919192338e0d660b9769392ce37c12afc8e87b1ed06
+$8
+entry_id
+$64
+8c771316d071a8d62c0c0919192338e0d660b9769392ce37c12afc8e87b1ed06
+$6
+prompt
+$16
+who needs this ?
+$8
+response
+$889
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"**Who needs this process?**  \\n| Group | Why they need it | Source |\\n|-------|------------------|--------|\\n| Hiring managers | Oversee candidate selection and final offer decisions | [chunk-3] |\\n| Recruiters & Talent Acquisition | Manage candidate pipelines and negotiate offers | [chunk-3] |\\n| HR Business Partners (HRBPs) | Provide HR expertise and compliance oversight | [chunk-3] |\\n| People Ops specialists who build onboarding curricula | Align onboarding plans with new hires | [chunk-3] |\\n| Legal and Finance for offer approvals | Approve contracts and ensure budget compliance | [chunk-3] |\\n\\nThese stakeholders collectively use the templates, artifacts, and approval workflow detailed in the document.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+ ü™<<Túd:Û<°/½^cx½³œ!<Ó-J;áÙ<ü‹Ş;½bt¼ÿBÔ¼cM:×ão¼“Â“;k!¡¼SRˆ¼¼ûæ¼ı%¼r‰‚¼‹]=Ù<köÁ¼‹¨+¼Ä¡/¼%‚Œ¼³P3¼'…<pÖ<ÔÔ•=Ä!;½é¼)¹2½ş\×¼ˆô<£¢ô¹¬ƒ</ÒS½8ñ$½ËŞ¼=˜×»¸¼ÆK€=Tw½[N½ı8V<¾—<ë%X<2(=éö¼¬Š¼tÿH»"ö=SçZ»1kK<ê=½¦G!<óª<M¥ş¼‘0ú:b¤–<<J^¼Cq¼³cb½«‡
+¼Šj¸¼­ª±¼ŒZ5<Aê¼9MÑ¼·è‡<YØ¤;<Ãå<i²M½Çâ;ˆùÀ¼:Ÿ;Û¨»7 Ã»¤==µdR==¼´;é½ç5<•Rö¼ëÇ–<¹ÿ<à ½˜–9¡¼m|U=åŒu¼„ï#:n;<<Ì´.=•<m×!<3
+¸<=BÛ¼2å<,Î'=PÇ°¼{b™<‡j«;B÷×;'·= F9½Y ò¼©º^½~i¼qˆ,¼Z¦™<³»ş;µÓt½I1=¡Pí¼Œ¡;~¯²½³Ú	=Ôèp;şÖ;;<A¼i•½ÊÓr¼5^×;ğà¶¼ğ%;¡¯„¼Òz"=ìÌ–<‡õ½®ÿ<¡¡Ÿ<Ïx1½È~A=$‰–=!~ƒ¼Èxb=tŸ» ¼K­¼¼Ê[Ú<ÓE‰=xç›< =Çnü¼o‡é;J5m½X©=ï·Å<æa=¸‹#½cƒ=+%|»?YÑ»½N3» •<¾Î<dÉK=zÆ¢:·\=üÈå;¹®=d‰½$©S=o%2=~‚Ã»J»eù=E3*=y‰¬<
+½Ò¢¼dòV=ºh=®*<Áf:êfb8-áG<“â)<ãC¾<KŠŠ=u~%=!¯k:w#=Y
+¼œí‹¹¸§»Ãş<=£<ÃÙ<êZ½£<¬¼w±<jÉÀ¼ÑÍ<û¯3=¦w¼pwF¼«õÄ<Y¼…£»÷ıû»®
+Z¼ÃíÒ<ªC=û+|½Õï½‘†Ÿ=ÓjZ=àÎƒ½¯
+Q=Os<µ^œ»Á@"»X%;^½„‹Œ;×ó¼ =,Ü
+=«`ı<)°V<¢SÑ;¥»D˜;=}±e½èiº<íc½¹õ9»ªxJ<ÄA§=_b<¾âÚ;°}v<c:ÿ<¼8;tÒx¸Çwª<Zi¹<!oj=’:Ì».Ô½Ã¾;&=M6]<a´</dè;“¿3»4Ü…=\-<ª/<<Ò;ÁX<ğ)=G&=T)V½±P.½÷VC<6e!=ºZˆ¼;Áğ¼ïœ;›ë„<«ä<«bë¼¿O	<|¾<È5E<5c7½7!å¼ÛFû<›´¬<±4ì<L ¼„¡ ½2F;—2'½õÃ <ƒm¼'J½ù¹=|V;É’E½ŞU½¤I®¼¨Ğ‰= O=°õ;§½¿S; Üù¼[!¼L¯<­(¼x%¥<@L9:â'¼v*Õ¼ƒ=;=y-_<Œµ<¡ë<*°s¸S˜»°6‘¼‡q–<´ß»@ÄB;uP=úî<f|Ë9â–½çÓ»ì¼ÃÃº`õö»tÊE=ığ ¼ ü¼$%½$“O½§Ä‘¼ÈºÀ<t«<| ½q¢…<ßw ½ùñ¼S)²¼)Ôş¼¯ö<Å.»µ±#=áŸ½3[J¼Dä»wØ!º¿7C=W÷‚½ÔŸ<ÌB<>_“¼Ó+¬¼ºÕu<ı„½bÿ'<³L&¼:bÔ<wåv=’e¹Xö:=È†=ó]={Ä˜»7Ùy<,k¼ÁÊ§»á½a¢Ë<Æî=;ÆÊ'½æË,½E-]½Øe?½A»A*E=˜ª½§²¯<âîì¼Ì^x½,l¼ç¹&½.W§¼STt=Á:=â¤<PmN½êA=,(¬¼8Ï"=…í/=M¼2p£;Øşô¼#­t»»L‘¼¡¼AÛÒ<É¦%½öƒ=½"¼À‚½Ôã_¼Uü˜¼ã^Y<iĞ.=wä´<ßl©<
+—» <<OÅ‹<× ‡¼)“%;õ¼Èş=İ–“<TÌ„<³ ‡½à>v=ÙN§:éB=É…<g¹Ö¼Ôi <ˆÎ½}X<«ÁH:¤4½‡b¶»Â]…;Ş±š;ƒ‰1=ÓQ¹¼“ôò¼R«¼Ø?¾<{Œ<t_¿¼pk½K\]¼&ô;è	—¼šû‡<Ç‡Ã:¥y§¼PBŠ<9ùV½l|·»ÔÏ»°¶»–<R<E»!À< 6ñ<¬¨ñ;g/a<ñ_€¼DØí<Ì…¼+?<P¯ú;ñLì<Õé¼ÜMÚ;°5<–1œ¼b0¼¯Ø¼ÁÉd=¨†j<%“;¼% «¼·§<.°¡¼½†|=„r=+¹¼¢j<Sî<jüç¼ª{ó¼a_¼µ-;Ä-<0u'½¹D<8¦¼ñ&
+=ã‚¼Fæ¼‡<ùÂ½%~¼ ÷
+»ÇH«»$UÂ<"r<zS;æ$Ô¼éå*½§<Ÿ<¿ÛY¼jŸ_½‰ş…».7¼p‰u<é'›=Ğ7}¼$l†<wxP¼!Á¼è¾º2~}½”/€=İ'Y:Ü%(<ÿô
+=4±<_ˆ,½¶'#=2&J<ö§ñº§Ñ<³Â™¼#Ø
+¼1#ç<Í5=‰CN½%‹4½,£Ï¼@›=èÿw<c¼?={‹Ÿ¼
+? ½u¦!½ÏbS¼ÀdÆ·ø;;¬= ]<;\¼ »<—=©»y¥¼0²à8>¹¼l¨Ü<ø:2¼×+;XY<=Y4½Bİ:€‘•:z…[<éÚ½j2½³v;5N‡<¸v#¼¸)¼oë¼2cK»¶=Ÿh¼…Q>=P>½Üô›=²½%ıÜ¹¹ç¼^ğ«¼x|½€bÈºÇoy=«'.½.¼¡½P’¹;>EÓ<'Å½Ğ’5½ˆ[¼èÅ»‰š'½ª®‹¼Ïb°<Ec¼lb«¼h-u¼ğı<ƒ>>½û-º*S”=ÏIG<¬y¼où„½Lvê<EP»(1;Xßz;İ6M½vş€ºñ½£X»‘kƒ¼´ÁÕ¼,½ãm= ‹f½ØÈ =2;=Ü™:½½"°O=ú  ¹h)3<Úî =7l-=úš½ñvÏºÏ´¼D^Ú;±Ø£¼v­<—n¼‹R½W\[=´Q=5v¼¾ÓW½ºÔmºˆI+¼ÙĞ¼^¼SUŒ½È¼‘e7½e)P<7ù<=¼½°<Û¦‘<x¼¹R;¬Ùÿ;îË©»r_š<®ä¼™“¼CÒ¼Bõ
+¼ã½JÉK¼\sÁ;¨D<­S½ÓmÓ;j¼l"¢<QV¼€†Ã¼d)=_½¼])½¹úÃ»6ŸT<!¿¹`<T~¼é˜»‹=RWp=³	×¼øc»7ˆ–½‡;4½g-»nÅ8<ìŸV½êë=ƒ¾‰<Ó¼Œ<»*&½Ÿ¼K¼Û:¬ ½àë;ÄŒ6½™K=k¼£¼0R›¼¤·	½/ì½Òm¼Yµü¼S£G½rU½*Ö]¼³Í<B°
+<×<F¼±c½Íãi<’=h{=»£¼şGP¼Âár¼!7V¼ì¼¬Ó<³Ÿ‡¼ÇÀÈ<i =¶Å¼</»RÊ¼sZ<nŞc½ìöQ½`ƒ‚¼µz¼j‘8½Mê=àÔÂ<¿˜v=ì†¼y¬;Ë=ö†0=¦²y<¥<ı©ş»¬O<„Ë=Lş¼T÷F½F@œ¼Ğ Œ½e5=çN¼Ú‹¼n]#½{—q<Ücæ<5’=Ç=µõ;Flò<§¦¼¶¼ò†½Â¡¹½‹“½šÎ=öñ÷»Âv=²>;/ç‘¼î6<Qc‘¼îp =m~­»yQA½Hµ¼œØ=Óİ:W{µ¼Ús§;9,m=»v½—Já¼÷o5¼çûE<Ü[b<¨jÌ»3¸:ÏÏ‹½Õ¥f¼…P¬¼ˆúÙ<9ÿ~;Šby½Ío%ºÂu³»›h='P=½­à"»F<=Hƒ«¼Sf‘<YX¡= =¡Ğ¼Í‹„»€m¾<r
+›<…[¼0î‡¼oh<¼—ç<²° <(<“l½3‚¼Ö&=9Eˆ¼Å¹Èœ¼Pí <XÄÏ<Ğ#c<Ğ-¼Qq¹¼î^¼Sc;>I=´÷¡¼©ê¾;Àøºs”Ä<‡ÄÆ<à3¼ã;¼³Î<¢î¥¼{_#=n™=ĞAİ<Ë=ŞïC=º×</»Y<M½c“'<ÏÉO=ËR½sš¼†½=¥”°;¯aà¹m‡»¼Ø£¼Øßø<Ùû¼„'¸<•x=Â›Š9lê½f¨~;Îã<ÇaA¼úH¿<L¹;É0=]şÁ¼L=ÄáZ¼ß†Ó<Vx;AÀ­;GA)½»q<Ê‡›¼ìB´».ùÄ¼Gè(ºÜ–½s&½Öm¼fV½Ìk½	}£<WY;ñ;eGÏ<„¢»Wìß»'¡\¼ÃVô;HaØ¼£=×o|;É¼„»*½»ñ9¼K»~¼7¹;u=3½î=ä·‹< =Ş¼Yé¼çÀ*½¯±b¼ˆ« <ÚPJ¼InO½ÿN¼EJ·»>$:xt´<OƒÖ<ŠÄ½zÕ¼;+8…=õq;šÁ©=£ŠŠ<	û=Ósy¼N´=e°ª<o¦¼ï˜º_é”¼SX©<È÷Ê¹¤æÉ¼Q¢î¼f=6Zi;Y,»&G ¼Ÿœl¼š]P½8¼”¡¼^LÕ<yŞ¼æÓ›<ÈOb<XçÑ¼™>í/;¹±¹~Å¼Jóæ<»<³<9;;qy¿;Šñz<ô{h8I˜¼-=³ÿô¼Å­¸<ë4=9>=Kv½m!h<L½ÂÂW¼Ó  ½}e+<×¨’¼üÀ<~êM¼J C»Ü&<ø¶’¹ì*;&6½ÇÒ:ÓcŞ¼™	v<A<½r‡½GA=hs¼‹Å­¼KÊ¼•;¼ĞÕ‹9l·<Ñ<
+ = ½Úö(=n1Z;Ÿ»ƒT<S°¼¸I=Yñ¼79§<o 0¼¼o^½4h†»ó´g=›Z’¼Ï[;îR6½é#0<¶)<ËˆÅ:If¤<Çß¼¼5¼qvÕ<˜èö<šØ•<çì‚¼^>º¬T_¼C8½(5o½È=ÖÌ»=³A¼À•¯¼÷¿f<‚zm½Yçª7ä—1»º&½&»h¸’;kå=§½î0½øù¼tßÌ<d<2<O!=	®º;FÑì<¯B`¼
+$11
+inserted_at
+$17
+1788082872.443597
+$10
+updated_at
+$17
+1788082872.443597
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:8c771316d071a8d62c0c0919192338e0d660b9769392ce37c12afc8e87b1ed06
+$13
+1788086472465
+*3
+$5
+RPUSH
+$52
+session:879cac1b-09a6-40d5-80b8-93616fb874ad:history
+$47
+{"role": "user", "content": "who needs this ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:879cac1b-09a6-40d5-80b8-93616fb874ad:history
+$13
+1788169275549
+*3
+$5
+RPUSH
+$52
+session:879cac1b-09a6-40d5-80b8-93616fb874ad:history
+$753
+{"role": "assistant", "content": "**Who needs this process?**  \n| Group | Why they need it | Source |\n|-------|------------------|--------|\n| Hiring managers | Oversee candidate selection and final offer decisions | [chunk-3] |\n| Recruiters & Talent Acquisition | Manage candidate pipelines and negotiate offers | [chunk-3] |\n| HR Business Partners (HRBPs) | Provide HR expertise and compliance oversight | [chunk-3] |\n| People Ops specialists who build onboarding curricula | Align onboarding plans with new hires | [chunk-3] |\n| Legal and Finance for offer approvals | Approve contracts and ensure budget compliance | [chunk-3] |\n\nThese stakeholders collectively use the templates, artifacts, and approval workflow detailed in the document."}
+*3
+$9
+PEXPIREAT
+$52
+session:879cac1b-09a6-40d5-80b8-93616fb874ad:history
+$13
+1788169275551
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:3ab734df
+$193
+{"ticket_id": "ticket:3ab734df", "session_id": "e5e85de2-a6ae-42df-b7bc-968b1e6576aa", "query": "what is this file about ?", "trace_id": "e5236778cbe9fe485fb5030bc318007a", "status": "pending"}
+*1
+$7
+FLUSHDB
+*32
+$15
+_FT._CREATEIFNX
+$8
+llmcache
+$2
+ON
+$4
+HASH
+$6
+PREFIX
+$1
+1
+$8
+llmcache
+$5
+SCORE
+$3
+1.0
+$6
+SCHEMA
+$6
+prompt
+$4
+TEXT
+$6
+WEIGHT
+$1
+1
+$8
+response
+$4
+TEXT
+$6
+WEIGHT
+$1
+1
+$11
+inserted_at
+$7
+NUMERIC
+$10
+updated_at
+$7
+NUMERIC
+$13
+prompt_vector
+$6
+VECTOR
+$4
+FLAT
+$1
+6
+$4
+TYPE
+$7
+FLOAT32
+$3
+DIM
+$4
+1024
+$15
+DISTANCE_METRIC
+$6
+COSINE
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:9f1a2ae7
+$180
+{"ticket_id": "ticket:9f1a2ae7", "session_id": "80690e7a-3445-47f6-b90a-889a442d30fc", "query": "who is god ?", "trace_id": "c727d02be748ce33d6081372f42af609", "status": "pending"}
+*16
+$4
+HSET
+$73
+llmcache:3a19f4dd80a1b67a03109c9ec05c6a70bff1e7d38c7b074d5cff859c5769577d
+$8
+entry_id
+$64
+3a19f4dd80a1b67a03109c9ec05c6a70bff1e7d38c7b074d5cff859c5769577d
+$6
+prompt
+$33
+what is the first line in chunk 1
+$8
+response
+$207
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"I do not know based on the provided context.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+;ïh;èX¼òAA<Ä¶~<ÍÒ¼Ó„½r`<ÈõI½ÂÌ±<í|k=Á>C¼±^=“A=;Ç¼Óç½£c¼Ù'½çŞ‚¼b½T a<0~Ø;CG8¼ríd½¹ü»ÊkÑ¼¡Ó=ĞÄ°º¢=œG=$M#=­°;)²Ã<g±	=òõ6½³Í	=ÎDÎ»P¹@=!û¼›p½,³½Q†Ú¼?›~<°şş<Œ+@¼ÃèQ¼Å ½ã”.¼ı@	½Ÿt6¼•"˜½ö(”¼lI,<­c-=¡ <²y½ï„\<µzİ»ßè¡¼™ÿ4½_§6<q:=õ.<ş(>½Ğ·"½ı/+¼#ò0= t˜;SÊÁ;œG§<Î©¼™n½
+g‘=Û5¼ôŞ¼ :½^H‹;a„¼-i<ÑİG¼Âƒ˜=z‡Ö:K;E¤
+=æœT;ÿ-½¨?İ¼‹¤¼ğwƒ:´4ó¼Ê!Œ¼kı¼Äê‚:¯×ª;[¿-=el =¾õg=	ñA½ˆ´<L›¼âÉğ¼¿„ø<ëÎ=“b¼”U<U½ÆàºR°¼ú—Ï<Cÿ‡¼ñæÖ<TQÜ»yá¡¼"Fº»Øc¼ôÚk¼Ì•ÿ<Ši;Y'$½,Ç˜½£c<©Š<şğ=ãÇ<5'¾¼Õ{@»Ñ"½H¢J<¾š%<øÅ½šÉ»=¥<ì6 ¼º„;çä±¼DBÿ;K®À¼R0K¼0oP<wY¼lâ¼Ö;Æ¼?ûø¼ ›‹=ıô©<ÛTØ;Œ>Ä¼cKe;Úc¢¼Ê<c§Ã¼­Û¼'çÙ<8[Š¼0M¼ZØ)¼»ş¼9S»-ĞJ½j\<î„¼¼Içš¼Ù¿ü:#­=™Q½Uq«=4JW»†Hÿ¼Ï;íL¼¼f9¼úÑí»ô¹v¼ÛU=<ci©¼plŠ<&	W¼¦æ»½eü<Zé’;Bhã<ß°\;ÆX=dZ:¼Ü8]½£×
+<Qñ³<I¤å¼ä:ƒ¼õa<zù¼>=æ‰½ü
+¯<±™R<ÎÙÊ¼Fø¼ÿ¢¼‹8Ã¼¹±2½…$©»?×Æ<ïÁ»$×ş<Â{½³…½¼|Ì2=½\…=d&<ÒÄÕ¼/àë<ûõŸ;‹0S½ã<!Ø«¼®½„°¼K­­¸]<Â<:Ç<0¯A¼g'=Ì=nT;<óÎs¼W…©:ÑUé<¾oj=‡u¼s>¼Dë<L¥<İWì»qƒ4=›*½­”<§	€<e‘=ä3¼Ô/;m`v¼¹ ‡¼!_=Èç¼Ò=ªŸ»€”`¼ŞèÄ<<Ñ%<‚T ½\Ñ< äj=1"<)O»z\S½½²´<Í©Ï»Ì½¡"‹½{Â<;mÁ=VáV¼Õû<)·<ºÏ)¼ A :ƒ/	;
+ˆ½†çŸ<™¯Ö¼/b]½%Í»’Qæ¼oÈ^<¤z†<^×_½Ë•0»Ü¯²»œÔ7;¾Y'=éW½}¶Ã<´Üµ;½)'½_Ø½UT0==½°‚=’$<·¯Ğ¼ ß=¥0Z½J™!½2äuºGT<‹0<‘²~¼‘à°¼}¬¼ÉJ>½Õ°•<åÁ :ôÙÌ¼ooh=«<èIß¼Så»‰2<Ú+r¼’!=Í!½–ä¤<ïxr¼]=ï<#<ê‡=Í5(½sD+½HŒÙ:œ‹¼{0 ¼.¥¼VÑ¼<
+c#=â¿Ä»…î"½|Ö<N"½W½Zä4¼Æ'<V
+V=‹æ(<Ïò“<#ã¼{>s¼ÍßT¹ù8<mÑ;ëI¼¨] <RÑ;rÈ¬¼/1<Df»†‘2¼ıR=6Á ¼ûâ;Ú¶=QÌŸ=eE=ˆ†<ÁB;(m0½(Û[=rºÉ<@ƒa¼¢¼!IY<9L3<’‰£»kc<KiF½Ú½ñ›<(”¤<ïNl½‚à=ã	W:„ßx¼~œ_¼¢k;á2½§£‡=1Í´¼;{H<Èy½Øï=ÀBØ<«6=¶—„<<ÙX=½[?=./ø;Öv»ú1Ë¼C¼ïàº9#Iu¼gÂ=Òp¼<¤³¼¬Üb¼c°=Êíÿ<˜‡<í†&¼#×¼ó*P½Ï¤£=_,,º:‡<ÉŒ<w½=ËP=ìJõ¼®İp¼¼*È<uÚ’»œªp¼@¿k<qî¼a‹ü¼zNB=M÷€=‹õ.=åx½ñòÙ<0İ»»ƒè<EA<uqx½hv <6¿ºÍ=K€=ÇnŠ½ß1»?„< 7½Q07¼,d<
+¹¸–“½56=\ñ)½ß@Ì»"L÷<˜ÿ<Á´¼ì0ä¼Ç·¤¼æØ*¼?<³<±Ü5½nØ¼ÿ'8½à¿B;£(ª½:“Ï:¸”<„RÒ<™d ¼Å5,=b“Õ<•ë€<·ß&¼S8F*»Ú,r½
+=w<IÅœ<ë1¬½s?=KGæ<Éƒ½àW<²ì=òrc¼xB»™ë,½}Ñ±<]6<&¯Á;!Xğ¼©ô ¼ákK½\õ »Ğ[q<jm¼_Éƒ½¿ı<zP½*]<qåZ¼3½@=¨á»1­¥<dt½-Ñ¼‘Z½ÿ·»½¥Ù¼=0T²»ó¥=©â<1Ÿä;[=ØÆŒ;sa<<EîÌ;ã¼2;=ó}Z<œ
+®<$û<#/ =ÙC]<G¥¼É˜c;tıâ<¿±M¼ÛÈ«<çàe=WO¶;1Mt½¨Ø¼°ì<¨¼&S=ÔØ<æ‡”¼U­÷»ğN”¼Õá¤;£İÓ¼îŞ¼T³`½õ|(:€‘Í¼MØd»„C»<n+¡¼UŒ¨<l¢½ô<QÕ,½A¼Z¼ø)œ¼C<v<¥Ë¬<}§¼úÙv<yîğ<-=€B3=_®<˜xQ½§»»GëA¼§GG<G«¼]|ö;bÎ€¼cå‡=KnÚºøé ¼ÎN½GŞ¼n{¼æˆ<î;R\¢¼¢s½ª°‚<Û	=A=õ»¡s²»Îõ;$ '¼–€š¼$=Î*»­^'¼zDk¼mY<ü<«ü¼ÆÂ=Y{I=C¤ô¹;ñ¼;ÿ~]½(¥“<_‰Š<£ëé¼˜¼[¨¤<À¬½82Ô<].¿¼Ç)„½ıôL½1éo<š`õ<s<b
+D=ÙpÖ¼©¤µ¼&»“F=ğ¡=µ|=°½B;ÿÔI¼Û‰»F…<rr§»ë[¡<çRI½ÛY.=C;àX»:ôƒ=„”»V^,½âK½wˆ½ßrÕ¼N¼Ë½æ;Û]Æ<ÃPˆ½ÊY6=Èuh<ş¿Ì:4.<DDÓ;A•:³í¼ºq—<ô=ô<ˆ¼‹Je<Ãû¼+»»‹·’<pB¿»ÊÁO=Ísİ<¡Â€< ’˜;yA<}N=ˆg»»™ıñ¼xô?=`Œ¼S9½ ×Â<rƒ¼‹–ß<™Æ9=Û> ¼ËÏÏ»ğÙ½Ï= ª¼‘G½ël\¼š‡»&¿Å<û›½ãH5½kÚœ;Æ<rÀC¹ÎÔ¼!½Å¼ƒ7=~À)½•zÉ»*o½îœí;Å²Õ»¤<ö¼È¼ÇR½\™¬¼írÂ¼ë´»FˆÒº\h ;ü°V<Øù<\òh¼§Ku»[™¼¨­»…´½<¯Ğ{<L˜î;Ù60=¶¾…<ÁK.<ĞÖk;õ€½nôºÎıZ<•ç=óİñ;®b¼ıİü¼Vwf<²}Z½a½Eß<¼o§¼~.¡<¨	='	‚º;S==L½nßL=”mN¼;ªX<øj%¼N†Â<Ÿ1™»B°y;vD£:n“M;dD»Ÿ*#=P”Ï<iÆ=æøÆ¼B_š»¶¸²;‡v<à—2¼
+e =›ğ<×É½É—T¼=7÷¼¥µ½Şıa¼ç½ynS½Ùz<Í±;7­•<D~½Èd,¼e¯Œºö=^°<7A>¼²£V<ş|r¼Q~=ü@Â¼³gÅ;ds<™"à»št­½Â½Ø4=(É»ï|2<$D¼ö5ºœG½ü£v;^ ²<¡+ı¼´x½<XA¼´ù½&+w<$Ó#¼¬.€<O3=	öã<ª»ğÉè¼.”=ƒı¼÷<íu/=xÍ¼;p˜»‹š»xlÁ¼p´½ 0*<‚Ñ3=ßœ»ÔÓ½¸=	=À;Ş<ú=(‚<¼4<ˆ{ì»çÈ¼¨Ş’<Tk½¢êD=†œ«¼7ğ×<fqƒ<Yb=¼ı$»Ë‰¼"–<Ï¼|Y@<m²ÿ¼r«¼71Ÿ<ä´3= šÍ¼ıê;Q«…=7 º‹hõ;UĞ=(™1<_Ñ\=:l&½ú>=ú	½<	?=›o½oMb¼ï‹Ï¼>»ç<‹XÖ¼dõ<¿c=^_ƒ¼ßr ¼°k½%3ºu–=½$Ô¶:¤Gµ<Î‘½,-½ç®L=õ=O‡;‡ÛZ<J6‘=®µ=ƒê<=(<c>‹<…;ó»*Y¼hBğ¼Eòí¼©Ûp<1–"½¶K½¤j¼Es¦»±Å>¸Aq=,T›ºGL`½ëò:ë‚»M9½Å¼ö¼İ¼#Á³<È÷¼ÑIn½Y‘=»x±m9¼O½<Ùxş¼?E[=¬é ½5ğâ¼xAP;ª½í<”(q¼G¨Ì¼hÔ¼«ÔĞ¼xtÎ<`sè9*É¼´’³½F8V¼|©<µO\=y½Í¼½‘=¬»%|½RŞ<0º=ÊE=Š;Ï¸İ»BD¼z\À;~ıµ»\—J½äù¡<üÂ»<¨¼â¼a­¹¼Qš8½Ş’(¼›~;UB¢<Ä‡½¨ Ç<!‘,<	à;,
+!»¨"½—\€>š°m="‡e;O'=3*½›sô» ®è<eJû¼h–<–G½ à“;J ™»¡QŠ¼2gL=U±Ç;b!V=Š9k½Ö1»²8Õ¼‘Èì¼‡¿|½qm…=°h<ƒl…;ÑØºoâ=r	=SK»OZ;eg°¼ÑÙ:¼j‰.½‡×…<çv‚¼ĞöÙ;ğ:PÌ°<CQD¼Ië{ºØá;œd¼°;¬Ö†»âb#½úYí¼¨*=i¼yÁ=6º»“½ıòO=ıÊc=…é‰»C½9
+½ñ¹¼ÂÕ»»[ ;Ë"»\`Ä¼+|f<¹‹ô<3:=2=$<1ÊA¼t- =ó§º¢6=e×I½ş9W<0<ÔF½ªvƒ¼I— ¹4²=WŸ=ÉÓæ¼°Á;=0;Çw <×V»>y¼0“¼N@q¼†B¼ö¡=U=l»¦½_:1=»ÅVâ<!ÈK=J3­¼vI£<¿“ ¼
+$11
+inserted_at
+$18
+1788084540.1205587
+$10
+updated_at
+$18
+1788084540.1205587
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:3a19f4dd80a1b67a03109c9ec05c6a70bff1e7d38c7b074d5cff859c5769577d
+$13
+1788088140124
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$64
+{"role": "user", "content": "what is the first line in chunk 1"}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788170940982
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$80
+{"role": "assistant", "content": "I do not know based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788170940988
+*16
+$4
+HSET
+$73
+llmcache:42ac9f9a6e19d5293d4aa21413644672f6dcdcf836de2e64704fb4b1c0d76725
+$8
+entry_id
+$64
+42ac9f9a6e19d5293d4aa21413644672f6dcdcf836de2e64704fb4b1c0d76725
+$6
+prompt
+$5
+day 2
+$8
+response
+$207
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"I do not know based on the provided context.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+u|»`×=.° <ŸÏ6º%½¤ú#<®R(»v<O]=ö†=…Ø­¼¼%º<mÂ =ô… » ÕÏ¼ËDI½«Û¼Mãğ»¹–¼—a
+<·½‰<_N’=&ñr½'ÜÊºƒö;§]ç<»Ë¼#†Ä¼Í›=´*‹=½Ù<î!<«(¼Š¡¼iiø< â¼V=q=?¼W½+²’ºt0i½z!o¼gA½å7<K:½ïó#½º3½QØ$½yÿÿ¼$’¾¼´¢¶¼ˆî'<c›Ô;A¥ö<Œ£Ü¼³í€;N-‚¼/Ú&¼……Ï<ım½ÿVÀ<F	=ÉÃ¬<ÎYË<¯Ñ…½ ÀÃ;@L%<»#—¼Ä!<
+½]UÜ»Á2½ÃC(=üáå¼Ğ8¼}5 <èT<ù6ü¼¾y-½O‡Á<•ë`='dî;`Ê=:J9Ğ<œ‚½¤6ñº3Š= Z7<|ÄS<óÕ’¼o#=85A=Èyv¼ßZ<Y£<½ã<ÀzÀ¼ïîe<Ñ£/»ìÉH=\;6=¹ŒF=q	½0_í<Âš½)ì•<XÔî<ŠÒº(lºàÿ¼¨		;ò]d=¾Ï=î:„<ÄH¾<ÖVV<³ =ë.,<€Ô¦½$?»S=Ui±º4Y¼ÔnÎ;rYÍ»ÜC½¶¼£¼^FŒ=¦g½Ò<m€¿¼LEÿ;Ä‚3=9]¼dˆ¼¡Õ;¡ğ¼/<ºÒ¦»n º½ÏW=T&Â¼ã]”¼‚b˜=áï<íÅ†=Šy½?Ü¿=É½TmĞ<³ğ½tå4¼sĞ[¼Ü<Äß¼+k<Hó0=-Äª¼dt¶¼î =JÊÁ¼s¯<Lbô¼Ùµ
+=‰GK¼ÈÑU=ü¶<y,½LnŠ»WáŠ½éô<.Û¼wö¼g4Ê¼Ê?=lÕ&=ëÛ±<Kº‘;Pµ,=eĞˆ<œ¸¦¼x]Á¼»7î<q”<¢5m;¾#]=ÚŞ)¼òU;I¨f»¸Œ»Ff;¶á¸; É"½j<)‰;[ô+<§İ˜½o9<Ÿv¯¼‹|–½£…G¼§vS=‚t³¼V±x=¿Ş@¼ºit<²/O=]$¶<Ò¼T;iœæºL§ »T:›;³, <r½<3ú=eUº¼ÅvL¼HÛ¹Í¼Å±¼ƒ<SÖ»Œ—<ßuI=º2F¼ÃB¼×EÚ<U9=xß<œ)7»B÷$¼?2<¸|8=«Ÿ=B;=^ã¼ëà=·ní<XÌ5=›=9<×[=,á¼¿û“=m;<;>»dÜ/=Ó<W1½zó<…öÌ<Äz1=Vd==“K=y£<½E€½z<ƒ÷ØºŞÄÌ<—D@¼s¨½¢—<Èj²;ø·˜»Òu‡¼¹üQ<"¼Î<®”^¼!§ş<WÙ+;g„Á¼kÊ¼˜ÕV¼"™?½uµ¼ÓS½™Œn½då`=1‹¾¼nä£»‡L¼»tüâ¼D´—¼Ï½ÌÄ =~TÎ¼ÃH\<–“\;Úà<èKš<#'Q<Ñ6¼LR2½JYì:zç½cEf½­_0½à’v<şÅñ;y·Y½9œ¼2»7i<Šäê¼Z»<Ll-½U\”=œÂ¤;	ä'½FªB¹ã¼›°F¼Në=õ¦ª<¶å
+<Üæ ¼Áod=7xT=’Û­<·/e½í4€¼œßº»ûó¼§À²:©¿½8wú;½Š<&še¼Ûºô¼Sîï<T§Ø»÷”0½ÆÕA9çê:êØŞ;VÎ™<”¼g<ôÊò¼K¦»ı°4½ y6=¿èÍ¼¡¼¨¼¦¯S¼O&¥<€B½i=Á¼"ùj<„p‘»pè<®;ò#w¼JyÏ<}™p¼ÉË=H–;9’d=ş×\<ß•6=ázø<ZW1<ºÍh¼.v*=\61=ÉT%<÷÷;×29½½rh=HæÓ<Äë6=Zum½Œ#=À¢á¼>Æ²;Œ†:Ğ©»ËöV½©na=3<—:8×6=$X½êup=ÍÆ¼§Ä<<Æ<`¥;“Ç<ºa—¼>¯<ùÅ¼šq<Äõ<]î*½úÆÄ<H§!½;È:I2!½Ï20=l·Å¼²:T</ûÓ<Ÿ„¼–‚¼~Ù<'W=Q‚»c3º°ì½ù¶=ÅT=•ô¼w¡Ÿ½§°»Hv½x¢	<ÿgï¼ÃÒ+½ì,½°" =]}`¼yî(<ôç»#?-;ú‡î:iIë<PR=4é´¼“zØ<÷»½S’4=NlĞ¼¼šO¼RQ½¹È¼ÖbÑ<H£}½ˆ<ÆO=XYU½µz•;u<+½.¦‚=ßáõ<#À»v~=0NÈ;ÄÜS<‹ğ<•BY;s,…½ş-<Jdò<¸3h½ S=^÷;šD¼ù 7<Â"Õ;œe­<©­†<4†Y<{¾§<şŠ=öÍš»EÑº<PÍ½JŸ˜=ufî<Û¼C¨‘<z'¤¹	5=à >½4—S<¼<x¼LÔğ<ˆC½2¶ã»nµù:?–¼ñ5»ÿv	<Î{M<ìM=ÂÎ€¼‚.\¼úq˜¼öíG:U¥&¼2‹
+½ñm6<9;Ş<¦¼Ü»ö´¼c¦R¼¢V½—
+°¼xûl½g2½W$„<O":(
+´<W‘K<yY…¼•¼¯ Ö¼,Eu¼ñ½c<[' =çêÛ<
+…)¼ëµ¹¼Ôà˜<aı¼—šo¼S—F;İ½	=|ö<e³’<Eq9=Ñ¦­<@šH½g­=¸oØ¼"Ù<Qù¬»2G=A½øh½ŞV“½Q†ã:H½ÒÕF<eë¼ôvÓ¼®Q½É :‚Ñ^<1›Ç»´¨¯<TQ¯¼“;4¡Ş¼ß¾©»ªÄ¼B¼IÕ¼§ä< Å,:muº»»ı<Àò»Ğ<\Ğ»†ıl»“/"½İL=¼‡1=\<Â¼İÔ=şåA½À÷9=}Õ½W1½µå(½7{»p„É¼Â§A¼àHE=½Oõ¼Wñ¼Q³<¨…ú<±@š:J	½4Ê¼&½9¹¼<3=|¸¤<_×;ì<=W“;Dê<“œ<xô<ão=8Ë¼Îb=äÛ@½hZ »ÎK<U1e<yR<½$Å©<õ)Ÿ¼dÜ<ù-¼U=ê»Éÿj»F<0¼tKe¼Ks¼îS½õWG½¥ºy¼†/=Â–9=6NU:ğVl=«÷¼<Góó¼ì—‰;ÇEÂ»^9½«Åƒ»dIf=I°<è–½€’¢<xk=[…7½í?R½ä®d¼†qÛ¼ŸM!½ñÁ£¼C’|:ğ¤Ğ<˜ôü¼¹<N=`n–¼‡’)=;pÜ;í ½£³¼$Í;Ç£°;¸×=¼Ş–Ü<´”*½Å‡ä¼¾ßÏ;K\:Ãv ¼˜ <Z½îâ“<{NŸ;;õ?<ƒÔ»^_¼<‹±<»†¼Y)è:['½†"`<Ù…2=ˆE=_Š½kn€<V:;ï=õ¼÷ ¼ÚZÀ¼\·“»³>K½e'¼T-´¼J/#¼Â#h<Ñ$>=šf½'õ-<?‡©¼jQ=§¦›<zû½À’½ïÉj;fı½½–,¼·ê¼Òh<çF»¨v¼i²×¼Î5»ÙªN½Ïy=ÑNM¼m‰8ø=<7ø¼Õğ#¼#İÒ;÷I;ä„áº‡<äÈ<¥]W<†¼¸œ;¤¯N½Eã;¼÷ô<¬2½Cr‹9Ã¤ˆ¼<¼À¼Ì}½'Ö|¼´…»¼^W`<t¯<ÿÃ»Tq
+=¶Á=@º[=ÀåP<8Ú»&—Í<­m<Íë;Pr€½¡Oò<
+wÎ<@Z;šy1=áØÖ»ª…\½1„©<Eà¦;J!½²ç„¼ »ÿ”<'•è<ûÈ´<T®» ã¢¼ù£Á¼²í+½î¤?½
+6«½fã½ÈŸÑ»’¼l`ü<Ï½+<| N½Hf<: ›ñ<˜Ò½êş¼ê¬<)“È<çåT=nÜ1¼Z•¦;Ğ6Ç<éZ ¼ìÀ&¼’zÕ¼ÈÊ<£ <’Ba»-äí:ŸaÉ¼zI#¼ãîÿ»ª<­Å»ÔÛŸ;_¼¥ ¼• ½êÙÑ;t;ÔÚ?<ö¿2¼Vt¼dÉW½g¤3=–¿L»¹ÿ†;µ‘=ê'‚¼¶>¿¼À–İ¼¼#Š¼®l=½ßÆ<¸pò9ù‘<RÚ=¼ †‡<G|<xøŒ¼ë4§:R±¼q~J<qÃ=1q<‡p½EÔ½Ì™	½Z¥¼•µò<,¡¼„§¼bêÂ»9;4¿<~_>½vı/»²W	¼ˆø›<ª˜¤<À$=î<”Ş<‡™ƒ=Éq|9‹k‘;·F=¶ÆB½Ø¡=`ìI¼ˆ·S<›j¬ºÎ;È¼,¤»‘NV½-÷%½Õ¼=[™<ÜÍ»W‡=»µ¹iÕ•<\Á¼§û;ÉÌk<YĞ<dÌ(=Oıã¼lß3½¦==’6Ä»H”<Ï2C¼€È%=óŸ=„Xç<õ&x=¦v¢¼„¯¼&¼²˜Š½š[¼<šÃ< Éhº—Ea<²Ä=ˆ¶ö¼Çh¦<6Ú<,ˆæ¼B‚ú¼I¼ù8Ğ¼{e½•“f<É%¼I#;à¤Ş¼ÿrw½İ|‹»›ı<ğH+=)ÕY½Å¥¼¡ğ<<…¨Y½ş½à8e½ÿó<)öŠ;ĞP½i”½”8Æ»b‚;¶‚;ê×Ş<A4½–=,¼8T4=Z„Ú<è’½Ş2ı<#„H<›¢ı;&›Ô<?±]½Q¤p=mCn=1D'=Ñõ‡<Œû,½B°¼}÷‚½n{<»±d‡<Z¨¼FT½nÜš;ìƒ½?:;ÉÖ ½`±2=²?#<¿ø¼u‰<Á2¼Ä‡>d=¢[=ÃWF½¹ìK½{G<ÂÊ;	®œ»˜Ï=é_<½RÅ¼ëuŒ»{BF½œÒ<=]Ô7<G$i½Á;	=_˜£¼T”B¼êË<NŒ;Ap¨¼şàï»ÙŸ¼"ö)=EĞE½ˆú¼ÎH;»%]¼?V®¼Œ‹<0)¼§…}<5ä¾<ª¨¼üb½bô	=/h¼rD½2š—<ä:{<¼:Ë¼"†Ã:ÃõŒ=´V=ZÓÊ<R>Ç:_½À—‡<x­“¼†âr<_‘.½O M½í²è<òø%<›ì¼Ô%à9WX
+½h<k]ò¼Ôá3<,uÜ¼\e°<Â‡Q=Ãi<\<Ì~5½,íÌ¼¯<·+¹¼í^æ¼’”ˆ<¦Í3=%Ä=üÓ	½Ü;P½<üØ¼»»Ç;\cã¼­‡¼ád;1-„<EÎÅ<:g.¼X±0<‹‡½É3Á»×>R=	øæ<W©A½?,®¼È¼
+$11
+inserted_at
+$18
+1788084556.8865705
+$10
+updated_at
+$18
+1788084556.8865705
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:42ac9f9a6e19d5293d4aa21413644672f6dcdcf836de2e64704fb4b1c0d76725
+$13
+1788088156888
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$36
+{"role": "user", "content": "day 2"}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788170960492
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$80
+{"role": "assistant", "content": "I do not know based on the provided context."}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788170960494
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:a9541fe6
+$177
+{"ticket_id": "ticket:a9541fe6", "session_id": "80690e7a-3445-47f6-b90a-889a442d30fc", "query": "third day", "trace_id": "9eb9807b5a20be43fef56bec642a3748", "status": "pending"}
+*16
+$4
+HSET
+$73
+llmcache:ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+$8
+entry_id
+$64
+ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+$6
+prompt
+$12
+who is a man
+$8
+response
+$1365
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"**Definition**  \\n*A man* (or *human*) is a being created by God. According to the text, God fashioned man from the dust of the earth and breathed a living soul into him. Man exists in two genders\\u2014male and female\\u2014and is made in the *image of God*.\\n\\n**Key Details**  \\n1. **Creation** \\u2013 God formed man from the slime of the earth and gave him life by breathing into him the breath of life, turning the body into a *living soul*\\u3010chunk-19\\u3011.  \\n2. **Image of God** \\u2013 The likeness God places in humans is not in the physical body but in the soul. This soul is a spiritual substance that possesses *understanding* and *free will*, reflecting God\\u2019s own nature\\u3010chunk-12\\u3011.  \\n3. **Dual Gender** \\u2013 God created both male and female, naming them Adam at the time of their creation\\u3010chunk-55\\u3011.  \\n4. **Plurality of God** \\u2013 God\\u2019s use of the plural pronoun hints at a plurality of persons within the Deity, which is reflected in the human image\\u3010chunk-12\\u3011.\\n\\nIn short, a man is a spiritually endowed, free\\u2011willed human created by God, made in God\\u2019s image, and existing in both male and female forms.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+«˜…=§PÀ¼|øU:‰á¼G·Ë¼Ì“?¼ ¤0¼TS©¼C¬“<œu¹<=Íô­¼^v;Ö¢8;§İ ½‘ù‹¼†4Ÿ¼³2½Fq^<G­¼¼a¯»¸»V=§ô½AH‹ºÆ±Í¼Å˜ <˜¢V¼ã)[=º·Ì<ft='=lÖ<ºv<x7½séÃ<–¼“ùÕ»»J‘½‡P½Y0–½^L&<Asç¼÷
+<şt#½ë y½ŒW›ºáÜ=ÁçÁ»<g½Mp/½Sm×;5ÍM¼rH=É¥¦¼©¼A¼0$I½ò¢ñ<…+Î<)—¼Ë¿ë<™¼ª·éüó<rdº¼’,v½ÕÉ5<†>Í¼ªMô¼üu’¼ãM=’«½ Ru¼‹Ø²»¾A=#+½:…½y•©»È5¾»Ø9i¼M‹ŠºNöx¼RI°¼èI_=-h<µ
+[<¶xè¼Ürl¼œI<¦®=‚½´ÿ-¼È]Š=7ÂÜ<{Mû;W&•º¥g<ÅéŞ<¤c¼qhµ8ãì;Íç»‘‰Í<9.3=¿OE½÷g=ñÊ>½`¤*;Z˜!<2a;×=Ç¼8wÎ¼r=R~Û<•dV<6>v<F+½ºwJ<%Ÿ	<Çk<ŸÖ-½Œå*<¯—=È…¼#l:=ãº]»#èÒ¼+9ä¼ùÄÃ;Rjx» t2½\Ôu<‘ å<kn¼ıaK=tu”¼¡ ½Õ¸‚<p]=Óï;.>=x0½‹»Z¶È¼Ó<«ı}=T¡¥;ˆ;Œ<ı±¼©5&=•Ä¼çGd¼Sbá;Uş±< ¬©»–<k·¢¼ã¤¼ßº=†“;$ÚÑ<ÈXs<Ba½dÙ<¡ûb»<†Î§;X…=;‹ÕİºVÿ½Æt#»èhŒ<zªåºÍAI½æîV»0ü—<&„=§€R<	AÃ¼ª²¸»ã[/½Ïkß;]/„<ıÀU=$:Œ=1­:»‚Èú;oÅ<«İá<laU½!ÖÙ;İ=î$*=Àçí»÷#=Ëşz»eŸ<
+w­½Ú–í<Cõ³<`A¼U0à<$‘<<‹Ïî»½™ƒ;š4š¼é–¼T6W=j~~=¸t;½b\\=¬+=Q¤;*Úõ¼ƒ67<†³»;Ú	¼r¼n‚»<ØRæ¼¢F=Â¥»~Í<P`Œº˜Å6<3™©<åy»:í<=İA”=¦@½”äÖ;Íi¹ü h¼íÑ¤¼µH¢<Öm=¼ûc¦;_u;­ .=é¿ü;”¿<7G¼?È¸w]†=&=µdT¼b]<
+‰=FÎ<œKà»º0=Á^¬<×½©<ıP=€‚û;TAE½I51¼^_#=¡U»òx%½a½ÏßB<{d]¼  =.“n<f=ÕC¼Fc=IG=†*¶<_9¼Ks}<Xş½ae½ÿZq;#Åâ¼&÷v<›<û§Ú;M€‰<ô‰¼**}¼úr<3‘½µÙö;½=`»¥™<ÌËK¼(ö¼Å#=xÍ¡<Á)¼öú`<€ÿs½®/¼p;<0<O<’!V¼¾*Q½|Hg;ë—Á¼jªl½c=9ç$½—¨:éç'<xLé¼{˜ÕºpK~<90¸¼´Í<ŒÂ¯<¤£<Çºù¼ô…N=§Î<bÛš=Ş±d;n¡½4.R½#^½‘F;mÓ„½•øöºŸ*Èºå4A<‚§½Ş[¬¼ú9£½Ä½Z”l¼1M<T8*:Ÿ9=Ø³$;m‹¦<s;=T!=x×÷»rÈ»xà¼YÛw;ùA=×CM½[†¼¹ş²<¾DÈ¼pÍ§< ú»¸6Q<’!™< »G‰.;Ã›*½â]Æ<Ì
+½§¶ï<uÓ»7»Ÿ¼´MT=ó”½Ç¼ÃB$ºÑ5¼*Û­½+ß)=ß)7=SÇÎ½´Ä›<UG;•s<E•È¼e$C½ƒ¸»"ŒI=Ï6¼.;¼æv½ı
+2=o¥I<?ƒ<¼¤<£„ö<Æ6ƒ<’*ù¼[áJ¼¤ƒ¼¼ò*¹;ıO³¼×Î=Ë;\ß	½dW»ÄQE=ïD;^Ìğ<ï 9íÂ =ïT¼X#¯<Â|=ğÓ‚»°¤=~£Õ¼==–g<§B#»%8	½Bz=š<°/Ì<- Ê<Zè¼oMºI5º¼»´#<HŠ =®™Å¼É'½	.
+=Y/l¼€F˜=¡0;ç¾;òÛ¼š¡¨=ø]w<ü?ºéŸ½U]»ï3¼|½lor¼áK–<ñ˜½‹éQ=ZE½{-Â;‰Ä<Í„Ú<Hk…¼b™¹.÷¬;_õc<´…¼ØB¼ ã‡;w³<:^½G“(:¤4O¼Èùà¼Q8p<Ş)¼,ãN¼½î“9Q<ÜÿK<a}<®*I<) t½gY÷ºEî`=Af½uÀ¼Ë/<Ç¼’¼\C‰¼bKO;´è<â·<cc»¼a½şîvº?Qq»p«<ô"³¼#¸;l7D¼¦G<,~O¼w<°b½7öm½û§:ÃıÇ:sZ»ò´¢<Fù¶ºk<Õ^¼"×6<Uˆ<<E M½‡Ú½g<Iò8½g#c=å¼:Ø¬ï¼CŞX¼p<£²Kºú¼4V<R¯O=uë<;¹Ş<„$<P*M¼S•<R§<t0»d¤Ô<Ş—ó<y!_:ÎøD=W±;Şh½)Œ¼«I¼ Æ<˜dÒ<Ô_‹¼·Î‹½Á¿ş¼r0Š½ˆË<41a½¢¿½dš½“<Äu<lì
+<N{;ú­¼<Œ6¼ /5½0™°<¬¢;Mıœ<«ÉH½âÔI<¶Öu»Dg=·ó=½› ¼ù>ö»2;#;˜^<ï¼{¼ ü¼pnf;ªµ‡¼­‘º;ód<¢4<ktB=®,»«¾Æ¼¢¼'û»#µ½,R»<Ğœ»=ÑÀ¼œ²½=pL<¾Ë‹¹C”=¥f½-½`ã<¼öÏ¼qI½4 D¼zÈW;öé[¼JÀB¼}çû<ğÇõ<Ët.½`í¯¼-b=Ú5~¼o2½}| ½N7=èùn;"#Á¼Iµ¼s0Y<Ã•C½B L»w½8¿ô¼Snó¼'Ê;ü°¨<.ïc<ºxG=ãP¼ç#Ï¼­ìÿ¼k_Ì;yí=Fö¿»8kŠ<G5<È˜5¼®ÿ;-j¼<Dç¼d:½ÿ`O<3]¼Ìµ<ñó8=ë¬=%­C½-7ï¼ ¼È£ı:„;½uêô¼Ë^¶¼ù«¼.œ/½O>¬<uƒ<°Ëâ<ôS¼bÏr¼<xªÒ»fË=wç=€æ½õ¡è;º-â»Ó9<†“»ØÍ¾¼¹1º< +½³8È¼0×M<Yn~»!l8<•%\»UŠr;¥:™<„·<ÂÿV¼V)Ô¼H°R=œ7D;-ÜA¹»;¼3E¿¼c‰=ìÒA=-oå;™†¼G½LÀ¬½–˜=rM½îr…½Â*†¼
+ı<62ºoÖ½ë½¤ŒÌ<ˆy¼U=æÂt½JøK<üğ½Ö8§¼L®À¼«âº¯A½Á¤};×¦_¼Â'½Ûµš<ô©º³öA<ğ€(=â=€$½ÅIQ:=ˆŞY=š<à9=×ğ¼Ñ“½‡<}OÉ¼ j=–à®<#R=Ï_6¼º <»µ‰Ä¼µ$½·A%½×›¼Ø¼Ö‚;ò¦¼\,Œ<É<~‡ºŸÃ6<â»¼¹	!—<_[=Ü”½¯DÏ¼÷±<ûù2½'ã¤<èc;;Nt½•.s<[ñ÷¼Mº^ïÈ<µİ¼¸G½…ßX<İJw<ÁÍ;6Ïj=ÖM"=m ¼úØ¼¶¿½ª|½ò¸½¨5†¼c˜D=Ÿ‹á¼¹Wæ<¯|½¼û­¼'Dm<ºù¥;hğ3»BL<e»²rv¼?›!<ÃQy½-"œº|$<;Ö¼¼íÓ¼™ÿ< „=WN}<³ÁF¼÷½ğUô»-†@<r‹;É]l<Ø^I=Lw=†}¼§õê¼qªO<Öz<ŠQ¼L[=J‚;½r'°¼­Cî< A½R »UH<åYÙ<tQ ¼¯€<Ì‡Œ½ÿ—¤<Q›ï<H%Q=Ly:½ï¨©¼$ <œ´+=}=V<á Ô<•€ç<3Û!=?…Ã»7¢<Z»Ñ:U’Ê¼ê2»c]Ò¼êŠ‰=kì;;Ï“»l2‘<ŒÓ€<P†È<C`•<­Ê•<‹8<©¸ ¼/û:¶)=>‘:®y¼ A\=·Ú;İE<ûqó»¼—Œ<”<=B½±fá<Z„=Ò¯]»V9»‚Kİ»Zk
+=zĞ<åÕn½š[%=€dŸ<bRY½ÊV;FiŞ¼j»_=ë>»<#˜š;_C‰< *Ù¼½•<Ö*=ç#Ì¼÷($=rsÕºSÊ—<¹
+!:š<ƒı=ò+½ÉÁ¼[å»œ¸ú»F½cg<J÷–;^²½("½¼)íJ½ê07¼È.Œ=£«‚»t;ˆ¼&Z1½@¿<Èo{¼å†!<ÈĞ–¼>2¡<NUÑ;¦¼†œe¼ÔÌÔ¼+«İºTŞ×½µ@=éª¼7E½¹ñV;è¯"½„ì9½k¡Á»%r™¼gª»Õ¾;pq<±d¼ßä»´™ş¼Ÿ-?½(ª´< <6=µi¦»a€="ŒG<¿Ş!¼—´<Cû£;‡æ!=^%ú;èÏ-;Ç‚0½ã<G™ ½½ß3­;Ç-=!»qzå;tò¼¬Iç¼ÄÃ}¼İ<;¹J½¤R<…~ó¼r‹¡¼¡Wÿ<c:½ùOw>Y=ÆöB==–ÚºÜ=ßk4<×µ;¼ÁA¼|×¼¼…iÉ;ş4)<PÓ¶<0–­¼[%i»™Ò=±l¼~‰<ğ.9½/ò¼)ú¼ƒ¼@½x¹î¼¹÷6<0=?ÆX;¾ô@=Jjë¼ç=û¼š÷ø;EàV¼Àçw¼Û}=É»J<?µ¨<:‡V=Ñô<Î£á¼'@»é	®¼›pl;€S]<UlY»7™ğ<iò»ìm<í0=ñÛ<7Wb=p‚À¼™¢=úğ½“Gƒ¼d ½%­‰¼>¡¸<d´=å-=‡k•¼ğ¼L1Ò¼€õí<˜=j_È»è•®<²ô¦=ña=IyÓ<Ô„x<Å¬«¼ã‹Š»Öÿ'½à½;ˆä<ÅQ¼D
+=C‘¼Ü)=R%!=×>À¼ï§¼È\N½­ª;½EX´ºÈı³<ä=QßÃ¼‹~Œ;µÀ–¼!¢ˆ<§?=1~(¼tf½ı¼¼a¨»
+$11
+inserted_at
+$18
+1788084600.6231456
+$10
+updated_at
+$18
+1788084600.6231456
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+$13
+1788088200625
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$43
+{"role": "user", "content": "who is a man"}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788171006925
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$1211
+{"role": "assistant", "content": "**Definition**  \n*A man* (or *human*) is a being created by God. According to the text, God fashioned man from the dust of the earth and breathed a living soul into him. Man exists in two genders\u2014male and female\u2014and is made in the *image of God*.\n\n**Key Details**  \n1. **Creation** \u2013 God formed man from the slime of the earth and gave him life by breathing into him the breath of life, turning the body into a *living soul*\u3010chunk-19\u3011.  \n2. **Image of God** \u2013 The likeness God places in humans is not in the physical body but in the soul. This soul is a spiritual substance that possesses *understanding* and *free will*, reflecting God\u2019s own nature\u3010chunk-12\u3011.  \n3. **Dual Gender** \u2013 God created both male and female, naming them Adam at the time of their creation\u3010chunk-55\u3011.  \n4. **Plurality of God** \u2013 God\u2019s use of the plural pronoun hints at a plurality of persons within the Deity, which is reflected in the human image\u3010chunk-12\u3011.\n\nIn short, a man is a spiritually endowed, free\u2011willed human created by God, made in God\u2019s image, and existing in both male and female forms."}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788171006927
+*16
+$4
+HSET
+$73
+llmcache:70696573728c656fa432196330c50d00f0bd92ddd3a4e195924e2b05c95207be
+$8
+entry_id
+$64
+70696573728c656fa432196330c50d00f0bd92ddd3a4e195924e2b05c95207be
+$6
+prompt
+$15
+Was Adam a man?
+$8
+response
+$532
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"Yes. The text states that Adam was created as a man in the likeness of God and was the first human.  \\n- He was \\u201cmade him to the likeness of God\\u201d and \\u201ccalled their name Adam\\u201d in the day when they were created\\u3010chunk-55\\u3011.  \\n- Adam is referred to as a man in Genesis 4 and elsewhere when discussing his lineage\\u3010chunk-41\\u3011.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+S_ª=µô¼åF<ñ0×¼ R½8*-¼]0=º.D_¼VáÖ<»¼Ø~$=U#§¼ã:×<+ÜÇ¼†ğ¼;Yø;Ë	¼­b,¼}×z6óæ÷:ú	Û<´=ªÚ3½ª&\<AÂ½7@v<ªù_¸ôl£<¾£*=¦09=ô$<æÈ<Ì<«/—;;œ¼ğ·;õ=¡““½~é½ô¹½Ù“Ú<".~¼É¼˜©é¼Q½Wo<›p#»Í<ÀÄ*½z¼"W<?iª¼ï/<×á‡»`q¼w4½Ù3=ßY<‰–A½ç‡!<0·	^Ú<şYì¼î`½ëš=áH^¼}Ú+½áÛ¼½‰<>Š†<Ö“r¼Í…Ç<’`D=Iÿ:)‘½‰ ú¼îÙ»½^l=‹P•¼lò§¸À	‹<ÿ^è»I¯f¼ªc¼=û8¼:<AÜ=¹¼æºÛ<¼˜=Á=mRÂ»õİ ¼ş¯]=aÖ=ì¬Ï¼»<£ˆ¼Kd‘½Hi×<Ñ@=(½Øñ;QÛ½cƒ-»QuÅ¼ˆä˜»}Ég;‹¼w=qO<,G<
+&B<ØwØ<ş³<şS‚¼±ãµ<oøÂ¼L¼Ñ×9=‚Ur¼­À*»ÃŠ¼ÌÛÇ¼´	½ÕhV¼W¶= I½Ğ<ƒÄ<ìÊ¸<N†¼ÁˆÂ<ã	½şº&¼ Ÿ<†»Å<¡ï<_¾$½Ê¿;êaÕ¼2É;›P}=09L=0V¼¶­\»JA²<Ñc–¼¯²!½Ì;¼« Õ<B—5<EÚó;LX=KŸ¼·z<â¿ô¼\pÑ<´½Ú<Å\½Å~F=XY¼Ğ(Ê<J¼S>'=yÑ¯¼È¼û¼„rq<¦¼ºóä;×ÇÚ<Éùü¼İN€¼ı(Í<ĞÅŒ=¹Ìc<áÍÂ¼Rx•¼¶¬¼ôz¼B—;N=âÁî<¥Àc»¡ÚÓ<d…:B¿÷¼åÚù;¾ù²¼…Íp<™Î;}5ˆ<½>/<f<Ì¨°<† •½ğ¼1VI¼ÅyI½¼¢¦<ò¹6<ÃOç;;MÑ»¸°‡¼‚Ì¼8²)=ĞR={D¤¼ÈêÅ;Îƒ<ŸÈç<éÙ“¹UG);Cş¼°<z ¼;G(<‰4½º“=C½s¼Ÿ;Aî—<ƒ
+õ»áç%¼„æ8½&<=|.¶=¾)H½ĞşÚ;R(f¼Ç
+´¼eBr¼¯E­<«œÓ<¡½±;C4<‚>ÓºJº,µp;õ?5¼™l@<m‡¥=‚ƒ=¯Èú;wÑ=¡Îã»¶&5;-ø-<½Â¤¼Ÿé<ÈÏ<š£;Š‘i¼ˆÒy¼å.¥¼c= ûÿ<Œ{m¼_I ½wô»?™â¼€e<!±¼ŞÅ£=gÀ<ĞN=w»È<œaÎ»‡½ªƒ“»Z²y½;Í+½Áêj» ­¼ÃÃ-<§ù=‰ h½Êô†;í¥¼¹<°P<Ú¢N¼ìZ“½¶Â¼ÛÜŠ»‘˜w¼ğÈäº}‚¯<Õ}¼‹œL=om½G§ù¼ä±’<z2l½ë{?<K:=fÄÂ<ÑY½C¼»ºA9½ p7=+fµ<	b’½¼Š<ø(L½. Ğ<í@¼[>½ˆ€¼ÉIh¼IÅ;şÛ'»@æß<\=Í½-Ñ!=yk0<J¯€=v”ºp {¼{3+½±õ¼12Âºc>½Ï;ğ¯<'ÿ¼åÍX½¸o;xR6½Š¾½r+8¼Nm¼ƒ'õ<!½Ç<9ÒZ<W­ :Åç/<™jÇ<ùü¯;–\…¼Ô/‰»jß;*»û?½kdì¼Ä"¯<~k½CE)=OÊÆ¼Hê‹¼P¡º,Ù¼gÕ<?¨¼—•h=ÚËÉ»ã;Ô\;'[<<©"Ş»+ªÔ<ä[½cM¼Ò©¢;'¿Á»ŞTp½jDò<uò=ô½S‡ø<ì<A<8°<O?m<A.ê»&Â	<Â5‹=èì½íş§<4× ¼dR=°ªš<¸J{<‹/Ü9óÆ;EÍ€<íÉ(»®T½RHÊ¼Œ«½ÀG¼`ˆú<²}›<šœã<¢É¼Íïş¼óÊ[=¥ÇxºgÅ²;Ã-ï< F=)Ç½F=ÄşM<üÌ<.9=ÖJ½ªpA=Îä'=¤ãî»kÍ¼Õ;@=›}½*`š<7¨³;4ì
+½=\½Ê£"¼ WY¼³Wx=Û`¼ŸŞ2¼€ç„=Éû<ÿk=úÈ»»[¶=Nh½ñáW=ëñ¦<£<¤Ñ¼øÖ¼±õ÷¼?,½Ü:¼ÃÒ»l0V¼‘"¼[21½)NÌ;.ˆâ<ìÔ¼“÷¼ÈJa</8K¼	=ú„Â<ñ;ªgV¼1G=”ª”½
+=WWø¼«
+7¼Ò<Áø€¼tü½şL”<5äÍ¼è=(×±<©{ü;‰½<£Ì¼°=íÿA½R/ï¼û”ä¼ÔêÆº9FA<Í÷=Vœ¼õ»¸W–<tQß<óA{<™¼<íá<Â9ª<Ûu¼[Íª¼ü]Ê»Eó=!—0¼ °¸¼¨B½‚m ¼rğ<˜GºÕÙ<l÷<Œb+=á¼ô`l¼•†¼U‘6½ª†½°t»ŠÆª9G%z=:B½¾#¢¼¥]=*ØË<o!Ö¼c›É¼æ·Y»˜şQ<`ûº†u{»qùe¼zW;D£D=qn<ğ>æ»ai=pã<‡ı<¼ˆŒL=Ë¢<¾‡½2P·<¦ö=w„=Ï‰Û; ï=¯Î£½l´w½K(¯¼ÖR<ƒb½ßÙ¦½§M¤<íæH=Õp =Ø@œ=Á‹9½œÉr<X™ ½Ú«½ ,C½ ¼)W=Î@'½±×â<Q€…<ˆò=Th»(ÿ¼	–»ß&½ü	é<¯¯¼ˆB»½—ì<€i…¼ùÏ*½¤b±; ğ»$‹<Äˆ:<1¾¼Ğ°k<¿­b¼É¼?½}û¼5qS=uı¼¹¬G<şÕ<K&D¹Q2v=u½û„‰½¾ÓJ<o-½	¿o;‚Ô#<UË¼7å»OÅë¼£Äz<I<âù;G)J½¶n¢=pÌÍ¼äS¼EUu½Zsü<Ì!=Lš€»±º!¹”; r$½
+(_<‚Pò;P(€¼É–¼$Í,¼ÿ, =(ìš¼	!ü<•Ä“¼Åõ…½rñ·¼2Ú=ìU=İ=O<ğ'µ< 3¼<àÓ¯;²Û<‘#„¼ã©Š½ªW¼Z4u<”4—»Ì8=€E=¶:»ß¼›n¼£Ù¼ã¯†<¤õ&½áúî;¾S†;^\;K\¹¼[N¼”’"=üÿ`=à½QZ¼FÂv¼K=øC*=&=åı8½ÏÅ<ØŞÈ79º<.…º?Vğ¼µRË<­G½]ä{<"wu;K„¾¼P=–¸Ä;Z¼m9¨¼e5«<ºÃ£¼àµ®¼ò¡=¶|)=ı–_»çÙo»CÚz<–‘==Üø;ô¹<·rª»ğdë¼®øõ¼±“¶<ŸWr¼Q16½;Jô¼âe<>ä»×tõ¼¡¼ÏÚ2=kÃh¼ˆò<dXU¼(½ô)»Ø;½
+°“¼e/Ç¼°¼¥b—<5 L½¢ë"½5]¼ÑÈ;6«*¹Ş<Ç[„=H„%¼b˜÷<bæj<½$D=Ÿ•
+<1ƒ=‚§[9:Ò<ø¶ù:òe):¥í=í£=Ã#Ó<ëÊY½¶A¼Ñÿå»åš:O$<©f¼ã!}¼	À"=È{J<Ó$(¼mê¡;y9I<,=QŠ¦;{k½ñ©=>àµ¼ó4p<PÙº¼N3½ÓéÀ<F+Ÿ»}/½ş=`H½që=ª=H¬<·½Ø
+ùº¿“¨<©e
+¹Éy=5üú;V‚‘¼Ëö<½TÚ‰½Áª»8ò¯½tıi¼9Ä=Z‚T¼`´<ígZ»ä¼‹j<«¾Ë<öÖÅ<uªâ»ç#J;÷’<}a¥<r¢Í¼_eT¼I
+o¼Ì7½ @¼7‹½do²<WŞ<ÇÔ6<¯ã»°İñ¼kü<¿Õö;jÄ´<U;S¼&=G‰Ç<~±£¼dÎÜ¼([°;;Ø=¬ÉÊ¼ÈD¢=íÃ°½)0²¼‡r=Ë‹­<L'»û¼B(ó<SòÓ<=k»XÆm½;Øº;´Vì<Z8=ã¹¤¼öŠw<«ÌV=<$:ÁÜ=~7=Ì‡1;VÄºQ½ş—½(»=Étş<˜<†ˆ#½á`C=W9Ï»1û ¼bÁ»(2¾¼ş=ˆEb½Qw=åªİ¼ÁŠv»$¼<­<Kµ	½âø˜¼	ºU<#¥¡»Ûÿe:†¾=ÿ¼Ë·<D…—»€ä<Kp=-¼[Âø<Àoƒ½M3§¼ğ²¼d%½‡m—;ªIÄ<²Ü$½©jÏ¼ÄĞT;pŞ5<¨U7<Ôı<<§¸¨<cék¼“É(ºù(=G‹<¡’=b8½BO–<?v›<ÕŒ=¯w<õ‹½Ÿ
+½ëSÊ:@H½8²½30²<ïÆ»R:[½Sxâ¼Égƒ»ÍDó¼®®< #t<Ã¢2¼DH½šœ=:…¼†©¹öŸ ¼€&=¦$<¦Y;®ü’;é5½-F<¿¦<½%-S=†ÁÜ;«§X½9¤­<·ÿ…¼nM¼®«÷¼sÈ½b”a¼!Ì:ß]•¼srg½ÉI•<¯‚½Ù¡?½Â{ü»ç£õ;MĞºÂt<µïG=êX±¼š »£+½¥ê=ï©;”˜¼X¼£Ş<ĞøD½]<4½rÃÔ<+Z’7õ4r;€!½21R½X7â¼ñJ½òjÜ»•ûL½_È†¼]çã<ÿÀ=¼·½=ß·&½–Se>Én<=©6<ŸÈ»”ÀE;µ&=G,.<à•J½Ñ¢¼™ 7½­T»@9Ï<3ös<¿ä›;­sÎ¼f=aş8ä{<-õ¼«1A½ú•“¼Ä6…¼vÏ„;Í`=t¢,=j°»g0=â/Ù¼µaĞ¼ÏÁZ¼N“8<3’T<şıĞ<öŞ¼‹P<~ºå<ú2[=·ö¼XZººJ#Ó¼–Šÿ¼(¹“;f‘™<Ú ÷¼ävã<éïç<3 <ÒF;fÙ»~*B¼Ú=„<É#¼#k»Ks½-½f»N‰é<ş=W"à<€Éı<¶ 5½B< ¤¼ªÖ«<EO!=1ôŒ<cÖ=ĞÔ<ÿ¤<V†r¼^1½ÊÙ½Ë3½?ú:8p<t(p:	é;Ö=gÏ{<Lg/=CÿR¼I¥ı»ø·½g¼Æµ¯9¦o=Dï´<LÒÄ¼$|„»TbV<ÃõÎ<¦=!5,½('½ä':¨æ<
+$11
+inserted_at
+$17
+1788084641.092417
+$10
+updated_at
+$17
+1788084641.092417
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:70696573728c656fa432196330c50d00f0bd92ddd3a4e195924e2b05c95207be
+$13
+1788088241113
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$47
+{"role": "user", "content": "was adam a man ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788171045814
+*3
+$5
+RPUSH
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$395
+{"role": "assistant", "content": "Yes. The text states that Adam was created as a man in the likeness of God and was the first human.  \n- He was \u201cmade him to the likeness of God\u201d and \u201ccalled their name Adam\u201d in the day when they were created\u3010chunk-55\u3011.  \n- Adam is referred to as a man in Genesis 4 and elsewhere when discussing his lineage\u3010chunk-41\u3011."}
+*3
+$9
+PEXPIREAT
+$52
+session:80690e7a-3445-47f6-b90a-889a442d30fc:history
+$13
+1788171045818
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:97b168ec
+$179
+{"ticket_id": "ticket:97b168ec", "session_id": "e0ad47aa-26af-4f86-9265-ac744e642831", "query": "who is god?", "trace_id": "2bdd93626995a4a7187955dd9884f9db", "status": "pending"}
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:eef4c231
+$186
+{"ticket_id": "ticket:eef4c231", "session_id": "e0ad47aa-26af-4f86-9265-ac744e642831", "query": "first line in text", "trace_id": "ccd19999b028aaf09aaab035fd69a409", "status": "pending"}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+$13
+1788089550461
+*3
+$5
+RPUSH
+$52
+session:e0ad47aa-26af-4f86-9265-ac744e642831:history
+$44
+{"role": "user", "content": "who is a man?"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0ad47aa-26af-4f86-9265-ac744e642831:history
+$13
+1788172350505
+*3
+$5
+RPUSH
+$52
+session:e0ad47aa-26af-4f86-9265-ac744e642831:history
+$1211
+{"role": "assistant", "content": "**Definition**  \n*A man* (or *human*) is a being created by God. According to the text, God fashioned man from the dust of the earth and breathed a living soul into him. Man exists in two genders\u2014male and female\u2014and is made in the *image of God*.\n\n**Key Details**  \n1. **Creation** \u2013 God formed man from the slime of the earth and gave him life by breathing into him the breath of life, turning the body into a *living soul*\u3010chunk-19\u3011.  \n2. **Image of God** \u2013 The likeness God places in humans is not in the physical body but in the soul. This soul is a spiritual substance that possesses *understanding* and *free will*, reflecting God\u2019s own nature\u3010chunk-12\u3011.  \n3. **Dual Gender** \u2013 God created both male and female, naming them Adam at the time of their creation\u3010chunk-55\u3011.  \n4. **Plurality of God** \u2013 God\u2019s use of the plural pronoun hints at a plurality of persons within the Deity, which is reflected in the human image\u3010chunk-12\u3011.\n\nIn short, a man is a spiritually endowed, free\u2011willed human created by God, made in God\u2019s image, and existing in both male and female forms."}
+*3
+$9
+PEXPIREAT
+$52
+session:e0ad47aa-26af-4f86-9265-ac744e642831:history
+$13
+1788172350508
+*3
+$9
+PEXPIREAT
+$73
+llmcache:ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+$13
+1788090656925
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$45
+{"role": "user", "content": "who is a man ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788173456942
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$1211
+{"role": "assistant", "content": "**Definition**  \n*A man* (or *human*) is a being created by God. According to the text, God fashioned man from the dust of the earth and breathed a living soul into him. Man exists in two genders\u2014male and female\u2014and is made in the *image of God*.\n\n**Key Details**  \n1. **Creation** \u2013 God formed man from the slime of the earth and gave him life by breathing into him the breath of life, turning the body into a *living soul*\u3010chunk-19\u3011.  \n2. **Image of God** \u2013 The likeness God places in humans is not in the physical body but in the soul. This soul is a spiritual substance that possesses *understanding* and *free will*, reflecting God\u2019s own nature\u3010chunk-12\u3011.  \n3. **Dual Gender** \u2013 God created both male and female, naming them Adam at the time of their creation\u3010chunk-55\u3011.  \n4. **Plurality of God** \u2013 God\u2019s use of the plural pronoun hints at a plurality of persons within the Deity, which is reflected in the human image\u3010chunk-12\u3011.\n\nIn short, a man is a spiritually endowed, free\u2011willed human created by God, made in God\u2019s image, and existing in both male and female forms."}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788173456947
+*3
+$9
+PEXPIREAT
+$73
+llmcache:70696573728c656fa432196330c50d00f0bd92ddd3a4e195924e2b05c95207be
+$13
+1788090672969
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$46
+{"role": "user", "content": "is adam a man ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788173490883
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$395
+{"role": "assistant", "content": "Yes. The text states that Adam was created as a man in the likeness of God and was the first human.  \n- He was \u201cmade him to the likeness of God\u201d and \u201ccalled their name Adam\u201d in the day when they were created\u3010chunk-55\u3011.  \n- Adam is referred to as a man in Genesis 4 and elsewhere when discussing his lineage\u3010chunk-41\u3011."}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788173490886
+*16
+$4
+HSET
+$73
+llmcache:91992b9693a91d03dd7dffdf33b643dab3937504c3e46ada5b0940fe6ba3845f
+$8
+entry_id
+$64
+91992b9693a91d03dd7dffdf33b643dab3937504c3e46ada5b0940fe6ba3845f
+$6
+prompt
+$14
+is eve a man ?
+$8
+response
+$434
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"**Eve is not a man**  \\n- Chunk\\u201126: \\u201cthe Lord God built the rib \\u2026 into a woman \\u2026 she shall be called woman\\u2026\\u201d\\u3010chunk-26\\u3011.  \\n- Chunk\\u201139: \\u201cAdam called the name of his wife Eve \\u2026\\u201d\\u3010chunk-39\\u3011\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+é`=¿V'¼Uü»»‘¼6wX½CùÎ:ÆıKº&`³ºz<ŠÿÊ;W"=Òá¼óëÛ<SŒD»7¨½·ó:¼³åB<—a<¼h€¼„œàºt2<ëí>=ˆ—‚½±Ã¼ÈŠ½6Ú<-¡c;û«*=2²W==Sr=3ù=³[ä<Nù;¬àI¼Ê'ä<cÎô¼0ìÒ;?Î¼\˜½ é»½’”<Ì¥q»¯»¤¼­Q{¼'÷½a­;w<[¥ú;»0e½ùÙù;’†<B—½Rœ‡<èFº¼/½ yÏ¼|P=eAš;ñE½ÿ ¼»k^<5É¦<º²„¼Ñ~½OÊ=@¡a;é–½±_2»°™â:Ğß“»E
+<\9!:Hµºèô¼µ5¾½7Y½€f»¡ÃÂ¼q6ç<ÑÆG½ûÄ£¹GÉ<¼ß±¼K¢ƒ»í:½zÊ¢:f"€=@{)½Áh»‚
+’=cB<Äô"¼§'‘;aÅ€=GT~=€…¯¼Ú—E<ûúİ;ÕU’½¶^'<S=Ûæf½à§=šÁG¼”Ø:4e»©3< El<]WŞ»çƒ=YÿÂ»ù^â<q’ƒ=®˜%<zŒ˜<5×¯¼ò½<†‚½vqO½^ƒy=­è;“U;wÜ‡<=ïh;óH½×VÕ»Ùh=ßR ¼ó#ºoÁº<;Ÿç;20=Q¨»p½«mÜ»Enû<n_Ò<3 ;ã¦¼ìt”¼—ı»ìô›<<àˆ=ÿÿ<±æ:<Æ	½Lºb<+!½tú½Pl·<XD¼}I…<œ‡®<äo=™V8½˜„<óÿ¼%=ï<äœ=÷1½†=tBS¼¤şô<g½{ô;[æ»5‚¼·-Y¼B—@½h%:=ÉŒ‰<Ã¡Ô¼8ä$¼dŞ<g•b=„–É¼­V½Q³¼¡¾²¼©¼ãjo¼Å‹=œä=<˜¼şWÚ<X¼ºê½’Œaºæ“¼4ë×;‰NÂ;@{ò<õ_=Hü<@õ?=Y‰½ñ&1<p†“<…ğ¼ÒÁ)=ö ƒ<»9¼o‹*»4Üº„½qc¯<K]>=©û^½Â“R»÷ƒ?=ó»<Í›ã»Œ0‘¼rg@¼y•É<î?¼'N0<à÷˜½Ã4=;<¢|3<„ï	=îB½Z˜‡¼
+øR½ñêÆ<,=Và_¼zÉ<lì<`›Œ»ã/Ï¼“^«<‹öÑ¼6: <®?o=Iœ%<qÔ<¢c=í½F¼nqR;}l—=g@i<õ)¼Gl»?Tæ¼{Åz;Šó»µ~<Jş(=PÒM<ú¶ä<·€<eè ½õ…ã8ì=ä;\„»~ã¼ºî4¼K}§¼½¬<‚T½Zı3=Ù/=Øù†;½¡=H¼`™Y½N£g<ü¼®Š%½©+;9 ¼ßâ¼Ô¤<V™‰¼eK=”s¼Ì
+¨<*<{¢¹½v±,¼”Àı:‹;ÿ¼è¾H¼kö<ëf½˜µH=ĞO½N·q<Ì[¼z½G„Õ9K¾=Ë–=ZŒ<v#‰<<§½–©A=Ü/¼0Ã¼j.y<9¬X¼“w<5¬½<_Ó»ù³<NN¼U"½=€V<š3ü<™õ<Î^ã¼ÒŞ5=Éƒ¹»Y»~=±2»e·O¼Ç@¦¼¶½©Âm»ŞZU½+áºâ»›¼/£ø¼ª2d½Å‡j¼ÕÚ ½x-Ç½]$=L×E¼ÆêA=O@Ş<¼2Ô<sX½_;•<i<•^¼Æ˜Ï¼½·¼)ü<OÉ²º‘¯½Ql$¹’iJ<OÁ¼Â·0<b†Ø¼)Á¼Ä„¼H¹¼·y =»§À¼w=)=[œº<5–c<cG<7`<aÊZ½ZÈ<e½+•¼úäR¼s¯7¼r<[½I¤<'Yæ<{s½R$=Æ¼³<¯eJ</úº¼á%»ª$<}»c=ï-Z½\ìİºr,	½Ó~Ğ;`o¼YY<ØÈa;¯»6$=;t¡>½˜â
+½°½Ç›¼,Ò<¯1;‘´<EõÖ¼Øx0½&Ë%=û£ú<†C¾8†FĞ»ñ	=çÿq½2i"=ñTª»’ìâ¼öb€=:n ½óEã<aÙ=«‡J=Ùêâ¼¨ 
+=§É¼[ç›<9<·½Î¼O½ş.½™Á´¼ß<0e‚¼ûÕ*½èsG=^Eø<?—k<×¼Xc=§¯½ˆ³‘=Xpq;Yè½ZÑ¼“{½¼&~½ê­ê¼‰Î	½âjÃ<£:™Ô><~êó¼ jŞ<ÕQã<´s&<'³¿¼´ó%»Âò;º€|˜=Øó§9LÅ><_/ü¼æ§Œ=0:½õd=‰Ä¼_Õ0<7Z;Ù¥d½Bä¼Ëé;dU'½ªè<dî<Q=W}ƒ½:†è;H÷=\|è»¿‡;&~&½-ñ™¼)ÕŞº¼¤=ØÓi<Ä<²<Uo2<C W<tQˆ<Š’<f&%»‰¸<ÅµÚ»BIâ»´Q<,êÛ»ÚĞ<Æ¼Ô5œ¼ó(¼Ş Ö;™‡˜»2S=¶Êt;)=¿ø¼yÆã¼–“¼¢OUº2Ÿ‡½ê+ÏºÍâù7+=Îmˆ¼ú¶Î¼vÌŠ=®€
+=D\½eC½·|´¹¾¦=“Á,¼«’¼=–<`ºÊ<('={=é«o<üb~=
+ü÷;-*A<-„=8Øo¼Ì½·;â<‹92;•a•< jŠ<ÈMò<R½4 ½àtJ½|ÍğºÈ#½à•°½Ú˜;{õ=ßB=ó›=sZ½ºª‡¼­Ó¼w_)½`bS<4†;ÆÆ<2’À¼®uè<Éj<­ =_@®¼ 9x<ûê¼’ìí¼XŒ´º’Ï9<¸õ#<›	?½¤ä<ÚH½~Â7½ÏËa=l`½í<ÕÅ¥»•¼Ş¼/»w¢¬¼	ä½îãò»ù|=·$†¼ì©»
+|÷<áf»:ÔèK=#÷Û»ÆÜ}½›U¶<š8"½÷S!¼ÌEl<ŠòÊ»ØáÑ¼§´´¼|-¯:´ <uÜÇ¼r&Â¼3=E±Åº­S¶»›¼w¼ÔÜÄ»e_ı<'şm¼YEn¼ÆƒÂ<¤¬¼×6„<é»-Ùò¼²Ÿï¼p<D =~k•¼·™;fç½Æ%½ñò»@UÔ:äë<;îÆ<Ğ½n=¼ ;†g#=Š'¼@öa½şËÕ¼L\<0»GpÒ<…b=î^šºğó»ƒ˜É¼çd)½®¥<*üö¼&µP:­Ào<´Ó¢;ù<½ó’	=Ú×=½Oó<Ì}u¼J®»(Ú	½İ<,)=s4=Ÿ½Ú)< XÆ:iU7¼‡Üš<×;ıX=Ş…¼Wì <ÎV„¼áİ:'=8éƒ¼1W™<`¢\;ÛÙÜ»/½®P½¿bá</´»kH‚¼İ%+¼(»ñø¾=§à™¼)É »“®»°å`½,i'½v{<ê:V½—(¼=,fš<k¶¼$Ès¼éV=T”@<Ö!1¼mÉá¹QB…½¥şú»××½BI½8³z»z ¼t×¼¤¡(½ÕQ½˜n—¼ªN<@\4<è¤¬<²=”½xÊ2;WÊõ»16=z&=a\=Ìüg»Š)ş<Ò”<Ïáã»V¡<ƒ›=t^
+=ezç¼r‚h¼Í»sj;ª%ÿ¼ÊÏ¡¼~tÒ¼‡zõ;Ä¬<~^)»Úí:>ñ,:Â
+=—n·<Õ)¼©sˆ=ØÏQ¼¾ş<`„›<“JE:& *<‚Ø8:wø°¼B=;Ãj•¼u\=I2‘<í¤§¼ôä¼è­<<¿G;ış¼šb?=yãp¼¨İj¼÷$j½E‚½S­¼5G£½0G»5Ã>=ëí¼XÍÙ<JMæ¼em½”
+¼ŒŸ¼/Â>=
+V¼Ï‘°¼ˆÈş»ù¬ ¼¥ÿA½,T¦¼m]S¼bS¤¼'A²<E8q½¡UĞ<3¥=¼B³<]‚¼TwÉ9gœ<¨-
+¼óV=Ù>¼³©:=Ê1¥<¾1;ò.¤¼ô2£;p½‰;Ëu¹;êN‘=2u~½VªË¼´eI=fˆæ;‹1É¼XT©¼¼¦<;=ñn?<â²y½÷õå;˜®=ÙÒ<qú½İF×¼.P#=åäõ;ak;aŒÇ;İşÄ¼šó+<8¯4½a2½së+=Pòã»¾šÕ»8›½ïç<`Ş<&×2»1DI<éø¼è5=ğOÔ¼a‚=J·¼[Ò÷º{ò0="ìƒ<	aÄ¼å—­¼¤O<­{4¼–„u;+~<½JşÅ<ŒÃ˜<Åìö<#=Ìa‡»Kg¡<Ãì8½0"¼Fı÷<–`o½Fc6<§÷ã<Ï[D½ß¶Ò¼=&¼VÌ³<©Xå¼A<ÔWä<Uóè<¡Š<:ó™<Õ$=ŸçI= då¼;pè<),<}Š=ğ¼®<¸Œ·¼£"Ş¼ünÕ¼ŠA½Ç6¥½A&¤<Uå;­\½ÄÛû¼<ÿ;Xn½˜w<W©¥<Š°Ë;ùÎa½§xÚ<Z(ZºŞ{Îº·›';p_P=èl9»Q*A¼›S‰;» €¼|k(=ş?½½Å¼<ŒÇc;ÑYh¼Å„©»Ì¼½k½’¼c@Œ¼®û³<*±&¼IÊª¼/Ó¼%ÿÄ¼ØÇ<1Q…½–ƒ0½®Ö”¼jlF<V¡³ºëf=,‚<Ã¸»<1x¦º
+o¼‡¦ş»´›†¼ÿf¬<|3¼MÀ}¼=;¦¼c3-=´KÂ<Æ¼¥¤Ø¼6~l½ñÉ½ıiQ½ú%?¼iHq½êõ^¼
+ˆr=ïŞb<­ò<=¦–½vo>uì-=Z÷½:fD{<Ù5=jB€<SA½±Š`»#/y½ò÷4<|?¼e¦;<Eâí¼ì€Ó¼uJ’<s°Œ<~¾<— "<{p½G\<½Ù–¼G½e<ı‡=Ş¼¡=‹%£¼¦Ã*=c*ı»üûÍ¼`5ñ¼u=ª[C;+yO<B¼½¾|™»ê$='‡.=ta½ #;Ø°¼òà;ùç¨»•ş»/è¼öG;1<ŒK=Éx<\1 <j©¼áW!<Ştò¼.<ÅëW½@å¢¼tñ<hĞ¨;\ï1=[@¡<³D¸”-Ô¼’­¦¼iĞœ¼=ã#=¤œ<^Ñ=×V<5‚<&Oµ¼¡A\¼ú§Õ¼Z0P½/±b¼€<ô%¥¼ªG›;qš<î<×ö%=¾R¼£ËÕ¼iö½66v½t8U<{6±<`. <>ÏÔ»É¶»_â»Æ`ü<ejº<ûD½ö(½1²”»™ád¼
+$11
+inserted_at
+$18
+1788087979.3323896
+$10
+updated_at
+$18
+1788087979.3323896
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:91992b9693a91d03dd7dffdf33b643dab3937504c3e46ada5b0940fe6ba3845f
+$13
+1788091579342
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$45
+{"role": "user", "content": "is eve a man ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788174395399
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$291
+{"role": "assistant", "content": "**Eve is not a man**  \n- Chunk\u201126: \u201cthe Lord God built the rib \u2026 into a woman \u2026 she shall be called woman\u2026\u201d\u3010chunk-26\u3011.  \n- Chunk\u201139: \u201cAdam called the name of his wife Eve \u2026\u201d\u3010chunk-39\u3011"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788174395409
+*2
+$3
+DEL
+$73
+llmcache:3a19f4dd80a1b67a03109c9ec05c6a70bff1e7d38c7b074d5cff859c5769577d
+*2
+$3
+DEL
+$73
+llmcache:42ac9f9a6e19d5293d4aa21413644672f6dcdcf836de2e64704fb4b1c0d76725
+*16
+$4
+HSET
+$73
+llmcache:b6907a70731cb5b8edcceda988288515cdb319f73f5b5198dd511516142bb592
+$8
+entry_id
+$64
+b6907a70731cb5b8edcceda988288515cdb319f73f5b5198dd511516142bb592
+$6
+prompt
+$24
+when was light created ?
+$8
+response
+$337
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"Light was created on the first day of creation.  \\n- In the text it is stated that God \\u201ccreated light\\u201d on the first day\\u3010chunk-7\\u3011\\u3010chunk-1\\u3011\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+5ù<‰Z½Ôà…<–$%½p=Õ¼©g€¼æ‡.½ÂM­º{H =´EP=ÎÛd¼'I½¼G\<ÉC½V¼=™•€»]é½Œˆö<rJV½‡êÎ<}8=¨Ø=Ş–&½‘ ½¼ªºc:?š =F[Ì<Ü3=[=SM=î h»D"'½úŒF=ëØŠ½{ ğ¼ª˜¾;¦A»+³¼Á3@¼¯¦è¼÷ÎK=µÁ#½po=··¼%½¡3¯»…I€¼+!˜¼î.š;6!…¼ù×ï;bYşº”ïg<÷š’¼}BÒ<ç·]½’¿b;Ñ…C¼ j3¼52<)[L<z€<÷¯‹<H½U`ú:Ó"¥<¬3'<Á=·¸öºn#=šØ§»Sâş;~U¼Œ¥½¬Ğ¼bU½\HÊ<ê}È¹o’m:í—’;;U¼®5Ù;Îê<o-§<Ùd¼8›¿¼»(-½. ¸<áo»Su{<šÅ=!0<‘c<`§t¼a»<L:Óºª—½fÉ¸¼¿…˜;8‹Å»4ıC=e¡-<Ì‰•½B:É<>É<0}=V·½|ÃÀ<¹À½0,½ô™a=(‘Ú;T€X¼k’å<Ç[!=»û¾=z8½Ë{=Gx2½_’<>=8*:–Ê<§ËÄ<îì®¼E8š¼=š ½m¤¥»é´‚¼÷q‘<HZ9¹n¦q½®Oû; ÒĞ<”Êò»Q‘.=F9i<&W=s\¼s„ƒ½|¼!X/½ùö¼Ïì†=t÷v¼‹7Í<ë: ½ÉF=ò½şŸ<p¥›¼c/z¼ğ€ê<Ø‹T=Õö»´Ç
+=û¡¼mİÑ»G¨Z<iƒ¼;í]¿¼ÉîÆ<kä <Áx<MB™¼’f¼<B¦H½îN‹½}÷;c<>¼–Xè;nN ¼©¦·»V
+4<ëğZ=Æù>;JV˜<.p²¼	®¼¡N4;ÌÖ"»u¿g¼aéƒ¼7”e=ë³[=|[û¼ua½‹…Œ»×];×ÃÒ¼&œ:3=ïÇv½¨¿;|EÖ¼‡ò¾<FBD¼II>ºe¼ğŒ·¼_r=3<²»¡ĞºÕ²“<zËÎ¼{¨<1òµ<Q9=sˆ‹<Ï±<F	Ä<„ÿy»o\¼–˜ï<®-–<Kğh<Q)½¡{÷<*‹Œ½³<ÎÔ<Cœ=C$=Bb=ÚŒ”¼Ì3=Ë~©;ÏS§=×†Ó¼B¢½tû¼¿{¼Ú³•< =µ;y‘<¾'<?œ»m#=©ôB½İŠ »§Õ;¸âd¼úŞ-=+ê3=$6K½(d=“Â=Í8½ÍÑÇ»²Áã<î*6½ö‚=SZã;¨º¯¼Ù56½Òì<Ç‚B=ö}ó<m¼‹à”½ïÇÊ»#ÌL=Ğ–¼Â#½ÿ·"=œO4=Âo‘¼,öË</s&<şx½^ª¼z= ½Á¬J½S(n=´»¼—Y<›%=ù7J½I\†=¦ÇÉ;~ø©¼÷P"¼„q-¼g¤¼çŸ¼Mä¤<=O_;±Xì<–"…½·´<÷¼˜½ !¼hÿ»§c9¼Kc<XÁˆºXV3=×¼ÍİŠ½İ¼´¼Oçw;’øt¼%ºŠ¼¥U½¨Q=UnÃ¼æ´»::=ıloºŒà:…4v=Ìğa=ùYÿ<³ğ#½Úá9= á:úp=ò"ä;­Å¼¬H½iì¼Ğğ"=D<š¹Ñ¼|‘€;)œì<=O<½Å»—Åú¼~œb½æ<‰Ë¤»äN:‘¡`¼§å;lG¢;K±Õ¼$Nf¼ÿm8¼wiº<dAÓ¼ıì0¼Ùì4=·6»;’A=I°Â¼–‘N=Ød‚<Î°Ì¼.ãÑ;G˜w<7½í~¼LÄ™=6hª<Õ¨,½Ì|½XF¬¼ó;2°;ßn<@·Æ9;¼Ú\Î¼ª‰¡¼%ìr¼3Óœ<‡(¼´æ<Ç"F=ö-½èÉE;©Ou½ã ‘<†ğ5=À_ä<õ¤³<‹™¼Å€»ò»›¼;Ñ‰<>a¬<ÚöŠ<š¾ı<{ôŞ¼—#
+=ô|"¼Z%½DÇ<ÓcÍ¼62;şL½ã_”;Ğğ²;³¬<B·<P+{<ªS¦;‚s×<–ª¼gîÑ<¡o»<Wv :Ü—<ù_½Ş¯!=?ø"=P«$¼m×<öü<ô5p»©ú ¼º¼³ºo¼K¯Ù¼çÀA<jëH=y~»T¼ë˜Ù<hùÆ<™hj<|jI¼«\9½¹Ï<µB½¬]"<²P°<Ä+‘<·);Ól½»t¼2L;Í?p»â®=;,…¼'dÂ<Á¯1½×a<¥¿–=©µU<¹ë)=ƒIÀ<5<B=~×—»èa$¼Èşf¼m´Î9uÒ^<_æo½*‰Š<%Ÿ¼İ°r<™Î
+=œ8=’~¼—ÈÆ;„\8=4Ï0<Cî\=¢Èê<„@€¼¾«†º<\Q=¹Ÿ¼Ü„H=Í±<ÇÓ=€Z~:’=9¡;bmW½»Ñ><Â4Ê<´	‹»ùè»Må¼<}Z¼““H<}t9;šä9“Ú=dbœ;noD½™R=7K<‹µ¼p}¼pü0;J{Š< ¬<† ›;A=I½ğ® ½øL}½jj¤½úÀŸ¸åPh¼,¸8¼#q)»ôÂ–¼¼5=mÑ»©È »Ç-°9Bo˜»şİ¼rÌ)¼m¥ÿ<†öŸ<£ÿ¸<9ÈŠ»>Ñs=ì§„<lD!=A^g¼‚@¼\Ô>=8êÌ<™’T½‰¨¼Æ= !H½ŞJ=	œ¼ÄÏI½H)R½yƒ½´¾=(H:½Le¡»´¾&½./ìºTÇâ<†s¸<-A&»N ½;Àš<kS'<¬å¦¼jĞw:ìñŠ<s3½ ÃS¼ôª½R=«:g¼êL8»ÿä<şµ½sCê;ÁI;“®€¼<È½™D½£±«ºm²¼ˆk<·jÁ»9´î<UÃTºßs7½]íA½(‡I½qĞg;«Ò; gö<õI½À·P¼ï£=#u(<`–6=Ãœ¼5p„»É¬½»Ø;o$Œ¼Xpš;÷¼<!<F¼×d¤¼ËG¼Øo|½ây=*‹=è}½ÄN¼<‚bÛ¼]”ºâûÌ<qÄ{<o¼|$p<\G½Ü')½$š$:JË¼;¨+½¿ÜJ¼™Äà<‹Æø;ÆB’={%ì<ÆÕê¼Q™N¼³.=ÅÄ<Ñøùºc.u<Í—NºÙ¼ğ_Ï<Müa<»Û„½¦ØÈ;` }=r`_»«´Ö¼ó.¾»X+z=æÃ½ÈÕ¼¬¿™»£Q½€G¼o¼IY#½Îèì;`I½Œ#ó¼&(/<x¿¨=¾9„<,†=Æ;lÔç»æÍ¬<²”= Ö¼Á T»$*¼x!½z¦)¼|¢»õÌï< ·y¼U©‰º ‘=’	R¼¸ÓI¼¢	o¼ƒ>¬½~¦=yü¦¹<IÌ¼»Ã<<¶ß<wC
+;˜À¼2,¼iE1½Z©¼<ëÚ¼Õæì¼Á_©¼„ï‚½¢†L½ß†.½²B—½¦p÷»½1½-„İ;ÄB½Ö·)<%œ¼Gq§<Q–Ù»Ü“=ù/½‹©Â<Ï[A½A]¹‘-e»¤V0½^ñT½ñç<&=ş¼I2Ë<¡„/½RA=d~<ä.¦<l™<cÏ<÷¨Ÿ¼2¢Ñ<XKw=
+¤]¼Éf=OÈ¼Ğ…Ë<™¯»r×ô¼¬v‡;±/u¼J==§¿ì¼2‚8¼Ì¿¼7DÎ<E)½f7«¼OÃ^;ej$=—ò=c<‡İ»µ,=Z!ß<0”İ<¨Lˆ=XÒ¼5};ëÇ¼¶0½—!;ø;È÷ƒ¼çT<Y™º:öL%¼…Œ5=,"2½O½¼ÁË½ p"<ì5½)ÙÅ<iá<¢£¼¢V¼á²¼]Ú:½d_|9í{,½Ó‡½Hà<ÛÇC½¥3<&q¼ âÌ;#Xş»¥HË»¼¯BëºíÀ¡¼zEºu¨.=˜R½ü>J¼
+×e»¥E2½¬ÆŞ¼şE½…2â»×Î;=¤\Q;ÓŞ¼8¤¼ŠØ¼"Œ»ó=f¼:ó¼Á3»µ1<š;èIZ=Iqé¹¹£»{H=[ª¹¼M„Ø¼Sl=ôZ’=¯:_Ñs¼Í%Å<?ÿm<i¯¯<è½û*Œ¼C‹ =N»ÒŸÎ<Ã×œ<z¥*¼kşD¼µ%$»Mñ=ÿ€,¸kİõ<ò°;ìZy¼<)»·z¨»[l“<r®î¼yÒô<òì$¼¾2¼2ĞŠ¼ÄF¼&âÕ<âÍÙ¼ñ´;g¡.½ØïÄ¼sd¨<á?W=±˜;–q¹=(P'=“Ò=iÜp¼c×:cíZ;Û+É<²Ëé»ªNÆ:ïaÄ<Œr1=	A½²›¸½{¨ı¼ûîÅ<Ğí…¼Ÿ³¼z2<¹§±¼4|¼ĞàV¼o€»c1¼Sßò;BÇ·<Ü¼y!·<õ`l»Õ†\½5rp<;*;¨–=;<éF¼ãÇ¬;Ú±<¦7½á‚¼n½ÅÆ¼°¦'»í<°<×ü€½¢‰¼íWœ<TÇ»£=…ñ<ü¬€¼OÅ½›]“<ÜÁk¼Ç  ¼$1<l »»‰]÷<›ˆ <9–¨¼Õ¸»ÊP½*;Ã½¼šÚ<)Ÿ;şJ<?è»A·¼>ôºš}½Lv¨;î™Æ¼u » Ä.<­u"=iÆY»3Ö½rï¸¼p¯]<ˆ‰J=J´;%¿¶<’Ó=Ká•<ò±<ƒ>;æs}=÷D»êŒ<‹ŸC¼£`¹¼Ûÿ½@ø½z/¼Ù„„<hØ$¼O¬J¼‚§r½k¼¾ÌE¼ûR.½âZÇ¼LP<&•¼Ü˜`»³=ùĞg½¾‚>Ê½<&^_=V­î<I®»Ei<ıa=õ%¨¼SÀ¼‚H¢º‰ò¤;Ì„¹¼|ùï»–{=Üî”¼;n;¸:ü¸ˆ<¦„õ<Ù]³¼£‘½uĞ»–éh¼A² ¼à)»xXÇ»-¶M¼Ë:å¼¥-½¥<+Ê½\Ú»hèı<;¾»(’e<Z#:‰U=:ã²<õÜo¼»‘Ç¹Ù48¼8W¼î¥e9“
+¼GX-<®Ë=NÅËº‘Œ¼ğ$á»ò^½BíB=iN¼u¶ªºQ$¸;f½=Í©;=¥ºP;(f¼«ŠÇ<’Á0<1›ú»…ªe¼ß´$=)€»»p=$ƒ8»14*=ê3½†ÍÑ¼f¼,)½ÿc½ø•½[è=ë6½„O¹¼¦nn=f1;;áï½F^½»œÿ¼\é¡¼å¼g;W=vœ<Ë–Ç¼¸wÑ¼ŒÃN¼±(=æw$;_=’½ë$n¼yV<
+$11
+inserted_at
+$17
+1788088294.247337
+$10
+updated_at
+$17
+1788088294.247337
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:b6907a70731cb5b8edcceda988288515cdb319f73f5b5198dd511516142bb592
+$13
+1788091894255
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$55
+{"role": "user", "content": "when was light created ?"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788174697603
+*3
+$5
+RPUSH
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$203
+{"role": "assistant", "content": "Light was created on the first day of creation.  \n- In the text it is stated that God \u201ccreated light\u201d on the first day\u3010chunk-7\u3011\u3010chunk-1\u3011"}
+*3
+$9
+PEXPIREAT
+$52
+session:e0bcd9c9-74b9-4a23-a58a-0cd3e28e484c:history
+$13
+1788174697622
+*2
+$3
+DEL
+$73
+llmcache:ee7df06ef6d678bb557c0ee2ef7ac47e69e89a5ab7c3a67cf93198a728552877
+*2
+$3
+DEL
+$73
+llmcache:91992b9693a91d03dd7dffdf33b643dab3937504c3e46ada5b0940fe6ba3845f
+*2
+$3
+DEL
+$73
+llmcache:70696573728c656fa432196330c50d00f0bd92ddd3a4e195924e2b05c95207be
+*16
+$4
+HSET
+$73
+llmcache:2ffa42152fed912b63986aefd812106387339f084d6c11671cb0f20128f2e0d6
+$8
+entry_id
+$64
+2ffa42152fed912b63986aefd812106387339f084d6c11671cb0f20128f2e0d6
+$6
+prompt
+$29
+what happened on fourth day ?
+$8
+response
+$820
+["{\"lc\": 1, \"type\": \"constructor\", \"id\": [\"langchain\", \"schema\", \"output\", \"Generation\"], \"kwargs\": {\"text\": \"**Fourth\\u2011day events**\\n\\n| What God did | Description | Source |\\n|--------------|-------------|--------|\\n| Created the firmament\\u2019s lights | He set the great lights in the firmament of heaven to shine on the earth, to rule day and night, and to divide light from darkness. The evening and morning of this day were the fourth day. | [chunk-8] |\\n| (Alternate wording) | \\u201cOn the fourth day he ordered and distributed this light, and made the sun, moon, and stars.\\u201d | [chunk-7] |\\n\\nSo, on the fourth day God arranged the celestial lights\\u2014sun, moon, and stars\\u2014to govern day and night and divided light from darkness.\", \"type\": \"Generation\"}}"]
+$13
+prompt_vector
+$4096
+ÅôN<‰Ò½ëß¼>Ø]<¡¹¼m.=(U<½¡:¼§Hˆ<¾Öî<Y÷<k‘P<’Ã¤;í“¼×¿W½Y·½E^¼¼g‚U;¥û[=@ÜÆ<ûóÎ<l ‰½£R¼$òJ¼+Œè<Ï2H¼N‰¼¿:ò<÷\7=1g¥ºzÜ½û=}ôc½ä*@¼z<¡?@=*hU½€ºP¼Ÿ¿R½VAë¼ÂGf½7§Í<}Äk½sº½+%<m ½Êè`½ƒàe<>c·¼hX»ÀP«»1O<™Q¼ö—Ş;´3m½æ"(ºCè<õ÷Û;®°h;™Ò<™İ1¼‰ä~=	`½É—µ¼º¤D=ù»H½gİ»õ‘Õ;×¼&[½=~;ğƒ–»úb¼ù"ì¼Vô¼UZ=g€;|­<¨Å\<.0=«å±»Z{½}­_=”˜F½¸ûÓ¼Ì±ˆ;:BQ=D7<Iƒ:$1	¼MNã<uÁ»±.½Á‰,¼<ë«<E‡ ½7š¼º½^Ÿ;9®È;‚İ$<Gë½Ä¢¼5Æ+½!L¼ÅÃd<®1=AÆ·<‘‰N½V“8¼i@=åîB=ê6ƒ<­‰ç<#OS=P’Ã<0ÛÃ¼¬®x¼Ãğ;ô=e#r¼íÜ	=«"6¼„³ã¼Ë…©¼±[¡½œ¶M=löf¼ï@<àŠ¸¼|®=UÅ^<—ï”:Dœş»i0¼&X=UÂ<ÏP:ÕÉ—¼°ø´<BxJ½&i×¼'•c=úz+9+}!=ä v½Y=»’¼çÑ<™(H½ğ?½~º<Xìu=ƒ3=`Î£<¶Í¿<·ÖC;]½2=ò<½ÑÁ ;êi8¹R< l½3×w<Ï5ñ;< î¼”™„¼¹é½¿èq=Ì¤¼2ëˆ½œ¡Â:xjd=–v=È³; ‡öº°º<Ê»»<ÍyÏ»"á;gö< Uô<ğ}<P&Î»šÍ½VÅ	½-¼©åİ;Õİâ;FAæ;lèl½å·<û`‘<¹;Äe½¯aº¼ÑüÒ<¶9•½/…<sÜ<ëKã¼!®M=M¼WmŸ<ŒÓ<!ìY=‹=„å;ÂR,¼RA¼™¼Ml<Œ¬;hÀ7<°¸;s½<íŒ¦¼z/»K^”¼»,S=JÉY¼²=Ûü¼/ØŠ¼°MÇ<rGQ=7¨¥¼Éç:¬Ü~<4K]¼ÏËø<Vc˜<À†#=gŒ¼uk;	^<Ìe•¼IÈ¼»¢~L=p,¼w+ë<Ôª4»®ı¼úE= d=¤/#;L¦Ë;RBó<)ÊŠ=úÓj=ÚCè<µ<¼|º{»  g=¿İÂ<J€î<ô¡¼¬Éª»zÈ¼x˜_<gıÄ<eö½ÛuK<Ù#G<÷ˆ=õ{°<Ü…<• f½ßù¼ Š½{Ã¸¼l	ó:­‘¼3™M¼˜Á"=Ï†½,/h;şnR¼§E;E{¼d¡ì¼,/Ú<Sô¼Ğ/¼Õm¶¼k©m=y6š<n£)<”¼•ë:åHì¼pk~½©ç•<ÉÍ;?½i =JÅ˜¼åLp½Ü<¤=s”»*Æ_<êVQ½éÒN=İ¨Õ;xË¼hG½</H½Îà¼™…½=!n{<¥.½º‘yÀ¼æôK=âÚÜº6Nì<q…¼yR¼‹¾h¼¿<$¼dí<¨ q8wX¼RØ<€¯~½`ã|»ÚJ3<ÅaÂ¼Àw;o<Êoï¼|Áˆ<-_Å»Ñ	<r´C½ÇYá:v-`¼1ÌÊº%şæ»uÂ=Ëœº¼º—˜¼‘›˜¼t ½Öş,<Jï< ™<Õïâ<•ÒÁ»{™²¼±Ç¼ÉŒƒ½I„L¼Z#™<],3=F-m<rs?½}4<Šw¹»âí¼Ã„
+½`Á<[<Ğ¢’¼‡¸<ï'=”îI=TÂØ;ºh=ùb;GÑ7¹O¶:¼6½k^½©%=6‚£¼·=¼@¼ê{=¨Ğ¼¬=$vr¼É½<öà:r<=4zF<Áã;Jh);¬7 =f][¼PÕ;³€¼Ñ|k;7½¨‘ß<¤ÅÉ;*=p=’<P¾º©T¼;9ù=jÖÇ<»e¼#ß»»R>i½98=¬%ß<‘¼ñqã¼šG¼ş–a<Ñİ(¼+$1<M·Æ¼éU½¨¢Äº{£ª<¨Àì;fë»)2H½¾eë<üüî¼¿&Ÿ<!Æ“»¤cÿ<lhÎ¼İ,=8W<H¬z»»Ç¼áì®<™i[½xN½“ôğ<KÁ"<ÄÜª¼8C>½ƒË&½s`=÷±^=á  ;Ds·<”]=®æ¼gwŒ=HV¼ŠYÕ»çÀ=Ã«G<FòÈ¼|[@=-b¼Ø˜Ê;C93»î@;mã ¼HŠ¡=ë‰É<ôÜU¼­ù|¼àş¹XV¥¼×‚0;$…=+«=ùm´¹Êq<Ê‚=¢I-=	ıÊ;=…_‰¼ÃÖ*¼­P½Ó×»[¹¤¼ş&¼lWñ;Ú)çºãe=Çˆ¬<©¼Ãpı;ss¼78¼2ö=Ç¹c<ç¼C-è<äÜ*=HHe½^‘%¼:D½/›Ï<L,½ó¼=9G;={¹ÿ8bğ;;4•<.>h½™Á<#ü×;o-;<!dq¼¸<òßÇ<WŞ<åÙØ<›L:½Tpƒ<eF=²úO<Ş^º<ã&º½û»?7<¶K<ÕÃ/<m;›¼]	¼Ä*½9Ğ£¼µ(¼®·¼3Ö<½-fˆ½:
+©½II½ªù,½pßÚ¼ò<®Æš¼pã¼Éâj=)°ã<Ú;dµ‘<?9½½³Ûk¼ÌËÕ¼
+å¼··¼ĞªB½‰ÿÑ<Æ»»<ÕÌ<ÄV=ÃX½ĞÕë</Z¯¼XÂ½ÀS»¦{H;™±<ÿùû» lÉ¼‘×P½
+û@=ı~½ÊÌu¼o-½)ÿ'½‹’,½V‘<ûÈ/=Œ½:½OÉ¼n‰h=9ûÿ<Úº½<°h½Öd½Ù ¼ŸÆ<£‡S<„Ó¨¼¨5½™n»`‰½W…<#5¯»±!¤»Oxo=é½Æ¡=k -½È¦©<v*»U'š<Ş²<sN»mH;4àB¼šB¼õµC»Ô¢ª<F3r;ñ=Tí‚¼dø=¢¬‰¹Q½1Öq:	Š<]G=Â f<Ì‡=$.<­9x½e*=ãíF¼./r¼¦v<v,=k¼rM,½Lº‡;–U€8d“%½œp’¼À¾½lR½‹ ½BY»ôÏ¦;Tí¼´õŸ¼èš=Ym=Õ­_<Ä£W9—Fş<k?¼ed½	g…={4(=éâz½õà¼Ş¡¼©&½Xù°;>"M½Ï(»•¼‰‚¼Î‰h»º_@¼ş=ğ@½1›…;Òúô<Ê±Ø¼{\Ü<<#½©~´¼¤Äºí‹=Vw¼¡—ğ»âq8<ÄCû»©«3¼±’2½wÙ¼®şò¼ïè9<‹Š{¼ı]c<#-–ºbñºR$"½äiŒ¼—°¼ÍÆ‹¼F?ı<I=›½éu»«s½T_½S3½7½—W½ğÜ=X½­E~¼‚•ò¼åÅP=(‰¢¼`¸I<rB<·•«»u¿Ö;B¿T=Ö.<…Ì;R1=iXE=FH<ã´¼‘H˜<«Á¼!î9:ìH=(\¼zõ¼±|¼Œpê;ˆÁ½
+Ò<%I‚¼¡=›Œ¼ã¹d¼MC¢<â§­=P…t<NÒ=xªÑ8CGt<pÑº•˜å<#ÔÍ¼h¤ß<1¹Î; ´Ü<Z¤ =jÒ$¼¤¶ç¼+Â?»i’»<
+Ô;ü=Ù¼ó3‰¼8—(<›O8n;=¥’;\€ù<Éƒ¼ÀZ¨¼›Ô„¼İƒ½ÁQ½”î‡;#=<…—Ì¼Ó@£»CR»€R?»2êl<4pÃ¼O2=ª€á<œôÔ;a}$=ÂJ<²½tĞ˜¼0[¯»/¹½%“¾º3\<˜#=}Ÿ’»6^˜¼nYŒ¼RJ¼i°¼®ù¿»×(J¼Ü>=ò“	½(¯1¼Yìã¼%3Z=b•¼ˆeu¼÷"-¼]‰¼’
+†¼ZÂJ<ûé’=Æ´»[Ÿ=³«L=îİŒ<úîÎ»:½«ƒ‡¼·³<2½=¼Â)<ƒà¼dò<@§Ò¼ªÃX½ˆ ; 3;S/<å‡=|P\¼û™G<IV¼õ¼Ñ]A½;[ı<5‰¼Lı¼x›;œYÌ<’˜™;íÈ8½\!Q<¤¼I»‰_“=9ïS=n÷E<ı]Ñ<eO=p,Š< Ï<‘—¾;eö“< •<L¢‰½æğ=¼Î§=ùc=›åºÄÄ»Öz½Íj<ÚjP¼‰Š=Ù3ä<öHa;šº…¼ê"$½±»`#J<Ş_ÂºÚ~H<ë)ä¼¯r<™…<Q6â»Æy€<ĞÜ6<ë™^=ŸA½Ÿî	¼Ï"=W)[½ÜND½`‘&ºÅ\G½ò½¼8„»m´‹<ÅX=‹Ûå<˜»¼Ê5Y=}‘}¹¬ï%½uÉc½¯•B<é+=½ÕAû;šéÏ;¼3ª<ŸB»1¬½ÒXß»ƒ’¼»İI<ş5¼:Ä-½¤’¼’šƒ<Öğ¼(?a½K}]½Ñ+Á»™mZ¼6îk¼FS¼¼ğµ²<©»†½¢Ú=RŞ½·iŒ¼õŞ=
+Z"<ú<oR»ŞS<»Ë ½Üñº<+sş»`?8=ˆ2â»x ß»ê"ù;­#\<lNi½÷{v½S_¹<èo…<ÕÙ<ö†¼™§@½ wmº/2£½Xë1=`g›¼!s`=j¥f¼û'~<ßS=è€0½åSr>%=±	I<Uº ½Í±¼{µ.<±Šå<\š<Áş#=QŠW½*çè<?{Ø<’Ñ¼Z>œ;L <îö*=Š±¼>R<¦ğ”;T®¯¹Sú÷¼yè›¼,pü:ù¶D=:ÊU¼ ùû<·Ëá<FÆ_<ÿn½
+×{<owÁ¼~A½‹ c;“× ½Ağ¡¼éÄ:Åì_¼?I#½Y¨=YWq¼ğ|ï¼Ú<æÌ½Âc<a%=ì;'=ÇR³;K¸¼½ßA=€¨y¼;ÔW=r*—¼LA[ºÍk=½U´½œB›<PÌ=Ä]“<÷ t¼gåø¼.U<_‡½Qé½fÖs;öº;A³9=ãº½»şŞ'½µ7X½0V
+½ ƒP<ç|š<ÎÍ¼îyê:|l=ƒ=º<hÑ‰¼öfA;é®¼}sh;‚mª:@™¼ f!½Ì»•¢ =&:—,=#Ÿ;c¡¥<d»<ëj<êb÷<´9E¼H\œ<mƒ<
+$11
+inserted_at
+$18
+1788091865.5321717
+$10
+updated_at
+$18
+1788091865.5321717
+$8
+metadata
+$18
+{"llm_string": ""}
+*3
+$9
+PEXPIREAT
+$73
+llmcache:2ffa42152fed912b63986aefd812106387339f084d6c11671cb0f20128f2e0d6
+$13
+1788095465541
+*2
+$3
+DEL
+$73
+llmcache:b6907a70731cb5b8edcceda988288515cdb319f73f5b5198dd511516142bb592
+*4
+$4
+HSET
+$10
+hitl:queue
+$15
+ticket:7d2dd33a
+$180
+{"ticket_id": "ticket:7d2dd33a", "session_id": "6171b752-4a3c-401b-94a4-4c79ddeaa21d", "query": "who is god ?", "trace_id": "64a82c254627c70fb603d000ab1fbfb9", "status": "pending"}
+*2
+$3
+DEL
+$73
+llmcache:2ffa42152fed912b63986aefd812106387339f084d6c11671cb0f20128f2e0d6
