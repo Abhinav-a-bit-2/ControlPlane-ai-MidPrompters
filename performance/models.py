@@ -30,9 +30,10 @@ Design change from the old pipeline:
 import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
+from .grounding import GroundingChecker
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from sklearn.metrics.pairwise import cosine_similarity
 
 _CITATION_PATTERN = re.compile(r"[\[【]chunk-(\d+)[\]】]")
 
@@ -123,79 +124,119 @@ def extract_claims(answer: str) -> List[Claim]:
 # Step 2: ground each claim against chunk *content*, not just its tag.
 # ---------------------------------------------------------------------------
 
-def _similarity_matrix(claim_texts: List[str], chunk_texts: List[str]):
-    if not claim_texts or not chunk_texts:
-        return None
-    vectorizer = TfidfVectorizer(stop_words="english")
-    all_texts = claim_texts + chunk_texts
-    tfidf = vectorizer.fit_transform(all_texts)
-    claim_vecs = tfidf[: len(claim_texts)]
-    chunk_vecs = tfidf[len(claim_texts):]
-    return cosine_similarity(claim_vecs, chunk_vecs)
+# def _similarity_matrix(claim_texts: List[str], chunk_texts: List[str]):
+#     if not claim_texts or not chunk_texts:
+#         return None
+#     vectorizer = TfidfVectorizer(stop_words="english")
+#     all_texts = claim_texts + chunk_texts
+#     tfidf = vectorizer.fit_transform(all_texts)
+#     claim_vecs = tfidf[: len(claim_texts)]
+#     chunk_vecs = tfidf[len(claim_texts):]
+#     return cosine_similarity(claim_vecs, chunk_vecs)
 
 
-def evaluate_claims(
-    claims: List[Claim],
-    chunks: List[Chunk],
-    entailment_threshold: float = ENTAILMENT_THRESHOLD,
-    neutral_threshold: float = NEUTRAL_THRESHOLD,
-) -> List[ClaimEvaluation]:
-    chunk_by_id: Dict[str, Chunk] = {c.chunk_id: c for c in chunks}
-    claim_texts = [c.text for c in claims]
-    chunk_texts = [c.text for c in chunks]
+# def evaluate_claims(
+#     claims: List[Claim],
+#     chunks: List[Chunk],
+#     entailment_threshold: float = ENTAILMENT_THRESHOLD,
+#     neutral_threshold: float = NEUTRAL_THRESHOLD,
+# ) -> List[ClaimEvaluation]:
+#     chunk_by_id: Dict[str, Chunk] = {c.chunk_id: c for c in chunks}
+#     claim_texts = [c.text for c in claims]
+#     chunk_texts = [c.text for c in chunks]
 
-    sims = _similarity_matrix(claim_texts, chunk_texts)  # [n_claims, n_chunks] or None
+#     sims = _similarity_matrix(claim_texts, chunk_texts)  # [n_claims, n_chunks] or None
 
-    evaluations: List[ClaimEvaluation] = []
-    for i, claim in enumerate(claims):
-        if sims is None:
-            best_score = 0.0
-            best_chunk_id = None
+#     evaluations: List[ClaimEvaluation] = []
+#     for i, claim in enumerate(claims):
+#         if sims is None:
+#             best_score = 0.0
+#             best_chunk_id = None
+#         else:
+#             row = sims[i]
+#             best_idx = row.argmax()
+#             best_score = float(row[best_idx])
+#             best_chunk_id = chunks[best_idx].chunk_id if chunks else None
+
+#         # Similarity specifically to the chunk(s) the claim cited, if any.
+#         cited_score = 0.0
+#         if claim.cited_chunk_ids and sims is not None:
+#             for cid in claim.cited_chunk_ids:
+#                 if cid in chunk_by_id:
+#                     idx = [c.chunk_id for c in chunks].index(cid)
+#                     cited_score = max(cited_score, float(sims[i][idx]))
+
+#         # Grounding score = best evidence we can find anywhere, cited or not.
+#         grounding_score = max(best_score, cited_score)
+
+#         if grounding_score >= entailment_threshold:
+#             status = "entailment"
+#             risk = 0.0
+#         elif grounding_score >= neutral_threshold:
+#             status = "neutral"
+#             risk = 0.4
+#         elif claim.cited_chunk_ids:
+#             # Tagged a chunk, but content doesn't actually support it.
+#             status = "contradiction"
+#             risk = 0.9
+#         else:
+#             status = "uncited"
+#             risk = 1.0
+
+#         is_flagged = status in ("contradiction", "uncited")
+
+#         evaluations.append(
+#             ClaimEvaluation(
+#                 text=claim.text,
+#                 status=status,
+#                 entailment_score=round(grounding_score, 3),
+#                 risk_score=risk,
+#                 is_flagged=is_flagged,
+#                 cited_chunks=claim.cited_chunk_ids,
+#                 best_matching_chunk=best_chunk_id,
+#             )
+#         )
+#     return evaluations
+
+def evaluate_claims(claims: List[Claim],chunks: List[Chunk], checker: GroundingChecker)->List[ClaimEvaluation]:
+    evals = []
+    chunks_map = {chunk.chunk_id:chunk.text for chunk in chunks}
+    chunks_comb = [c.text for c in chunks]
+    for claim in claims:
+        cited_text = ([chunks_map[chunk_id] for chunk_id in claim.cited_chunk_ids if chunk_id in chunks_map])
+
+        if cited_text:
+            check_text = " ".join(cited_text)
+            ground_res = checker.checkClaim(output=claim.text, chunk=check_text)
+        elif chunks_comb:
+            candidate_results = [checker.checkClaim(output=claim.text, chunk=text) for text in chunks_comb]
+            ground_res = max(candidate_results, key=lambda r: r["entailment_score"])
         else:
-            row = sims[i]
-            best_idx = row.argmax()
-            best_score = float(row[best_idx])
-            best_chunk_id = chunks[best_idx].chunk_id if chunks else None
+            ground_res = {
+                "label": "uncited",
+                "entailment_score": 0.0,
+                "neutral_score": 0.0,
+                "contradiction_score": 1.0,
+                "entropy": 0.0
+            }
+        
+        status = ground_res["label"]
+        p_e = ground_res["entailment_score"]
+        p_n = ground_res["neutral_score"]
+        p_c = ground_res["contradiction_score"]
+        risk = 0.0*p_e + 0.4 * p_n + 1.0*p_c
 
-        # Similarity specifically to the chunk(s) the claim cited, if any.
-        cited_score = 0.0
-        if claim.cited_chunk_ids and sims is not None:
-            for cid in claim.cited_chunk_ids:
-                if cid in chunk_by_id:
-                    idx = [c.chunk_id for c in chunks].index(cid)
-                    cited_score = max(cited_score, float(sims[i][idx]))
-
-        # Grounding score = best evidence we can find anywhere, cited or not.
-        grounding_score = max(best_score, cited_score)
-
-        if grounding_score >= entailment_threshold:
-            status = "entailment"
-            risk = 0.0
-        elif grounding_score >= neutral_threshold:
-            status = "neutral"
-            risk = 0.4
-        elif claim.cited_chunk_ids:
-            # Tagged a chunk, but content doesn't actually support it.
-            status = "contradiction"
-            risk = 0.9
-        else:
-            status = "uncited"
-            risk = 1.0
-
-        is_flagged = status in ("contradiction", "uncited")
-
-        evaluations.append(
+        evals.append(
             ClaimEvaluation(
                 text=claim.text,
                 status=status,
-                entailment_score=round(grounding_score, 3),
-                risk_score=risk,
-                is_flagged=is_flagged,
+                entailment_score=round(p_e),
+                risk_score= risk,
+                is_flagged= status in ("contradiction", "uncited"),
                 cited_chunks=claim.cited_chunk_ids,
-                best_matching_chunk=best_chunk_id,
             )
         )
-    return evaluations
+    return evals
 
 
 def build_report(evaluations: List[ClaimEvaluation]) -> EvaluationReport:
