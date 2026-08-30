@@ -21,7 +21,7 @@ from performance.performanceEvaluator import PerformanceEvaluator
 SOURCE = str(
     Path(__file__).parent
     / "confluence"
-    / "genesis.txt"
+    / "dsid_0a7f0607ab7a4043bc5a888e3fd7c7e7__tiered-degradation-and-incident-runbook-2026.txt"
 )
 
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))

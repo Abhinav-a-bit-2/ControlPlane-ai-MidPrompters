@@ -20,54 +20,64 @@ INTENT_PROMPT_ADDENDA = {
     "a customer support request for help": (
         "\nBe empathetic and conversational. "
         "Provide step-by-step guidance where applicable. "
-        "If the user seems frustrated, acknowledge their concern first."
+        "If the user seems frustrated, acknowledge their concern first. "
+        "Always cite your sources using chunk IDs (e.g., [chunk-12])."
     ),
-    "a legal contract, policy, or SLA": (
-        "\nCite every clause explicitly using chunk IDs. "
-        "Do not paraphrase legal language — quote it directly. "
-        "If the contract text is ambiguous, state the ambiguity clearly."
+    "a legal contract, organizational policy, or SLA": (
+        "\nCite every clause explicitly using chunk IDs (e.g., [chunk-12]). "
+        "Do not paraphrase policy language — quote it directly. "
+        "If the policy text is ambiguous, state the ambiguity clearly."
     ),
     "technical troubleshooting and system configuration": (
         "\nBe precise and technical. "
         "Include any relevant configuration values, parameters, or procedures from the context. "
-        "Use bullet points for multi-step instructions."
+        "Use bullet points for multi-step instructions. "
+        "Always cite your sources using chunk IDs (e.g., [chunk-12])."
     ),
     "billing, payments, pricing, and invoices": (
         "\nInclude specific amounts, dates, and plan names. "
         "Be clear about what is and isn't included in the pricing. "
-        "Cite the source chunk for every monetary figure."
+        "Cite the source chunk for every monetary figure using chunk IDs (e.g., [chunk-12])."
     ),
     "confidential data and privacy": (
         "\nThis query may involve sensitive or restricted information. "
         "Answer only from the provided context. "
         "Do NOT speculate or infer beyond what is explicitly stated. "
-        "If the context does not contain sufficient detail, say so clearly."
+        "If the context does not contain sufficient detail, say so clearly. "
+        "Always cite your sources using chunk IDs (e.g., [chunk-12])."
     ),
     "an explanation of a general concept": (
         "\nThe user is looking for a conceptual explanation. "
         "Structure your answer clearly with definitions first, then details. "
-        "Use simple language and explain jargon where it appears in the context."
+        "Use simple language and explain jargon where it appears in the context. "
+        "Always cite your sources using chunk IDs (e.g., [chunk-12])."
     ),
     "a comparison between multiple options": (
         "\nThe user wants to understand differences or similarities. "
         "Structure the answer as a clear comparison — use a side-by-side format if there are multiple attributes. "
-        "Cite each compared item's source chunk explicitly."
+        "Cite each compared item's source chunk explicitly (e.g., [chunk-12])."
+    ),
+    "a direct factual question or inquiry about events, entities, or history": (
+        "\nThe user is looking for a direct factual answer. "
+        "Keep your response concise and directly address the specific fact or event requested. "
+        "Explicitly cite the source chunk for the fact using chunk IDs (e.g., [chunk-12])."
     ),
     "a topic completely unrelated to this system": (
         # No special addendum — use base prompt and let retrieval decide
-        ""
+        "\nAlways cite your sources using chunk IDs (e.g., [chunk-12])."
     ),
 }
 
 # Short aliases for display, telemetry, and retrieval-k lookup
 LABEL_SHORT_NAMES = {
     "a customer support request for help": "support",
-    "a legal contract, policy, or SLA": "contract",
+    "a legal contract, organizational policy, or SLA": "contract",
     "technical troubleshooting and system configuration": "technical",
     "billing, payments, pricing, and invoices": "billing",
     "confidential data and privacy": "confidential",
     "an explanation of a general concept": "explanation",
     "a comparison between multiple options": "comparison",
+    "a direct factual question or inquiry about events, entities, or history": "factual",
     "a topic completely unrelated to this system": "out_of_scope",
 }
 
@@ -83,6 +93,7 @@ INTENT_RETRIEVAL_K = {
     "confidential": 3,
     "explanation": 3,
     "comparison": 4,
+    "factual": 3,
     "out_of_scope": 2,
 }
 
