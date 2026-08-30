@@ -17,7 +17,7 @@ USE_INTENT_PIPELINE = True
 import telemetry
 
 telemetry.init_telemetry()
-from performance.performanceEvaluator import PerformanceEvaluator
+
 
 SOURCE = str(
     Path(__file__).parent
@@ -81,18 +81,104 @@ def _clean_history_message(role: str, content: str) -> str:
         cleaned = " ".join(sentences[:2])
     return f"{role.capitalize()}: {cleaned}"
 
-def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, int]:
+
+# Compiled once at module level for speed.
+_COREF_SIGNALS = re.compile(
+    r"\b(it|its|they|them|their|that|those|this|these|"
+    r"the\s+(?:above|previous|last|same|prior|mentioned)|"
+    r"what\s+you\s+(?:said|mentioned|described)|"
+    r"as\s+(?:mentioned|described|discussed|noted))\b",
+    re.IGNORECASE,
+)
+_DISCOURSE_STARTERS = re.compile(
+    r"^(and|but|or|also|so|what about|how about|what if|"
+    r"in that case|similarly|likewise|additionally|"
+    r"why|how|when|where)\b",
+    re.IGNORECASE,
+)
+
+
+def _cosine_sim(a: list[float], b: list[float]) -> float:
+    """Dot product of two L2-normalised BGE vectors == cosine similarity."""
+    return sum(x * y for x, y in zip(a, b))
+
+
+def _needs_contextualization(
+    question: str,
+    history: list[dict],
+    embeddings=None,
+    sim_threshold: float = 0.87,
+) -> bool:
+    """
+    Three-signal gate. Returns True when the question likely needs chat
+    history to be understood correctly.
+
+    Signal 1 — Explicit coreference (fast-path):
+        Pronouns / phrases that definitionally reference prior context.
+        "What does **it** guarantee?" → True
+
+    Signal 2 — Fragment / ellipsis detection:
+        Very short questions (<= 4 content words) or discourse starters
+        ("And for the second tier?", "What about latency?") are almost
+        always follow-ups even without pronouns.
+
+    Signal 3 — Embedding cosine similarity (uses BGE already in RAM):
+        If the query is semantically very close to recent chat history,
+        it's likely continuing the same topic thread and may be implicitly
+        referencing prior context ("How does scaling work in that scenario?").
+        Threshold is conservative (0.87) to avoid false positives on
+        unrelated but domain-adjacent questions.
+    """
+    # --- Signal 1: explicit coreference ---
+    if _COREF_SIGNALS.search(question):
+        return True
+
+    # --- Signal 2: fragment / discourse starter ---
+    words = [w for w in question.split() if w.isalpha()]
+    if len(words) <= 4:
+        return True
+    if _DISCOURSE_STARTERS.match(question.strip()):
+        return True
+
+    # --- Signal 3: embedding similarity to recent history ---
+    if embeddings and history:
+        recent_text = " ".join(
+            m["content"] for m in history[-2:]
+            if m.get("content")
+        )
+        if recent_text:
+            q_vec = embeddings.embed_query(question)
+            h_vec = embeddings.embed_query(recent_text)
+            if _cosine_sim(q_vec, h_vec) >= sim_threshold:
+                return True
+
+    return False
+
+
+def contextualize_query(
+    question: str,
+    chat_history: list[dict],
+    embeddings=None,
+) -> tuple[str, int]:
     trimmed_history = chat_history[-4:] if chat_history else []
-    
+
+    # No history → nothing to resolve.
     if not trimmed_history:
         return question, 0
+
+    # All three signals say "standalone" → skip the Groq call.
+    # This preserves precise technical terms that the rewriter might paraphrase.
+    if not _needs_contextualization(question, trimmed_history, embeddings):
+        return question, 0
+
 
     history_lines = [_clean_history_message(m["role"], m["content"]) for m in trimmed_history]
     history_text = "\n".join(history_lines)
 
     system_prompt = (
         "You rewrite conversational search queries into standalone search queries. "
-        "If the question is self-contained or switches topics, return it unchanged. "
+        "Preserve ALL technical terms, proper nouns, and numeric values exactly. "
+        "If the question is already self-contained, return it unchanged. "
         "Output ONLY the final rewritten question without explanation."
     )
     user_prompt = f"Chat History:\n{history_text}\n\nFollow-up Question: {question}\nStandalone Question:"
@@ -112,10 +198,10 @@ def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, i
         ctx_tokens = 0
         if completion.usage:
             telemetry.set_llm_attributes(
-                span, 
-                "openai/gpt-oss-120b", 
-                completion.usage.prompt_tokens, 
-                completion.usage.completion_tokens
+                span,
+                "openai/gpt-oss-120b",
+                completion.usage.prompt_tokens,
+                completion.usage.completion_tokens,
             )
             ctx_tokens = completion.usage.prompt_tokens + completion.usage.completion_tokens
             print("\n\n ---  Rewritten  --- \n\n")
@@ -124,6 +210,7 @@ def contextualize_query(question: str, chat_history: list[dict]) -> tuple[str, i
             print(f"Tokens used : {ctx_tokens}\n\n")
 
         return rewritten, ctx_tokens
+
 
 def main():
     engine = RAGEngine(SOURCE)
@@ -142,7 +229,7 @@ def main():
     else:
         pipeline = SecureRAGPipeline(engine)
         print("[Mode] Standard Secure Pipeline")
-    evaluator = PerformanceEvaluator(groq_client=groq_client, session_manager=session_mgr)
+
 
     while True:
         question = input("\nQuestion (or 'quit'): ").strip()
@@ -151,7 +238,7 @@ def main():
 
         with telemetry.trace_span("User_Turn", {"session_id": session_id, "query": question}) as span:
             recent_turns = session_mgr.recentKChats(session_id, k=4)
-            search_query, ctx_tokens = contextualize_query(question, recent_turns)
+            search_query, ctx_tokens = contextualize_query(question, recent_turns, engine.embeddings)
             if search_query != question:
                 print(f"  [Rewritten Query for Search]: {search_query}")
     
@@ -161,6 +248,7 @@ def main():
                     original_question=question,
                     session_id=session_id,
                     initial_tokens=ctx_tokens,
+                    chat_history=recent_turns,
                 )
             else:
                 result = pipeline.ask(search_query, session_id=session_id, initial_tokens=ctx_tokens)
@@ -183,20 +271,13 @@ def main():
             print(f"\nAnswer: {result.answer}")
             print(f"\n[Telemetry] Cost Score: {result.cost_score:.2f} | Tokens: {total_turn_tokens}")
 
-            # Performance evaluation (risk scoring)
-            report = evaluator.evaluate(
-                answer=result.answer,
-                retrieved_chunks=result.safe_chunks,
-                session_id=session_id,
-            )
-            print(f"[Performance] Confidence: {report.overall_confidence} | Risk: {report.risk_score:.3f} | Entropy: {report.semantic_entropy:.3f}")
-            if report.flagged_claims:
-                for fc in report.flagged_claims:
-                    print(f"  ⚠ [{fc.status}] {fc.text[:80]}")
-    
+            # Performance evaluation is handled internally by the pipeline's quality gate.
+            # Avoid a second Groq call here.
+
             if not result.audit_trail or all(e.passed for e in result.audit_trail):
                 session_mgr.addChats(session_id, role="user", content=question)
                 session_mgr.addChats(session_id, role="assistant", content=result.answer)
+
 
 
 if __name__ == "__main__":

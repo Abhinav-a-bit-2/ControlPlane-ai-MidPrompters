@@ -73,6 +73,7 @@ class EvaluationReport:
     semantic_entropy: float = 0.0
     flagged_claims: List[ClaimEvaluation] = field(default_factory=list)
     all_claims: List[ClaimEvaluation] = field(default_factory=list)
+    tokens_used: int = 0
 
 
 # ---------------------------------------------------------------------------

@@ -72,7 +72,14 @@ class SessionManager:
     def set_cache(self, query: str, answer: str, ttl: int = 3600) -> None:
         """Store semantic match cache."""
         self.semantic_cache.update(prompt=query, llm_string="", return_val=[Generation(text=answer)])
-        
+
+    def clear_cache(self) -> None:
+        """Clear all semantic cache entries."""
+        try:
+            self.semantic_cache.clear()
+        except Exception:
+            pass
+
 
     # --- HITL Queue Methods ---
     def enqueue_hitl(self, session_id: str, query: str, trace_id: str) -> str:

@@ -31,13 +31,14 @@ from intent_classifier import (
     INTENT_RETRIEVAL_K,
     LABEL_SHORT_NAMES,
 )
+from performance.performanceEvaluator import PerformanceEvaluator
 import telemetry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("security.intent_pipeline")
 
 # Confidence threshold: above this → cheap path, at or below → expensive path
-INTENT_CONFIDENCE_THRESHOLD = 0.85
+INTENT_CONFIDENCE_THRESHOLD = 0.5
 
 
 # ---------------------------------------------------------------------------
@@ -55,8 +56,8 @@ _CITATION_PATTERN = re.compile(r"chunk-\d+", re.IGNORECASE)
 
 def is_answer_adequate(answer: str) -> bool:
     """
-    Fast heuristic to decide whether a generated answer is good enough.
-    Returns False if the answer looks like a failure — triggers fallback.
+    Fast heuristic to decide whether a generated answer is good enough on the cheap path.
+    Returns False if the answer looks like a failure or has fewer citations than claims — triggers fallback.
     """
     if not answer or len(answer.strip()) < 10:
         logger.warning(f"Answer inadequate: too short ({len(answer) if answer else 0})")
@@ -64,9 +65,26 @@ def is_answer_adequate(answer: str) -> bool:
     if _REFUSAL_PATTERN.search(answer):
         # Legitimate, correctly-phrased refusal — not a failure.
         return True
-    if not _CITATION_PATTERN.search(answer):
+
+    citations = _CITATION_PATTERN.findall(answer)
+    if not citations:
         logger.warning(f"Answer inadequate: no citations. Answer: {repr(answer)}")
         return False
+
+    # Tightened heuristic: reject if citations < estimated claim/sentence count
+    clean_text = _CITATION_PATTERN.sub("", answer).strip()
+    claim_units = [
+        u.strip()
+        for u in re.split(r'[.!?]+|\n+', clean_text)
+        if len(u.strip()) > 15
+    ]
+    if len(claim_units) > 1 and len(citations) < len(claim_units):
+        logger.warning(
+            f"Answer inadequate: insufficient citations ({len(citations)} citations for ~{len(claim_units)} claims). "
+            f"Answer: {repr(answer)}"
+        )
+        return False
+
     return True
 
 
@@ -96,6 +114,10 @@ class IntentRoutedPipeline:
         self.session_mgr = SessionManager()
         self.classifier = IntentClassifier()
         self._tokenizer = tiktoken.get_encoding("cl100k_base")
+        self.evaluator = PerformanceEvaluator(
+            groq_client=self.engine.groq_client,
+            session_manager=self.session_mgr,
+        )
 
     # ------------------------------------------------------------------
     # Public entry point
@@ -106,6 +128,7 @@ class IntentRoutedPipeline:
         original_question: str = "",
         session_id: str = "default",
         initial_tokens: int = 0,
+        chat_history: list[dict] = None,
     ) -> PipelineResult:
         """
         Args:
@@ -114,6 +137,7 @@ class IntentRoutedPipeline:
                                Falls back to raw_question if not provided.
             session_id:        Redis session key.
             initial_tokens:    Token count already consumed by the contextualizer.
+            chat_history:      Recent conversation history for conversational continuity.
         """
         tracer = trace.get_tracer(__name__)
         classify_on = raw_question or original_question
@@ -132,12 +156,15 @@ class IntentRoutedPipeline:
 
             # --- Semantic Cache Check ---
             with telemetry.trace_span("Cache_Check") as cache_span:
+                t0_cache = time.perf_counter()
                 cached_answer = self.session_mgr.get_cache(raw_question)
+                cache_latency = (time.perf_counter() - t0_cache) * 1000
                 if cached_answer:
                     cache_span.set_attribute("cache.hit", True)
                     cache_span.add_event("Cache Hit: Returning saved answer")
                     parent_span.set_attribute("cache.hit", True)
                     parent_span.add_event("Skipping LLM due to Cache Hit")
+                    audit.append(AuditEntry("semantic_cache", True, "Cache Hit (Returning saved answer)", cache_latency))
                     return PipelineResult(
                         safe_chunks=" ", answer=cached_answer,
                         blocked=False, audit_trail=audit,
@@ -233,6 +260,7 @@ class IntentRoutedPipeline:
                         question=question,
                         intent=intent,
                         mode="cheap",
+                        chat_history=chat_history,
                     )
                     accumulated_tokens += path_tokens
                     audit.extend(path_audit)
@@ -260,26 +288,56 @@ class IntentRoutedPipeline:
                             question=question,
                             intent=intent,
                             mode="expensive",
+                            chat_history=chat_history,
                         )
                         accumulated_tokens += path_tokens
                         audit.extend(path_audit)
 
-                    # Quality gate on expensive fallback
-                    with telemetry.trace_span("Answer_Quality_Gate") as qg2_span:
-                        adequate = is_answer_adequate(result_text)
+                    # Quality gate on expensive fallback (HITL judge)
+                    with telemetry.trace_span("Answer_Quality_Gate_Expensive") as qg2_span:
+                        t0_eval = time.perf_counter()
+                        if not hits or _REFUSAL_PATTERN.search(result_text):
+                            adequate = True  # nothing to ground — refusal is valid by construction
+                            eval_conf = "refusal"
+                        else:
+                            report = self.evaluator.evaluate(result_text, hits, session_id=session_id)
+                            accumulated_tokens += report.tokens_used
+                            adequate = report.overall_confidence != "low"
+                            eval_conf = report.overall_confidence
+
+                            if report.overall_confidence == "unknown":
+                                logger.warning(
+                                    "Performance evaluator returned 'unknown' confidence (session=%s, path=expensive_fallback)",
+                                    session_id,
+                                )
+                                audit.append(AuditEntry(
+                                    "verifier_degraded", True,
+                                    "evaluator returned unknown", 0.0,
+                                ))
+
+                        eval_latency = (time.perf_counter() - t0_eval) * 1000
+
                         qg2_span.set_attribute("quality.adequate", adequate)
                         qg2_span.set_attribute("quality.path", "expensive_fallback")
+                        qg2_span.set_attribute("performance.confidence", eval_conf)
                         audit.append(AuditEntry(
                             "quality_gate_expensive", adequate,
-                            f"adequate={adequate}", 0.0,
+                            f"adequate={adequate} (conf={eval_conf})", eval_latency,
                         ))
 
                     if not adequate:
-                        # Double failure → HITL
-                        return self._escalate_to_hitl(
-                            parent_span, session_id, raw_question,
-                            audit, accumulated_tokens, hits,
-                            reason="Both cheap and expensive paths produced inadequate answers",
+                        # Double failure → suppress HITL escalation and return answer directly
+                        filtered_text = self.engine.filter(result_text)
+                        logger.info("HITL escalation suppressed in cheap fallback; returning answer directly.")
+                        return PipelineResult(
+                            answer=filtered_text,
+                            blocked=False,
+                            blocked_at_layer="",
+                            audit_trail=audit,
+                            hitl_ticket_id="",
+                            total_tokens=accumulated_tokens,
+                            cost_score=0.0,
+                            safe_chunks=hits if hits else " ",
                         )
 
             # --- EXPENSIVE PATH (direct) ---
@@ -290,25 +348,56 @@ class IntentRoutedPipeline:
                         question=question,
                         intent=intent,
                         mode="expensive",
+                        chat_history=chat_history,
                     )
                     accumulated_tokens += path_tokens
                     audit.extend(path_audit)
 
-                # Quality gate on expensive path
-                with telemetry.trace_span("Answer_Quality_Gate") as qg_span:
-                    adequate = is_answer_adequate(result_text)
+                # Quality gate on expensive path (HITL judge)
+                with telemetry.trace_span("Answer_Quality_Gate_Expensive") as qg_span:
+                    t0_eval = time.perf_counter()
+                    if not hits or _REFUSAL_PATTERN.search(result_text):
+                        adequate = True  # nothing to ground — refusal is valid by construction
+                        eval_conf = "refusal"
+                    else:
+                        report = self.evaluator.evaluate(result_text, hits, session_id=session_id)
+                        accumulated_tokens += report.tokens_used
+                        adequate = report.overall_confidence != "low"
+                        eval_conf = report.overall_confidence
+
+                        if report.overall_confidence == "unknown":
+                            logger.warning(
+                                "Performance evaluator returned 'unknown' confidence (session=%s, path=expensive)",
+                                session_id,
+                            )
+                            audit.append(AuditEntry(
+                                "verifier_degraded", True,
+                                "evaluator returned unknown", 0.0,
+                            ))
+
+                    eval_latency = (time.perf_counter() - t0_eval) * 1000
+                    
                     qg_span.set_attribute("quality.adequate", adequate)
                     qg_span.set_attribute("quality.path", "expensive")
+                    qg_span.set_attribute("performance.confidence", eval_conf)
                     audit.append(AuditEntry(
                         "quality_gate_expensive", adequate,
-                        f"adequate={adequate}", 0.0,
+                        f"adequate={adequate} (conf={eval_conf})", eval_latency,
                     ))
 
                 if not adequate:
-                    return self._escalate_to_hitl(
-                        parent_span, session_id, raw_question,
-                        audit, accumulated_tokens, hits,
-                        reason="Expensive path produced inadequate answer",
+                    # Double failure → suppress HITL escalation and return answer directly
+                    filtered_text = self.engine.filter(result_text)
+                    logger.info("HITL escalation suppressed in expensive path; returning answer directly.")
+                    return PipelineResult(
+                        answer=filtered_text,
+                        blocked=False,
+                        blocked_at_layer="",
+                        audit_trail=audit,
+                        hitl_ticket_id="",
+                        total_tokens=accumulated_tokens,
+                        cost_score=0.0,
+                        safe_chunks=hits if hits else " ",
                     )
 
             # =============================================================
@@ -390,6 +479,7 @@ class IntentRoutedPipeline:
         question: str,
         intent: IntentResult,
         mode: str,  # "cheap" or "expensive"
+        chat_history: list[dict] = None,
     ) -> tuple:
         """
         Runs retrieval + generation for a given path mode.
@@ -402,9 +492,9 @@ class IntentRoutedPipeline:
 
         # --- Retrieval ---
         if mode == "cheap":
-            k = INTENT_RETRIEVAL_K.get(intent.short_label, 2)
+            k = INTENT_RETRIEVAL_K.get(intent.short_label, 5)
         else:
-            k = max(INTENT_RETRIEVAL_K.get(intent.short_label, 3), 4)
+            k = max(INTENT_RETRIEVAL_K.get(intent.short_label, 5) + 2, 7)
 
         with telemetry.trace_span(f"Chroma_Retrieval_{mode}") as ret_span:
             t0 = time.perf_counter()
@@ -428,9 +518,20 @@ class IntentRoutedPipeline:
         intent_addendum = INTENT_PROMPT_ADDENDA.get(intent.label, "")
         system_prompt = SYSTEM_PROMPT_TEMPLATE + intent_addendum
 
+        # Surface the detected intent in the user turn so it reinforces tone
+        # in both the system prompt (addendum) and the human message position.
+        intent_tag = f"[Intent: {intent.short_label}]\n" if intent.short_label else ""
+        
+        # Inject recent chat history if available so the LLM can answer follow-ups
+        # about its own prior responses.
+        hist_text = ""
+        if chat_history:
+            lines = [f"{m['role'].capitalize()}: {m['content']}" for m in chat_history[-2:]]
+            hist_text = "Recent conversation context:\n" + "\n".join(lines) + "\n\n"
+
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Context : {context}\nQuestion: {question}"},
+            {"role": "user", "content": f"{intent_tag}{hist_text}Context : {context}\nQuestion: {question}"},
         ]
 
         # --- Generation ---

@@ -23,7 +23,14 @@ from base_rag import RAGEngine
 from security.intent_pipeline import IntentRoutedPipeline
 
 # Default knowledge base document
-SOURCE_DOC = str(Path(__file__).parent.parent / "confluence" / "genesis.txt")
+SOURCE_DOC = os.environ.get(
+    "SOURCE_DOC",
+    str(
+        Path(__file__).parent.parent
+        / "confluence"
+        / "dsid_0a7f0607ab7a4043bc5a888e3fd7c7e7__tiered-degradation-and-incident-runbook-2026.txt"
+    ),
+)
 
 @dataclass
 class RAGResponse:

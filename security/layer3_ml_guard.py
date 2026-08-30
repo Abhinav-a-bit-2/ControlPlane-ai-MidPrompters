@@ -80,6 +80,7 @@ class GroqSelfCheckBackend(MLGuardBackend):
                 temperature=0,
                 max_completion_tokens=150,
                 stream=False,
+                response_format={"type": "json_object"},
             )
             raw = completion.choices[0].message.content.strip()
         except Exception as e:

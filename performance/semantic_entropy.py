@@ -11,8 +11,9 @@ class SemanticEntropyChecker:
         self.nli = grounding_checker
         self.n_samples = n_samples
 
-    def compute_entropy(self, messages: List[Dict[str, str]], model: str = "openai/gpt-oss-20b") -> float:
+    def compute_entropy(self, messages: List[Dict[str, str]], model: str = "openai/gpt-oss-20b") -> tuple[float, int]:
         samples = []
+        tokens_used = 0
         for _ in range(self.n_samples):
             completion = self.client.chat.completions.create(
                 model=model,
@@ -22,6 +23,8 @@ class SemanticEntropyChecker:
                 stream=False,
             )
             samples.append(completion.choices[0].message.content.strip())
+            if hasattr(completion, "usage") and completion.usage:
+                tokens_used += (getattr(completion.usage, "prompt_tokens", 0) or 0) + (getattr(completion.usage, "completion_tokens", 0) or 0)
 
         clusters: List[List[str]] = []
         for s in samples:
@@ -40,4 +43,5 @@ class SemanticEntropyChecker:
         probs = [len(c) / total for c in clusters]
         entropy = -sum(p * math.log(p) for p in probs if p > 0)
         max_entropy = math.log(total)
-        return float(entropy / max_entropy) if max_entropy > 0 else 0.0
+        entropy_val = float(entropy / max_entropy) if max_entropy > 0 else 0.0
+        return entropy_val, tokens_used

@@ -46,6 +46,10 @@ class PerformanceEvaluator:
     ) -> EvaluationReport:
         self.eval_count += 1
         periodic_sample = (self.eval_count % self.sampling_period == 0)
+        total_eval_tokens = 0
+
+        if not answer or not retrieved_chunks or "blocked by the input security pipeline" in answer.lower():
+            return EvaluationReport(overall_confidence="high", risk_score=0.0, tokens_used=0)
 
         try:
             # Build Chunk objects for models.evaluate_claims
@@ -57,10 +61,10 @@ class PerformanceEvaluator:
 
             claims = extract_claims(answer)
             if not claims:
-                return EvaluationReport(overall_confidence="high", risk_score=0.0)
+                return EvaluationReport(overall_confidence="high", risk_score=0.0, tokens_used=0)
 
             # Grounding-based evaluation via models.py
-            evaluations = evaluate_claims(claims, chunks,checker=self.grounding_checker)
+            evaluations = evaluate_claims(claims, chunks, checker=self.grounding_checker)
 
             has_ambiguity = any(e.status in ("neutral", "uncited", "contradiction") for e in evaluations)
 
@@ -75,7 +79,8 @@ class PerformanceEvaluator:
                     if session_id and self.session_manager:
                         sampled_messages = self.session_manager.tokenBudgetedChats(session_id, token_budget=2048)
                     if sampled_messages:
-                        entropy_val = self.entropy_checker.compute_entropy(sampled_messages)
+                        entropy_val, entropy_tokens = self.entropy_checker.compute_entropy(sampled_messages)
+                        total_eval_tokens += entropy_tokens
                 except Exception as exc:
                     logger.warning("Sampling-based entropy check skipped: %s", exc)
                     entropy_val = 0.5
@@ -100,8 +105,9 @@ class PerformanceEvaluator:
 
             report = build_report(evaluations)
             report.semantic_entropy = entropy_val
+            report.tokens_used = total_eval_tokens
             return report
 
         except Exception as exc:
             logger.error("Performance evaluation failed-open: %s", exc, exc_info=True)
-            return EvaluationReport(overall_confidence="unknown")
+            return EvaluationReport(overall_confidence="unknown", tokens_used=total_eval_tokens)

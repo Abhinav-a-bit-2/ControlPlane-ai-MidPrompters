@@ -61,14 +61,18 @@ class SecureRAGPipeline:
             accumulated_tokens = initial_tokens
             
             # --- CACHE CHECK ---
-            with telemetry.trace_span("Cache_Check") as cache_span:
-                cached_answer = self.session_mgr.get_cache(raw_question)
-                if cached_answer:
-                    cache_span.set_attribute("cache.hit", True)
-                    cache_span.add_event("Cache Hit: Returning saved answer")
-                    parent_span.set_attribute("cache.hit", True)
-                    parent_span.add_event("Skipping LLM due to Cache Hit")
-                    return PipelineResult(safe_chunks=" ",answer=cached_answer, blocked=False, audit_trail=audit, total_tokens=accumulated_tokens)
+            cache_start = time.perf_counter()
+            cached_answer = self.session_mgr.get_cache(raw_question)
+            cache_latency = (time.perf_counter() - cache_start) * 1000
+            if cached_answer:
+                audit.append(AuditEntry("cache", True, "Cache Hit (Returning saved answer)", cache_latency))
+                cache_span.set_attribute("cache.hit", True)
+                cache_span.add_event("Cache Hit: Returning saved answer")
+                parent_span.set_attribute("cache.hit", True)
+                parent_span.add_event("Skipping LLM due to Cache Hit")
+                return PipelineResult(safe_chunks=" ", answer=cached_answer, blocked=False, audit_trail=audit, total_tokens=accumulated_tokens)
+            else:
+                audit.append(AuditEntry("cache", False, "Cache Miss", cache_latency))
                 cache_span.set_attribute("cache.hit", False)
             
             # Layer 1: pre-processing & sanitization

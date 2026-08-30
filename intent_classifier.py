@@ -84,17 +84,17 @@ LABEL_SHORT_NAMES = {
 # Candidate labels for zero-shot classification
 CANDIDATE_LABELS = list(INTENT_PROMPT_ADDENDA.keys())
 
-# Retrieval depth per intent
+# Retrieval depth per intent (scaled for 450-char chunk sizes)
 INTENT_RETRIEVAL_K = {
-    "support": 2,
-    "contract": 4,
-    "technical": 3,
-    "billing": 2,
-    "confidential": 3,
-    "explanation": 3,
-    "comparison": 4,
-    "factual": 3,
-    "out_of_scope": 2,
+    "support": 5,
+    "contract": 6,
+    "technical": 5,
+    "billing": 5,
+    "confidential": 5,
+    "explanation": 6,
+    "comparison": 6,
+    "factual": 5,
+    "out_of_scope": 3,
 }
 
 
