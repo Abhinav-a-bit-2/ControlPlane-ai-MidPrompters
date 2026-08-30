@@ -4,27 +4,94 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --border: 240 5.9% 90%;
+    /* Academic / Research Paper Light Mode */
+    --background: 40 20% 98%;          /* #faf8f5 subtle warm paper tone */
+    --foreground: 220 20% 14%;         /* #1d2127 crisp slate black */
+    --card: 0 0% 100%;                 /* #ffffff pure card surface */
+    --card-foreground: 220 20% 14%;
+    --sidebar-background: 35 15% 95%;  /* #f3f0ec archival tint */
+    --sidebar-foreground: 220 15% 25%;
+    --sidebar-border: 35 10% 88%;
+    --muted: 35 15% 93%;
+    --muted-foreground: 220 10% 45%;   /* #69707d */
+    --accent: 215 25% 92%;
+    --accent-foreground: 220 20% 14%;
+    --border: 35 10% 86%;              /* #dedad4 refined crisp outline */
+    --input: 35 10% 86%;
+    --ring: 215 80% 48%;
+    --primary: 215 75% 42%;            /* #1a56db deep academic sapphire */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 50% 36%;          /* #2e8b57 sage/emerald */
+    --secondary-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;          /* #dc2626 */
+    --destructive-foreground: 0 0% 100%;
+    --radius: 6px;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --border: 240 3.7% 15.9%;
+    /* Refined Obsidian & Ink Dark Mode */
+    --background: 220 18% 9%;          /* #12151c deep ink slate */
+    --foreground: 220 15% 92%;         /* #e5e8ee clean soft white */
+    --card: 220 18% 12%;               /* #181c25 elevated layer */
+    --card-foreground: 220 15% 92%;
+    --sidebar-background: 220 20% 10%; /* #141720 */
+    --sidebar-foreground: 220 10% 70%;
+    --sidebar-border: 220 15% 18%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 15% 18%;
+    --accent-foreground: 220 15% 92%;
+    --border: 220 15% 18%;              /* #262c3a crisp border */
+    --input: 220 15% 18%;
+    --ring: 215 85% 60%;
+    --primary: 215 85% 60%;            /* #4f8bf9 glowing cobalt */
+    --primary-foreground: 220 25% 10%;
+    --secondary: 160 60% 45%;          /* #2ec484 */
+    --secondary-foreground: 220 25% 10%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --radius: 6px;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+@layer utilities {
+  .font-paper {
+    font-family: 'Newsreader', Georgia, serif;
+  }
+  .label-caps {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }
