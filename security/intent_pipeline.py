@@ -37,25 +37,34 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("security.intent_pipeline")
 
 # Confidence threshold: above this → cheap path, at or below → expensive path
-INTENT_CONFIDENCE_THRESHOLD = 0.50
+INTENT_CONFIDENCE_THRESHOLD = 0.85
 
 
 # ---------------------------------------------------------------------------
 # Answer quality gate (lightweight heuristic, <1ms)
 # ---------------------------------------------------------------------------
+_REFUSAL_PATTERN = re.compile(
+    r"(i\s+do\s*n[o']?t\s+know|cannot\s+answer|can'?t\s+answer|"
+    r"insufficient\s+(?:information|context|detail)|"
+    r"does\s+not\s+contain\s+(?:the\s+answer|sufficient\s+detail|enough\s+information)|"
+    r"no\s+(?:relevant|sufficient)\s+information\s+(?:is\s+)?(?:available|found))",
+    re.IGNORECASE,
+)
+_CITATION_PATTERN = re.compile(r"chunk-\d+", re.IGNORECASE)
+
+
 def is_answer_adequate(answer: str) -> bool:
     """
     Fast heuristic to decide whether a generated answer is good enough.
-    Returns False if the answer looks like a failure – triggers fallback.
+    Returns False if the answer looks like a failure — triggers fallback.
     """
-    if not answer or len(answer.strip()) < 20:
+    if not answer or len(answer.strip()) < 10:
         logger.warning(f"Answer inadequate: too short ({len(answer) if answer else 0})")
         return False
-    if "I do not know" in answer:
-        # Retrieval miss (out-of-scope query). This is a successful, adequate refusal.
+    if _REFUSAL_PATTERN.search(answer):
+        # Legitimate, correctly-phrased refusal — not a failure.
         return True
-    if not re.search(r'chunk-\d+', answer, flags=re.IGNORECASE):
-        # No citations -> likely hallucinating or unhelpful
+    if not _CITATION_PATTERN.search(answer):
         logger.warning(f"Answer inadequate: no citations. Answer: {repr(answer)}")
         return False
     return True
@@ -107,7 +116,7 @@ class IntentRoutedPipeline:
             initial_tokens:    Token count already consumed by the contextualizer.
         """
         tracer = trace.get_tracer(__name__)
-        classify_on = original_question or raw_question
+        classify_on = raw_question or original_question
 
         with tracer.start_as_current_span("Pipeline_Ask") as parent_span:
             parent_span.set_attribute("session_id", session_id)
@@ -320,8 +329,8 @@ class IntentRoutedPipeline:
                 latency = (time.perf_counter() - t0) * 1000
                 audit.append(AuditEntry("output_filter", True, "", latency))
 
-            # --- L4: Cost & Confidence Check ---
-            with telemetry.trace_span("L4_Confidence_Check") as l4_span:
+            # --- L4: Cost Telemetry (observability only) ---
+            with telemetry.trace_span("L4_Cost_Telemetry") as l4_span:
                 total_latency = sum(e.latency_ms for e in audit)
                 num_traces = len(audit)
 
@@ -336,19 +345,25 @@ class IntentRoutedPipeline:
                 l4_span.set_attribute("cost_score.total", cost_score)
                 parent_span.set_attribute("cost_score.total", cost_score)
 
-                COST_THRESHOLD = 80
-                confidence_is_high = cost_score <= COST_THRESHOLD
+                # Circuit breaker for genuine runaway cost only (retry loops, bugs)
+                # Adjust based on observed telemetry distribution.
+                COST_CIRCUIT_BREAKER = 300
+                cost_is_normal = cost_score <= COST_CIRCUIT_BREAKER
 
                 audit.append(AuditEntry(
-                    "L4_confidence_check", confidence_is_high,
+                    "L4_cost_telemetry", cost_is_normal,
                     f"Cost Score: {cost_score:.2f}", 0.0,
                 ))
 
-                if not confidence_is_high:
+                if not cost_is_normal:
+                    logger.warning(
+                        "Cost circuit breaker tripped: score=%.2f (session=%s)",
+                        cost_score, session_id,
+                    )
                     return self._escalate_to_hitl(
                         parent_span, session_id, raw_question,
                         audit, accumulated_tokens, hits,
-                        reason=f"Cost score {cost_score:.2f} exceeded threshold",
+                        reason=f"Cost circuit breaker tripped: score {cost_score:.2f}",
                         cost_score=cost_score,
                     )
 
