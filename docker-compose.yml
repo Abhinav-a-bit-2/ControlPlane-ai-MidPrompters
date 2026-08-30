@@ -12,14 +12,15 @@ services:
       - PERSISTENCE_DIRECTORY=/chroma/chroma
       - ANONYMIZED_TELEMETRY=FALSE
   redis:
-    image: redis:latest
+    image: redis/redis-stack-server:latest
     container_name: redis-cache
     restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
       - ./redis_data:/data
-    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy volatile-lru
+    environment:
+      - REDIS_ARGS=--appendonly yes --maxmemory 512mb --maxmemory-policy volatile-lru
 
   phoenix:
     image: arizephoenix/phoenix:latest

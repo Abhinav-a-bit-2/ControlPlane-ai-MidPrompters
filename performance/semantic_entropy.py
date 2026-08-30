@@ -11,7 +11,7 @@ class SemanticEntropyChecker:
         self.nli = grounding_checker
         self.n_samples = n_samples
 
-    def compute_entropy(self, messages: List[Dict[str, str]], model: str = "openai/gpt-oss-120b") -> float:
+    def compute_entropy(self, messages: List[Dict[str, str]], model: str = "openai/gpt-oss-20b") -> float:
         samples = []
         for _ in range(self.n_samples):
             completion = self.client.chat.completions.create(
